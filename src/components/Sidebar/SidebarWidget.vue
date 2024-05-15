@@ -24,7 +24,7 @@ const props = defineProps(["component", "wrapper"]);
     <div class="sidebar-settings-content">
       <WidgetWrapperSettings :wrapper="props.wrapper"></WidgetWrapperSettings>
       <component
-        :is="props.component.settingsComponent"
+        :is="props.component.settings"
         :component="props.component"
       ></component>
     </div>
