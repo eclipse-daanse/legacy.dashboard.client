@@ -1,10 +1,11 @@
 {
   "extends": "@vue/tsconfig/tsconfig.dom.json",
-  "include": ["env.d.ts", "src/**/*", "src/**/*.vue", "src/api/**/*", "src/utils/**/*", "src/icons/*", "src/icons/**/*.vue", "SOAPInBrowser", "eMondrianUtils/SOAPInBrowser/src/**/*", "test/**/*"],
+  "include": ["env.d.ts", "src/**/*", "src/**/*.vue", "src/api/**/*", "src/utils/**/*", "src/icons/*", "src/icons/**/*.vue", "SOAPInBrowser", "eMondrianUtils/SOAPInBrowser/src/**/*"],
   "exclude": ["src/**/__tests__/*"],
   "compilerOptions": {
     "composite": true,
     "noImplicitAny": false,
+    "resolveJsonModule": true,
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]

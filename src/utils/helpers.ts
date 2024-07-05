@@ -25,6 +25,7 @@ export function transposeArray(array){
 export function findMaxinArrayByField(fieldname:string|string[], arraylike:object){
   try {
     let init = 0
+    // @ts-ignore
     return arraylike.reduce((accumulator, currentValue,currentIndex,array) => {
       let obj = array[currentIndex]
       if(isArray(fieldname)){
@@ -41,6 +42,13 @@ export function findMaxinArrayByField(fieldname:string|string[], arraylike:objec
   catch (e){
     throw new Error(`${fieldname} not a key`)
   }
-
-
 }
+
+export function resolve(start) {
+  return [].slice.call(arguments, 1).reduce(function(obj, prop) {
+    return obj && obj[prop];
+  }, start);
+}
+
+
+

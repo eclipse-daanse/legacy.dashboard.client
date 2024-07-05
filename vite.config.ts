@@ -23,8 +23,6 @@ export default defineConfig({
     "process.env": {},
   },
   test:{
-    testTimeout:30000,
-    globals: true,
-    environment: "jsdom",
+    testTimeout:30000
   }
 });

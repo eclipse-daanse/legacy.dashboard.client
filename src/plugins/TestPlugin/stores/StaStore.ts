@@ -1,3 +1,7 @@
+import {useDatasourceManager} from "@/composables/datasourceManager";
+import type {IOGCSTA} from "@/plugins/TestPlugin/dataSources/STADataSource";
+import type {Datastream} from "@/plugins/TestPlugin/dataSources/STAClient";
+
 export default class StaStore implements IStore,ISerializable{
     public static TYPE = 'OGCSTA';
     id: string;
@@ -5,13 +9,15 @@ export default class StaStore implements IStore,ISerializable{
     datasourceId: string | null = null;
     events: IStoreEvents[] = [];
     type= StaStore.TYPE;
+    data:IOGCSTA = {};
 
     private eventBus:EventBus;
-
+    private datasourceManager: any;
     constructor(id, caption, eventBus: EventBus) {
         this.id = id;
         this.caption = caption;
         this.eventBus = eventBus;
+        this.datasourceManager = useDatasourceManager();
 
     }
 
@@ -23,9 +29,25 @@ export default class StaStore implements IStore,ISerializable{
         this.datasourceId = datasourceId;
         this.eventBus.emit(`UPDATE:${this.id}`);
     }
-    getData(): Promise<any> {
-        return Promise.resolve(undefined);
+    async getData(options=undefined): Promise<any>  {
+        const datasource = this.datasourceManager.getDatasource(this.datasourceId);
+        const newData = await datasource.getData(options);
+        if(!undefined){
+            this.data = newData;
+        }else{
+
+        }
+        return this.data;
     }
+    async getObservations(ds:Datastream){
+        const datasource = this.datasourceManager.getDatasource(this.datasourceId);
+
+        console.log(ds["@iot.id"])
+        let observations:IOGCSTA = await datasource.getData({datastreams:{ids:[ds["@iot.id"]]}});
+        ds.Observations = observations.observations;
+        return ds;
+    }
+
 
     getState(): string {
         return "";

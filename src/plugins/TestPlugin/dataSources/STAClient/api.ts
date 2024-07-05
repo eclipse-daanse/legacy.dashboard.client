@@ -42,6 +42,66 @@ export interface Datastream {
      */
     '@iot.selfLink'?: string;
     /**
+     * 
+     * @type {Array<Observation>}
+     * @memberof Datastream
+     */
+    'Observations'?: Array<Observation>;
+    /**
+     * The total number of entities in the entityset
+     * @type {number}
+     * @memberof Datastream
+     */
+    'Observations@iot.count'?: number;
+    /**
+     * A link to a related entity or entity set
+     * @type {string}
+     * @memberof Datastream
+     */
+    'Observations@iot.navigationLink'?: string;
+    /**
+     * The link to the next page of entities
+     * @type {string}
+     * @memberof Datastream
+     */
+    'Observations@iot.nextLink'?: string;
+    /**
+     * 
+     * @type {ObservedProperty}
+     * @memberof Datastream
+     */
+    'ObservedProperty'?: ObservedProperty;
+    /**
+     * A link to a related entity or entity set
+     * @type {string}
+     * @memberof Datastream
+     */
+    'ObservedProperty@iot.navigationLink'?: string;
+    /**
+     * 
+     * @type {Sensor}
+     * @memberof Datastream
+     */
+    'Sensor'?: Sensor;
+    /**
+     * A link to a related entity or entity set
+     * @type {string}
+     * @memberof Datastream
+     */
+    'Sensor@iot.navigationLink'?: string;
+    /**
+     * 
+     * @type {Thing}
+     * @memberof Datastream
+     */
+    'Thing'?: Thing;
+    /**
+     * A link to a related entity or entity set
+     * @type {string}
+     * @memberof Datastream
+     */
+    'Thing@iot.navigationLink'?: string;
+    /**
      * A description of the datastream
      * @type {string}
      * @memberof Datastream
@@ -354,6 +414,30 @@ export interface Location {
      * @memberof Location
      */
     '@iot.selfLink'?: string;
+    /**
+     * 
+     * @type {Array<Thing>}
+     * @memberof Location
+     */
+    'Things'?: Array<Thing>;
+    /**
+     * The total number of entities in the entityset
+     * @type {number}
+     * @memberof Location
+     */
+    'Things@iot.count'?: number;
+    /**
+     * A link to a related entity or entity set
+     * @type {string}
+     * @memberof Location
+     */
+    'Things@iot.navigationLink'?: string;
+    /**
+     * The link to the next page of entities
+     * @type {string}
+     * @memberof Location
+     */
+    'Things@iot.nextLink'?: string;
     /**
      * A description of the location
      * @type {string}
@@ -782,16 +866,118 @@ export interface Sensors {
 export interface Thing {
     /**
      * The Id of the thing
-     * @type {number}
+     * @type {string}
      * @memberof Thing
      */
-    '@iot.id'?: number;
+    '@iot.id'?: string;
     /**
      * The direct link to the entity
      * @type {string}
      * @memberof Thing
      */
     '@iot.selfLink'?: string;
+    /**
+     * 
+     * @type {Array<Datastream>}
+     * @memberof Thing
+     */
+    'Datastreams'?: Array<Datastream>;
+    /**
+     * The total number of entities in the entityset
+     * @type {number}
+     * @memberof Thing
+     */
+    'Datastreams@iot.count'?: number;
+    /**
+     * A link to a related entity or entity set
+     * @type {string}
+     * @memberof Thing
+     */
+    'Datastreams@iot.navigationLink'?: string;
+    /**
+     * The link to the next page of entities
+     * @type {string}
+     * @memberof Thing
+     */
+    'Datastreams@iot.nextLink'?: string;
+    /**
+     * The total number of entities in the entityset
+     * @type {number}
+     * @memberof Thing
+     */
+    'HistoricalLocations@iot.count'?: number;
+    /**
+     * A link to a related entity or entity set
+     * @type {string}
+     * @memberof Thing
+     */
+    'HistoricalLocations@iot.navigationLink'?: string;
+    /**
+     * The link to the next page of entities
+     * @type {string}
+     * @memberof Thing
+     */
+    'HistoricalLocations@iot.nextLink'?: string;
+    /**
+     * 
+     * @type {Array<Location>}
+     * @memberof Thing
+     */
+    'Locations'?: Array<Location>;
+    /**
+     * The total number of entities in the entityset
+     * @type {number}
+     * @memberof Thing
+     */
+    'Locations@iot.count'?: number;
+    /**
+     * A link to a related entity or entity set
+     * @type {string}
+     * @memberof Thing
+     */
+    'Locations@iot.navigationLink'?: string;
+    /**
+     * The link to the next page of entities
+     * @type {string}
+     * @memberof Thing
+     */
+    'Locations@iot.nextLink'?: string;
+    /**
+     * The total number of entities in the entityset
+     * @type {number}
+     * @memberof Thing
+     */
+    'MultiDatastreams@iot.count'?: number;
+    /**
+     * A link to a related entity or entity set
+     * @type {string}
+     * @memberof Thing
+     */
+    'MultiDatastreams@iot.navigationLink'?: string;
+    /**
+     * The link to the next page of entities
+     * @type {string}
+     * @memberof Thing
+     */
+    'MultiDatastreams@iot.nextLink'?: string;
+    /**
+     * The total number of entities in the entityset
+     * @type {number}
+     * @memberof Thing
+     */
+    'TaskingCapabilities@iot.count'?: number;
+    /**
+     * A link to a related entity or entity set
+     * @type {string}
+     * @memberof Thing
+     */
+    'TaskingCapabilities@iot.navigationLink'?: string;
+    /**
+     * The link to the next page of entities
+     * @type {string}
+     * @memberof Thing
+     */
+    'TaskingCapabilities@iot.nextLink'?: string;
     /**
      * A description of the thing
      * @type {string}
@@ -925,13 +1111,13 @@ export const DatastreamsApiAxiosParamCreator = function (configuration?: Configu
         /**
          * Returns information about the datastream identified by **entityId**
          * @summary Get information about an individual datastream
-         * @param {number} entityId The id of the requested entity
+         * @param {string} entityId The id of the requested entity
          * @param {string} [$select] The list of properties that need to be returned
          * @param {string} [$expand] The list of related queries that need to be included in the result
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        v11DatastreamsEntityIdGet: async (entityId: number, $select?: string, $expand?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        v11DatastreamsEntityIdGet: async (entityId: string, $select?: string, $expand?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'entityId' is not null or undefined
             assertParamExists('v11DatastreamsEntityIdGet', 'entityId', entityId)
             const localVarPath = `/v1.1/Datastreams({entityId})`
@@ -969,7 +1155,7 @@ export const DatastreamsApiAxiosParamCreator = function (configuration?: Configu
         /**
          * Returns all observations for the datastream identified by **entityId** (subject to any other parameters set)
          * @summary Get all observations for a datastream
-         * @param {number} entityId The id of the requested entity
+         * @param {string} entityId The id of the requested entity
          * @param {number} [$skip] The number of elements to skip from the collection
          * @param {number} [$top] The number of elements to return
          * @param {boolean} [$count] Flag indicating if the total number of items in the collection should be returned.
@@ -979,7 +1165,7 @@ export const DatastreamsApiAxiosParamCreator = function (configuration?: Configu
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        v11DatastreamsEntityIdObservationsGet: async (entityId: number, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        v11DatastreamsEntityIdObservationsGet: async (entityId: string, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'entityId' is not null or undefined
             assertParamExists('v11DatastreamsEntityIdObservationsGet', 'entityId', entityId)
             const localVarPath = `/v1.1/Datastreams({entityId})/Observations`
@@ -1033,7 +1219,7 @@ export const DatastreamsApiAxiosParamCreator = function (configuration?: Configu
         /**
          * Returns all datastreams that provide the observed property for the datastream identified by **entityId** (subject to any other parameters set)
          * @summary Get all datastreams that provide a datastream\'s observed property
-         * @param {number} entityId The id of the requested entity
+         * @param {string} entityId The id of the requested entity
          * @param {number} [$skip] The number of elements to skip from the collection
          * @param {number} [$top] The number of elements to return
          * @param {boolean} [$count] Flag indicating if the total number of items in the collection should be returned.
@@ -1043,7 +1229,7 @@ export const DatastreamsApiAxiosParamCreator = function (configuration?: Configu
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        v11DatastreamsEntityIdObservedPropertyDatastreamsGet: async (entityId: number, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        v11DatastreamsEntityIdObservedPropertyDatastreamsGet: async (entityId: string, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'entityId' is not null or undefined
             assertParamExists('v11DatastreamsEntityIdObservedPropertyDatastreamsGet', 'entityId', entityId)
             const localVarPath = `/v1.1/Datastreams({entityId})/ObservedProperty/Datastreams`
@@ -1097,13 +1283,13 @@ export const DatastreamsApiAxiosParamCreator = function (configuration?: Configu
         /**
          * Returns information about the observed property for the datastream identified by **entityId**
          * @summary Get information about a datastream\'s observed property
-         * @param {number} entityId The id of the requested entity
+         * @param {string} entityId The id of the requested entity
          * @param {string} [$select] The list of properties that need to be returned
          * @param {string} [$expand] The list of related queries that need to be included in the result
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        v11DatastreamsEntityIdObservedPropertyGet: async (entityId: number, $select?: string, $expand?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        v11DatastreamsEntityIdObservedPropertyGet: async (entityId: string, $select?: string, $expand?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'entityId' is not null or undefined
             assertParamExists('v11DatastreamsEntityIdObservedPropertyGet', 'entityId', entityId)
             const localVarPath = `/v1.1/Datastreams({entityId})/ObservedProperty`
@@ -1141,7 +1327,7 @@ export const DatastreamsApiAxiosParamCreator = function (configuration?: Configu
         /**
          * Returns all datastreams which share the sensor type for the datastream identified by **entityId** (subject to any other parameters set)
          * @summary Get all datastreams which share a datastream\'s sensor type
-         * @param {number} entityId The id of the requested entity
+         * @param {string} entityId The id of the requested entity
          * @param {number} [$skip] The number of elements to skip from the collection
          * @param {number} [$top] The number of elements to return
          * @param {boolean} [$count] Flag indicating if the total number of items in the collection should be returned.
@@ -1151,7 +1337,7 @@ export const DatastreamsApiAxiosParamCreator = function (configuration?: Configu
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        v11DatastreamsEntityIdSensorDatastreamsGet: async (entityId: number, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        v11DatastreamsEntityIdSensorDatastreamsGet: async (entityId: string, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'entityId' is not null or undefined
             assertParamExists('v11DatastreamsEntityIdSensorDatastreamsGet', 'entityId', entityId)
             const localVarPath = `/v1.1/Datastreams({entityId})/Sensor/Datastreams`
@@ -1205,13 +1391,13 @@ export const DatastreamsApiAxiosParamCreator = function (configuration?: Configu
         /**
          * Returns information about the sensor type for the datastream identified by **entityId**
          * @summary Get information about a datastream\'s sensor type
-         * @param {number} entityId The id of the requested entity
+         * @param {string} entityId The id of the requested entity
          * @param {string} [$select] The list of properties that need to be returned
          * @param {string} [$expand] The list of related queries that need to be included in the result
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        v11DatastreamsEntityIdSensorGet: async (entityId: number, $select?: string, $expand?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        v11DatastreamsEntityIdSensorGet: async (entityId: string, $select?: string, $expand?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'entityId' is not null or undefined
             assertParamExists('v11DatastreamsEntityIdSensorGet', 'entityId', entityId)
             const localVarPath = `/v1.1/Datastreams({entityId})/Sensor`
@@ -1249,7 +1435,7 @@ export const DatastreamsApiAxiosParamCreator = function (configuration?: Configu
         /**
          * Returns all datastreams provided by the thing for the datastream identified by **entityId** (subject to any other parameters set)
          * @summary Get all datastreams provided by a datastream\'s thing
-         * @param {number} entityId The id of the requested entity
+         * @param {string} entityId The id of the requested entity
          * @param {number} [$skip] The number of elements to skip from the collection
          * @param {number} [$top] The number of elements to return
          * @param {boolean} [$count] Flag indicating if the total number of items in the collection should be returned.
@@ -1259,7 +1445,7 @@ export const DatastreamsApiAxiosParamCreator = function (configuration?: Configu
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        v11DatastreamsEntityIdThingDatastreamsGet: async (entityId: number, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        v11DatastreamsEntityIdThingDatastreamsGet: async (entityId: string, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'entityId' is not null or undefined
             assertParamExists('v11DatastreamsEntityIdThingDatastreamsGet', 'entityId', entityId)
             const localVarPath = `/v1.1/Datastreams({entityId})/Thing/Datastreams`
@@ -1313,13 +1499,13 @@ export const DatastreamsApiAxiosParamCreator = function (configuration?: Configu
         /**
          * Returns information about the thing for the datastream identified by **entityId**
          * @summary Get information about a datastream\'s thing
-         * @param {number} entityId The id of the requested entity
+         * @param {string} entityId The id of the requested entity
          * @param {string} [$select] The list of properties that need to be returned
          * @param {string} [$expand] The list of related queries that need to be included in the result
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        v11DatastreamsEntityIdThingGet: async (entityId: number, $select?: string, $expand?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        v11DatastreamsEntityIdThingGet: async (entityId: string, $select?: string, $expand?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'entityId' is not null or undefined
             assertParamExists('v11DatastreamsEntityIdThingGet', 'entityId', entityId)
             const localVarPath = `/v1.1/Datastreams({entityId})/Thing`
@@ -1357,7 +1543,7 @@ export const DatastreamsApiAxiosParamCreator = function (configuration?: Configu
         /**
          * Returns all locations of the thing for the datastream identified by **entityId** (subject to any other parameters set)
          * @summary Get all locations for a datastream\'s thing
-         * @param {number} entityId The id of the requested entity
+         * @param {string} entityId The id of the requested entity
          * @param {number} [$skip] The number of elements to skip from the collection
          * @param {number} [$top] The number of elements to return
          * @param {boolean} [$count] Flag indicating if the total number of items in the collection should be returned.
@@ -1367,7 +1553,7 @@ export const DatastreamsApiAxiosParamCreator = function (configuration?: Configu
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        v11DatastreamsEntityIdThingLocationsGet: async (entityId: number, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        v11DatastreamsEntityIdThingLocationsGet: async (entityId: string, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'entityId' is not null or undefined
             assertParamExists('v11DatastreamsEntityIdThingLocationsGet', 'entityId', entityId)
             const localVarPath = `/v1.1/Datastreams({entityId})/Thing/Locations`
@@ -1491,20 +1677,20 @@ export const DatastreamsApiFp = function(configuration?: Configuration) {
         /**
          * Returns information about the datastream identified by **entityId**
          * @summary Get information about an individual datastream
-         * @param {number} entityId The id of the requested entity
+         * @param {string} entityId The id of the requested entity
          * @param {string} [$select] The list of properties that need to be returned
          * @param {string} [$expand] The list of related queries that need to be included in the result
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async v11DatastreamsEntityIdGet(entityId: number, $select?: string, $expand?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Datastream>> {
+        async v11DatastreamsEntityIdGet(entityId: string, $select?: string, $expand?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Datastream>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.v11DatastreamsEntityIdGet(entityId, $select, $expand, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * Returns all observations for the datastream identified by **entityId** (subject to any other parameters set)
          * @summary Get all observations for a datastream
-         * @param {number} entityId The id of the requested entity
+         * @param {string} entityId The id of the requested entity
          * @param {number} [$skip] The number of elements to skip from the collection
          * @param {number} [$top] The number of elements to return
          * @param {boolean} [$count] Flag indicating if the total number of items in the collection should be returned.
@@ -1514,14 +1700,14 @@ export const DatastreamsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async v11DatastreamsEntityIdObservationsGet(entityId: number, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Observations>> {
+        async v11DatastreamsEntityIdObservationsGet(entityId: string, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Observations>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.v11DatastreamsEntityIdObservationsGet(entityId, $skip, $top, $count, $select, $expand, $filter, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * Returns all datastreams that provide the observed property for the datastream identified by **entityId** (subject to any other parameters set)
          * @summary Get all datastreams that provide a datastream\'s observed property
-         * @param {number} entityId The id of the requested entity
+         * @param {string} entityId The id of the requested entity
          * @param {number} [$skip] The number of elements to skip from the collection
          * @param {number} [$top] The number of elements to return
          * @param {boolean} [$count] Flag indicating if the total number of items in the collection should be returned.
@@ -1531,27 +1717,27 @@ export const DatastreamsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async v11DatastreamsEntityIdObservedPropertyDatastreamsGet(entityId: number, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Datastreams>> {
+        async v11DatastreamsEntityIdObservedPropertyDatastreamsGet(entityId: string, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Datastreams>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.v11DatastreamsEntityIdObservedPropertyDatastreamsGet(entityId, $skip, $top, $count, $select, $expand, $filter, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * Returns information about the observed property for the datastream identified by **entityId**
          * @summary Get information about a datastream\'s observed property
-         * @param {number} entityId The id of the requested entity
+         * @param {string} entityId The id of the requested entity
          * @param {string} [$select] The list of properties that need to be returned
          * @param {string} [$expand] The list of related queries that need to be included in the result
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async v11DatastreamsEntityIdObservedPropertyGet(entityId: number, $select?: string, $expand?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ObservedProperty>> {
+        async v11DatastreamsEntityIdObservedPropertyGet(entityId: string, $select?: string, $expand?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ObservedProperty>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.v11DatastreamsEntityIdObservedPropertyGet(entityId, $select, $expand, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * Returns all datastreams which share the sensor type for the datastream identified by **entityId** (subject to any other parameters set)
          * @summary Get all datastreams which share a datastream\'s sensor type
-         * @param {number} entityId The id of the requested entity
+         * @param {string} entityId The id of the requested entity
          * @param {number} [$skip] The number of elements to skip from the collection
          * @param {number} [$top] The number of elements to return
          * @param {boolean} [$count] Flag indicating if the total number of items in the collection should be returned.
@@ -1561,27 +1747,27 @@ export const DatastreamsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async v11DatastreamsEntityIdSensorDatastreamsGet(entityId: number, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Datastreams>> {
+        async v11DatastreamsEntityIdSensorDatastreamsGet(entityId: string, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Datastreams>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.v11DatastreamsEntityIdSensorDatastreamsGet(entityId, $skip, $top, $count, $select, $expand, $filter, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * Returns information about the sensor type for the datastream identified by **entityId**
          * @summary Get information about a datastream\'s sensor type
-         * @param {number} entityId The id of the requested entity
+         * @param {string} entityId The id of the requested entity
          * @param {string} [$select] The list of properties that need to be returned
          * @param {string} [$expand] The list of related queries that need to be included in the result
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async v11DatastreamsEntityIdSensorGet(entityId: number, $select?: string, $expand?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Sensor>> {
+        async v11DatastreamsEntityIdSensorGet(entityId: string, $select?: string, $expand?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Sensor>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.v11DatastreamsEntityIdSensorGet(entityId, $select, $expand, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * Returns all datastreams provided by the thing for the datastream identified by **entityId** (subject to any other parameters set)
          * @summary Get all datastreams provided by a datastream\'s thing
-         * @param {number} entityId The id of the requested entity
+         * @param {string} entityId The id of the requested entity
          * @param {number} [$skip] The number of elements to skip from the collection
          * @param {number} [$top] The number of elements to return
          * @param {boolean} [$count] Flag indicating if the total number of items in the collection should be returned.
@@ -1591,27 +1777,27 @@ export const DatastreamsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async v11DatastreamsEntityIdThingDatastreamsGet(entityId: number, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Datastreams>> {
+        async v11DatastreamsEntityIdThingDatastreamsGet(entityId: string, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Datastreams>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.v11DatastreamsEntityIdThingDatastreamsGet(entityId, $skip, $top, $count, $select, $expand, $filter, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * Returns information about the thing for the datastream identified by **entityId**
          * @summary Get information about a datastream\'s thing
-         * @param {number} entityId The id of the requested entity
+         * @param {string} entityId The id of the requested entity
          * @param {string} [$select] The list of properties that need to be returned
          * @param {string} [$expand] The list of related queries that need to be included in the result
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async v11DatastreamsEntityIdThingGet(entityId: number, $select?: string, $expand?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Thing>> {
+        async v11DatastreamsEntityIdThingGet(entityId: string, $select?: string, $expand?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Thing>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.v11DatastreamsEntityIdThingGet(entityId, $select, $expand, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * Returns all locations of the thing for the datastream identified by **entityId** (subject to any other parameters set)
          * @summary Get all locations for a datastream\'s thing
-         * @param {number} entityId The id of the requested entity
+         * @param {string} entityId The id of the requested entity
          * @param {number} [$skip] The number of elements to skip from the collection
          * @param {number} [$top] The number of elements to return
          * @param {boolean} [$count] Flag indicating if the total number of items in the collection should be returned.
@@ -1621,7 +1807,7 @@ export const DatastreamsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async v11DatastreamsEntityIdThingLocationsGet(entityId: number, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Locations>> {
+        async v11DatastreamsEntityIdThingLocationsGet(entityId: string, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Locations>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.v11DatastreamsEntityIdThingLocationsGet(entityId, $skip, $top, $count, $select, $expand, $filter, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -1654,19 +1840,19 @@ export const DatastreamsApiFactory = function (configuration?: Configuration, ba
         /**
          * Returns information about the datastream identified by **entityId**
          * @summary Get information about an individual datastream
-         * @param {number} entityId The id of the requested entity
+         * @param {string} entityId The id of the requested entity
          * @param {string} [$select] The list of properties that need to be returned
          * @param {string} [$expand] The list of related queries that need to be included in the result
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        v11DatastreamsEntityIdGet(entityId: number, $select?: string, $expand?: string, options?: any): AxiosPromise<Datastream> {
+        v11DatastreamsEntityIdGet(entityId: string, $select?: string, $expand?: string, options?: any): AxiosPromise<Datastream> {
             return localVarFp.v11DatastreamsEntityIdGet(entityId, $select, $expand, options).then((request) => request(axios, basePath));
         },
         /**
          * Returns all observations for the datastream identified by **entityId** (subject to any other parameters set)
          * @summary Get all observations for a datastream
-         * @param {number} entityId The id of the requested entity
+         * @param {string} entityId The id of the requested entity
          * @param {number} [$skip] The number of elements to skip from the collection
          * @param {number} [$top] The number of elements to return
          * @param {boolean} [$count] Flag indicating if the total number of items in the collection should be returned.
@@ -1676,13 +1862,13 @@ export const DatastreamsApiFactory = function (configuration?: Configuration, ba
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        v11DatastreamsEntityIdObservationsGet(entityId: number, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: any): AxiosPromise<Observations> {
+        v11DatastreamsEntityIdObservationsGet(entityId: string, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: any): AxiosPromise<Observations> {
             return localVarFp.v11DatastreamsEntityIdObservationsGet(entityId, $skip, $top, $count, $select, $expand, $filter, options).then((request) => request(axios, basePath));
         },
         /**
          * Returns all datastreams that provide the observed property for the datastream identified by **entityId** (subject to any other parameters set)
          * @summary Get all datastreams that provide a datastream\'s observed property
-         * @param {number} entityId The id of the requested entity
+         * @param {string} entityId The id of the requested entity
          * @param {number} [$skip] The number of elements to skip from the collection
          * @param {number} [$top] The number of elements to return
          * @param {boolean} [$count] Flag indicating if the total number of items in the collection should be returned.
@@ -1692,25 +1878,25 @@ export const DatastreamsApiFactory = function (configuration?: Configuration, ba
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        v11DatastreamsEntityIdObservedPropertyDatastreamsGet(entityId: number, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: any): AxiosPromise<Datastreams> {
+        v11DatastreamsEntityIdObservedPropertyDatastreamsGet(entityId: string, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: any): AxiosPromise<Datastreams> {
             return localVarFp.v11DatastreamsEntityIdObservedPropertyDatastreamsGet(entityId, $skip, $top, $count, $select, $expand, $filter, options).then((request) => request(axios, basePath));
         },
         /**
          * Returns information about the observed property for the datastream identified by **entityId**
          * @summary Get information about a datastream\'s observed property
-         * @param {number} entityId The id of the requested entity
+         * @param {string} entityId The id of the requested entity
          * @param {string} [$select] The list of properties that need to be returned
          * @param {string} [$expand] The list of related queries that need to be included in the result
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        v11DatastreamsEntityIdObservedPropertyGet(entityId: number, $select?: string, $expand?: string, options?: any): AxiosPromise<ObservedProperty> {
+        v11DatastreamsEntityIdObservedPropertyGet(entityId: string, $select?: string, $expand?: string, options?: any): AxiosPromise<ObservedProperty> {
             return localVarFp.v11DatastreamsEntityIdObservedPropertyGet(entityId, $select, $expand, options).then((request) => request(axios, basePath));
         },
         /**
          * Returns all datastreams which share the sensor type for the datastream identified by **entityId** (subject to any other parameters set)
          * @summary Get all datastreams which share a datastream\'s sensor type
-         * @param {number} entityId The id of the requested entity
+         * @param {string} entityId The id of the requested entity
          * @param {number} [$skip] The number of elements to skip from the collection
          * @param {number} [$top] The number of elements to return
          * @param {boolean} [$count] Flag indicating if the total number of items in the collection should be returned.
@@ -1720,25 +1906,25 @@ export const DatastreamsApiFactory = function (configuration?: Configuration, ba
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        v11DatastreamsEntityIdSensorDatastreamsGet(entityId: number, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: any): AxiosPromise<Datastreams> {
+        v11DatastreamsEntityIdSensorDatastreamsGet(entityId: string, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: any): AxiosPromise<Datastreams> {
             return localVarFp.v11DatastreamsEntityIdSensorDatastreamsGet(entityId, $skip, $top, $count, $select, $expand, $filter, options).then((request) => request(axios, basePath));
         },
         /**
          * Returns information about the sensor type for the datastream identified by **entityId**
          * @summary Get information about a datastream\'s sensor type
-         * @param {number} entityId The id of the requested entity
+         * @param {string} entityId The id of the requested entity
          * @param {string} [$select] The list of properties that need to be returned
          * @param {string} [$expand] The list of related queries that need to be included in the result
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        v11DatastreamsEntityIdSensorGet(entityId: number, $select?: string, $expand?: string, options?: any): AxiosPromise<Sensor> {
+        v11DatastreamsEntityIdSensorGet(entityId: string, $select?: string, $expand?: string, options?: any): AxiosPromise<Sensor> {
             return localVarFp.v11DatastreamsEntityIdSensorGet(entityId, $select, $expand, options).then((request) => request(axios, basePath));
         },
         /**
          * Returns all datastreams provided by the thing for the datastream identified by **entityId** (subject to any other parameters set)
          * @summary Get all datastreams provided by a datastream\'s thing
-         * @param {number} entityId The id of the requested entity
+         * @param {string} entityId The id of the requested entity
          * @param {number} [$skip] The number of elements to skip from the collection
          * @param {number} [$top] The number of elements to return
          * @param {boolean} [$count] Flag indicating if the total number of items in the collection should be returned.
@@ -1748,25 +1934,25 @@ export const DatastreamsApiFactory = function (configuration?: Configuration, ba
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        v11DatastreamsEntityIdThingDatastreamsGet(entityId: number, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: any): AxiosPromise<Datastreams> {
+        v11DatastreamsEntityIdThingDatastreamsGet(entityId: string, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: any): AxiosPromise<Datastreams> {
             return localVarFp.v11DatastreamsEntityIdThingDatastreamsGet(entityId, $skip, $top, $count, $select, $expand, $filter, options).then((request) => request(axios, basePath));
         },
         /**
          * Returns information about the thing for the datastream identified by **entityId**
          * @summary Get information about a datastream\'s thing
-         * @param {number} entityId The id of the requested entity
+         * @param {string} entityId The id of the requested entity
          * @param {string} [$select] The list of properties that need to be returned
          * @param {string} [$expand] The list of related queries that need to be included in the result
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        v11DatastreamsEntityIdThingGet(entityId: number, $select?: string, $expand?: string, options?: any): AxiosPromise<Thing> {
+        v11DatastreamsEntityIdThingGet(entityId: string, $select?: string, $expand?: string, options?: any): AxiosPromise<Thing> {
             return localVarFp.v11DatastreamsEntityIdThingGet(entityId, $select, $expand, options).then((request) => request(axios, basePath));
         },
         /**
          * Returns all locations of the thing for the datastream identified by **entityId** (subject to any other parameters set)
          * @summary Get all locations for a datastream\'s thing
-         * @param {number} entityId The id of the requested entity
+         * @param {string} entityId The id of the requested entity
          * @param {number} [$skip] The number of elements to skip from the collection
          * @param {number} [$top] The number of elements to return
          * @param {boolean} [$count] Flag indicating if the total number of items in the collection should be returned.
@@ -1776,7 +1962,7 @@ export const DatastreamsApiFactory = function (configuration?: Configuration, ba
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        v11DatastreamsEntityIdThingLocationsGet(entityId: number, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: any): AxiosPromise<Locations> {
+        v11DatastreamsEntityIdThingLocationsGet(entityId: string, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: any): AxiosPromise<Locations> {
             return localVarFp.v11DatastreamsEntityIdThingLocationsGet(entityId, $skip, $top, $count, $select, $expand, $filter, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1806,19 +1992,19 @@ export interface DatastreamsApiInterface {
     /**
      * Returns information about the datastream identified by **entityId**
      * @summary Get information about an individual datastream
-     * @param {number} entityId The id of the requested entity
+     * @param {string} entityId The id of the requested entity
      * @param {string} [$select] The list of properties that need to be returned
      * @param {string} [$expand] The list of related queries that need to be included in the result
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof DatastreamsApiInterface
      */
-    v11DatastreamsEntityIdGet(entityId: number, $select?: string, $expand?: string, options?: AxiosRequestConfig): AxiosPromise<Datastream>;
+    v11DatastreamsEntityIdGet(entityId: string, $select?: string, $expand?: string, options?: AxiosRequestConfig): AxiosPromise<Datastream>;
 
     /**
      * Returns all observations for the datastream identified by **entityId** (subject to any other parameters set)
      * @summary Get all observations for a datastream
-     * @param {number} entityId The id of the requested entity
+     * @param {string} entityId The id of the requested entity
      * @param {number} [$skip] The number of elements to skip from the collection
      * @param {number} [$top] The number of elements to return
      * @param {boolean} [$count] Flag indicating if the total number of items in the collection should be returned.
@@ -1829,12 +2015,12 @@ export interface DatastreamsApiInterface {
      * @throws {RequiredError}
      * @memberof DatastreamsApiInterface
      */
-    v11DatastreamsEntityIdObservationsGet(entityId: number, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: AxiosRequestConfig): AxiosPromise<Observations>;
+    v11DatastreamsEntityIdObservationsGet(entityId: string, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: AxiosRequestConfig): AxiosPromise<Observations>;
 
     /**
      * Returns all datastreams that provide the observed property for the datastream identified by **entityId** (subject to any other parameters set)
      * @summary Get all datastreams that provide a datastream\'s observed property
-     * @param {number} entityId The id of the requested entity
+     * @param {string} entityId The id of the requested entity
      * @param {number} [$skip] The number of elements to skip from the collection
      * @param {number} [$top] The number of elements to return
      * @param {boolean} [$count] Flag indicating if the total number of items in the collection should be returned.
@@ -1845,24 +2031,24 @@ export interface DatastreamsApiInterface {
      * @throws {RequiredError}
      * @memberof DatastreamsApiInterface
      */
-    v11DatastreamsEntityIdObservedPropertyDatastreamsGet(entityId: number, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: AxiosRequestConfig): AxiosPromise<Datastreams>;
+    v11DatastreamsEntityIdObservedPropertyDatastreamsGet(entityId: string, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: AxiosRequestConfig): AxiosPromise<Datastreams>;
 
     /**
      * Returns information about the observed property for the datastream identified by **entityId**
      * @summary Get information about a datastream\'s observed property
-     * @param {number} entityId The id of the requested entity
+     * @param {string} entityId The id of the requested entity
      * @param {string} [$select] The list of properties that need to be returned
      * @param {string} [$expand] The list of related queries that need to be included in the result
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof DatastreamsApiInterface
      */
-    v11DatastreamsEntityIdObservedPropertyGet(entityId: number, $select?: string, $expand?: string, options?: AxiosRequestConfig): AxiosPromise<ObservedProperty>;
+    v11DatastreamsEntityIdObservedPropertyGet(entityId: string, $select?: string, $expand?: string, options?: AxiosRequestConfig): AxiosPromise<ObservedProperty>;
 
     /**
      * Returns all datastreams which share the sensor type for the datastream identified by **entityId** (subject to any other parameters set)
      * @summary Get all datastreams which share a datastream\'s sensor type
-     * @param {number} entityId The id of the requested entity
+     * @param {string} entityId The id of the requested entity
      * @param {number} [$skip] The number of elements to skip from the collection
      * @param {number} [$top] The number of elements to return
      * @param {boolean} [$count] Flag indicating if the total number of items in the collection should be returned.
@@ -1873,24 +2059,24 @@ export interface DatastreamsApiInterface {
      * @throws {RequiredError}
      * @memberof DatastreamsApiInterface
      */
-    v11DatastreamsEntityIdSensorDatastreamsGet(entityId: number, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: AxiosRequestConfig): AxiosPromise<Datastreams>;
+    v11DatastreamsEntityIdSensorDatastreamsGet(entityId: string, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: AxiosRequestConfig): AxiosPromise<Datastreams>;
 
     /**
      * Returns information about the sensor type for the datastream identified by **entityId**
      * @summary Get information about a datastream\'s sensor type
-     * @param {number} entityId The id of the requested entity
+     * @param {string} entityId The id of the requested entity
      * @param {string} [$select] The list of properties that need to be returned
      * @param {string} [$expand] The list of related queries that need to be included in the result
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof DatastreamsApiInterface
      */
-    v11DatastreamsEntityIdSensorGet(entityId: number, $select?: string, $expand?: string, options?: AxiosRequestConfig): AxiosPromise<Sensor>;
+    v11DatastreamsEntityIdSensorGet(entityId: string, $select?: string, $expand?: string, options?: AxiosRequestConfig): AxiosPromise<Sensor>;
 
     /**
      * Returns all datastreams provided by the thing for the datastream identified by **entityId** (subject to any other parameters set)
      * @summary Get all datastreams provided by a datastream\'s thing
-     * @param {number} entityId The id of the requested entity
+     * @param {string} entityId The id of the requested entity
      * @param {number} [$skip] The number of elements to skip from the collection
      * @param {number} [$top] The number of elements to return
      * @param {boolean} [$count] Flag indicating if the total number of items in the collection should be returned.
@@ -1901,24 +2087,24 @@ export interface DatastreamsApiInterface {
      * @throws {RequiredError}
      * @memberof DatastreamsApiInterface
      */
-    v11DatastreamsEntityIdThingDatastreamsGet(entityId: number, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: AxiosRequestConfig): AxiosPromise<Datastreams>;
+    v11DatastreamsEntityIdThingDatastreamsGet(entityId: string, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: AxiosRequestConfig): AxiosPromise<Datastreams>;
 
     /**
      * Returns information about the thing for the datastream identified by **entityId**
      * @summary Get information about a datastream\'s thing
-     * @param {number} entityId The id of the requested entity
+     * @param {string} entityId The id of the requested entity
      * @param {string} [$select] The list of properties that need to be returned
      * @param {string} [$expand] The list of related queries that need to be included in the result
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof DatastreamsApiInterface
      */
-    v11DatastreamsEntityIdThingGet(entityId: number, $select?: string, $expand?: string, options?: AxiosRequestConfig): AxiosPromise<Thing>;
+    v11DatastreamsEntityIdThingGet(entityId: string, $select?: string, $expand?: string, options?: AxiosRequestConfig): AxiosPromise<Thing>;
 
     /**
      * Returns all locations of the thing for the datastream identified by **entityId** (subject to any other parameters set)
      * @summary Get all locations for a datastream\'s thing
-     * @param {number} entityId The id of the requested entity
+     * @param {string} entityId The id of the requested entity
      * @param {number} [$skip] The number of elements to skip from the collection
      * @param {number} [$top] The number of elements to return
      * @param {boolean} [$count] Flag indicating if the total number of items in the collection should be returned.
@@ -1929,7 +2115,7 @@ export interface DatastreamsApiInterface {
      * @throws {RequiredError}
      * @memberof DatastreamsApiInterface
      */
-    v11DatastreamsEntityIdThingLocationsGet(entityId: number, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: AxiosRequestConfig): AxiosPromise<Locations>;
+    v11DatastreamsEntityIdThingLocationsGet(entityId: string, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: AxiosRequestConfig): AxiosPromise<Locations>;
 
     /**
      * Returns all the datastreams provided by this api (subject to any parameters set)
@@ -1958,21 +2144,21 @@ export class DatastreamsApi extends BaseAPI implements DatastreamsApiInterface {
     /**
      * Returns information about the datastream identified by **entityId**
      * @summary Get information about an individual datastream
-     * @param {number} entityId The id of the requested entity
+     * @param {string} entityId The id of the requested entity
      * @param {string} [$select] The list of properties that need to be returned
      * @param {string} [$expand] The list of related queries that need to be included in the result
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof DatastreamsApi
      */
-    public v11DatastreamsEntityIdGet(entityId: number, $select?: string, $expand?: string, options?: AxiosRequestConfig) {
+    public v11DatastreamsEntityIdGet(entityId: string, $select?: string, $expand?: string, options?: AxiosRequestConfig) {
         return DatastreamsApiFp(this.configuration).v11DatastreamsEntityIdGet(entityId, $select, $expand, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * Returns all observations for the datastream identified by **entityId** (subject to any other parameters set)
      * @summary Get all observations for a datastream
-     * @param {number} entityId The id of the requested entity
+     * @param {string} entityId The id of the requested entity
      * @param {number} [$skip] The number of elements to skip from the collection
      * @param {number} [$top] The number of elements to return
      * @param {boolean} [$count] Flag indicating if the total number of items in the collection should be returned.
@@ -1983,14 +2169,14 @@ export class DatastreamsApi extends BaseAPI implements DatastreamsApiInterface {
      * @throws {RequiredError}
      * @memberof DatastreamsApi
      */
-    public v11DatastreamsEntityIdObservationsGet(entityId: number, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: AxiosRequestConfig) {
+    public v11DatastreamsEntityIdObservationsGet(entityId: string, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: AxiosRequestConfig) {
         return DatastreamsApiFp(this.configuration).v11DatastreamsEntityIdObservationsGet(entityId, $skip, $top, $count, $select, $expand, $filter, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * Returns all datastreams that provide the observed property for the datastream identified by **entityId** (subject to any other parameters set)
      * @summary Get all datastreams that provide a datastream\'s observed property
-     * @param {number} entityId The id of the requested entity
+     * @param {string} entityId The id of the requested entity
      * @param {number} [$skip] The number of elements to skip from the collection
      * @param {number} [$top] The number of elements to return
      * @param {boolean} [$count] Flag indicating if the total number of items in the collection should be returned.
@@ -2001,28 +2187,28 @@ export class DatastreamsApi extends BaseAPI implements DatastreamsApiInterface {
      * @throws {RequiredError}
      * @memberof DatastreamsApi
      */
-    public v11DatastreamsEntityIdObservedPropertyDatastreamsGet(entityId: number, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: AxiosRequestConfig) {
+    public v11DatastreamsEntityIdObservedPropertyDatastreamsGet(entityId: string, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: AxiosRequestConfig) {
         return DatastreamsApiFp(this.configuration).v11DatastreamsEntityIdObservedPropertyDatastreamsGet(entityId, $skip, $top, $count, $select, $expand, $filter, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * Returns information about the observed property for the datastream identified by **entityId**
      * @summary Get information about a datastream\'s observed property
-     * @param {number} entityId The id of the requested entity
+     * @param {string} entityId The id of the requested entity
      * @param {string} [$select] The list of properties that need to be returned
      * @param {string} [$expand] The list of related queries that need to be included in the result
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof DatastreamsApi
      */
-    public v11DatastreamsEntityIdObservedPropertyGet(entityId: number, $select?: string, $expand?: string, options?: AxiosRequestConfig) {
+    public v11DatastreamsEntityIdObservedPropertyGet(entityId: string, $select?: string, $expand?: string, options?: AxiosRequestConfig) {
         return DatastreamsApiFp(this.configuration).v11DatastreamsEntityIdObservedPropertyGet(entityId, $select, $expand, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * Returns all datastreams which share the sensor type for the datastream identified by **entityId** (subject to any other parameters set)
      * @summary Get all datastreams which share a datastream\'s sensor type
-     * @param {number} entityId The id of the requested entity
+     * @param {string} entityId The id of the requested entity
      * @param {number} [$skip] The number of elements to skip from the collection
      * @param {number} [$top] The number of elements to return
      * @param {boolean} [$count] Flag indicating if the total number of items in the collection should be returned.
@@ -2033,28 +2219,28 @@ export class DatastreamsApi extends BaseAPI implements DatastreamsApiInterface {
      * @throws {RequiredError}
      * @memberof DatastreamsApi
      */
-    public v11DatastreamsEntityIdSensorDatastreamsGet(entityId: number, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: AxiosRequestConfig) {
+    public v11DatastreamsEntityIdSensorDatastreamsGet(entityId: string, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: AxiosRequestConfig) {
         return DatastreamsApiFp(this.configuration).v11DatastreamsEntityIdSensorDatastreamsGet(entityId, $skip, $top, $count, $select, $expand, $filter, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * Returns information about the sensor type for the datastream identified by **entityId**
      * @summary Get information about a datastream\'s sensor type
-     * @param {number} entityId The id of the requested entity
+     * @param {string} entityId The id of the requested entity
      * @param {string} [$select] The list of properties that need to be returned
      * @param {string} [$expand] The list of related queries that need to be included in the result
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof DatastreamsApi
      */
-    public v11DatastreamsEntityIdSensorGet(entityId: number, $select?: string, $expand?: string, options?: AxiosRequestConfig) {
+    public v11DatastreamsEntityIdSensorGet(entityId: string, $select?: string, $expand?: string, options?: AxiosRequestConfig) {
         return DatastreamsApiFp(this.configuration).v11DatastreamsEntityIdSensorGet(entityId, $select, $expand, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * Returns all datastreams provided by the thing for the datastream identified by **entityId** (subject to any other parameters set)
      * @summary Get all datastreams provided by a datastream\'s thing
-     * @param {number} entityId The id of the requested entity
+     * @param {string} entityId The id of the requested entity
      * @param {number} [$skip] The number of elements to skip from the collection
      * @param {number} [$top] The number of elements to return
      * @param {boolean} [$count] Flag indicating if the total number of items in the collection should be returned.
@@ -2065,28 +2251,28 @@ export class DatastreamsApi extends BaseAPI implements DatastreamsApiInterface {
      * @throws {RequiredError}
      * @memberof DatastreamsApi
      */
-    public v11DatastreamsEntityIdThingDatastreamsGet(entityId: number, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: AxiosRequestConfig) {
+    public v11DatastreamsEntityIdThingDatastreamsGet(entityId: string, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: AxiosRequestConfig) {
         return DatastreamsApiFp(this.configuration).v11DatastreamsEntityIdThingDatastreamsGet(entityId, $skip, $top, $count, $select, $expand, $filter, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * Returns information about the thing for the datastream identified by **entityId**
      * @summary Get information about a datastream\'s thing
-     * @param {number} entityId The id of the requested entity
+     * @param {string} entityId The id of the requested entity
      * @param {string} [$select] The list of properties that need to be returned
      * @param {string} [$expand] The list of related queries that need to be included in the result
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof DatastreamsApi
      */
-    public v11DatastreamsEntityIdThingGet(entityId: number, $select?: string, $expand?: string, options?: AxiosRequestConfig) {
+    public v11DatastreamsEntityIdThingGet(entityId: string, $select?: string, $expand?: string, options?: AxiosRequestConfig) {
         return DatastreamsApiFp(this.configuration).v11DatastreamsEntityIdThingGet(entityId, $select, $expand, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * Returns all locations of the thing for the datastream identified by **entityId** (subject to any other parameters set)
      * @summary Get all locations for a datastream\'s thing
-     * @param {number} entityId The id of the requested entity
+     * @param {string} entityId The id of the requested entity
      * @param {number} [$skip] The number of elements to skip from the collection
      * @param {number} [$top] The number of elements to return
      * @param {boolean} [$count] Flag indicating if the total number of items in the collection should be returned.
@@ -2097,7 +2283,7 @@ export class DatastreamsApi extends BaseAPI implements DatastreamsApiInterface {
      * @throws {RequiredError}
      * @memberof DatastreamsApi
      */
-    public v11DatastreamsEntityIdThingLocationsGet(entityId: number, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: AxiosRequestConfig) {
+    public v11DatastreamsEntityIdThingLocationsGet(entityId: string, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: AxiosRequestConfig) {
         return DatastreamsApiFp(this.configuration).v11DatastreamsEntityIdThingLocationsGet(entityId, $skip, $top, $count, $select, $expand, $filter, options).then((request) => request(this.axios, this.basePath));
     }
 
@@ -2129,13 +2315,13 @@ export const FeaturesOfInterestApiAxiosParamCreator = function (configuration?: 
         /**
          * Returns information about the feature of interest identified by **entityId**
          * @summary Get information about an individual feature of interest
-         * @param {number} entityId The id of the requested entity
+         * @param {string} entityId The id of the requested entity
          * @param {string} [$select] The list of properties that need to be returned
          * @param {string} [$expand] The list of related queries that need to be included in the result
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        v11FeaturesOfInterestEntityIdGet: async (entityId: number, $select?: string, $expand?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        v11FeaturesOfInterestEntityIdGet: async (entityId: string, $select?: string, $expand?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'entityId' is not null or undefined
             assertParamExists('v11FeaturesOfInterestEntityIdGet', 'entityId', entityId)
             const localVarPath = `/v1.1/FeaturesOfInterest({entityId})`
@@ -2173,7 +2359,7 @@ export const FeaturesOfInterestApiAxiosParamCreator = function (configuration?: 
         /**
          * Returns all observations for the feature of interest identified by **entityId** (subject to any other parameters set)
          * @summary Get all observations for a feature of interest
-         * @param {number} entityId The id of the requested entity
+         * @param {string} entityId The id of the requested entity
          * @param {number} [$skip] The number of elements to skip from the collection
          * @param {number} [$top] The number of elements to return
          * @param {boolean} [$count] Flag indicating if the total number of items in the collection should be returned.
@@ -2183,7 +2369,7 @@ export const FeaturesOfInterestApiAxiosParamCreator = function (configuration?: 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        v11FeaturesOfInterestEntityIdObservationsGet: async (entityId: number, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        v11FeaturesOfInterestEntityIdObservationsGet: async (entityId: string, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'entityId' is not null or undefined
             assertParamExists('v11FeaturesOfInterestEntityIdObservationsGet', 'entityId', entityId)
             const localVarPath = `/v1.1/FeaturesOfInterest({entityId})/Observations`
@@ -2307,20 +2493,20 @@ export const FeaturesOfInterestApiFp = function(configuration?: Configuration) {
         /**
          * Returns information about the feature of interest identified by **entityId**
          * @summary Get information about an individual feature of interest
-         * @param {number} entityId The id of the requested entity
+         * @param {string} entityId The id of the requested entity
          * @param {string} [$select] The list of properties that need to be returned
          * @param {string} [$expand] The list of related queries that need to be included in the result
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async v11FeaturesOfInterestEntityIdGet(entityId: number, $select?: string, $expand?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<FeatureOfInterest>> {
+        async v11FeaturesOfInterestEntityIdGet(entityId: string, $select?: string, $expand?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<FeatureOfInterest>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.v11FeaturesOfInterestEntityIdGet(entityId, $select, $expand, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * Returns all observations for the feature of interest identified by **entityId** (subject to any other parameters set)
          * @summary Get all observations for a feature of interest
-         * @param {number} entityId The id of the requested entity
+         * @param {string} entityId The id of the requested entity
          * @param {number} [$skip] The number of elements to skip from the collection
          * @param {number} [$top] The number of elements to return
          * @param {boolean} [$count] Flag indicating if the total number of items in the collection should be returned.
@@ -2330,7 +2516,7 @@ export const FeaturesOfInterestApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async v11FeaturesOfInterestEntityIdObservationsGet(entityId: number, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Observations>> {
+        async v11FeaturesOfInterestEntityIdObservationsGet(entityId: string, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Observations>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.v11FeaturesOfInterestEntityIdObservationsGet(entityId, $skip, $top, $count, $select, $expand, $filter, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -2363,19 +2549,19 @@ export const FeaturesOfInterestApiFactory = function (configuration?: Configurat
         /**
          * Returns information about the feature of interest identified by **entityId**
          * @summary Get information about an individual feature of interest
-         * @param {number} entityId The id of the requested entity
+         * @param {string} entityId The id of the requested entity
          * @param {string} [$select] The list of properties that need to be returned
          * @param {string} [$expand] The list of related queries that need to be included in the result
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        v11FeaturesOfInterestEntityIdGet(entityId: number, $select?: string, $expand?: string, options?: any): AxiosPromise<FeatureOfInterest> {
+        v11FeaturesOfInterestEntityIdGet(entityId: string, $select?: string, $expand?: string, options?: any): AxiosPromise<FeatureOfInterest> {
             return localVarFp.v11FeaturesOfInterestEntityIdGet(entityId, $select, $expand, options).then((request) => request(axios, basePath));
         },
         /**
          * Returns all observations for the feature of interest identified by **entityId** (subject to any other parameters set)
          * @summary Get all observations for a feature of interest
-         * @param {number} entityId The id of the requested entity
+         * @param {string} entityId The id of the requested entity
          * @param {number} [$skip] The number of elements to skip from the collection
          * @param {number} [$top] The number of elements to return
          * @param {boolean} [$count] Flag indicating if the total number of items in the collection should be returned.
@@ -2385,7 +2571,7 @@ export const FeaturesOfInterestApiFactory = function (configuration?: Configurat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        v11FeaturesOfInterestEntityIdObservationsGet(entityId: number, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: any): AxiosPromise<Observations> {
+        v11FeaturesOfInterestEntityIdObservationsGet(entityId: string, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: any): AxiosPromise<Observations> {
             return localVarFp.v11FeaturesOfInterestEntityIdObservationsGet(entityId, $skip, $top, $count, $select, $expand, $filter, options).then((request) => request(axios, basePath));
         },
         /**
@@ -2415,19 +2601,19 @@ export interface FeaturesOfInterestApiInterface {
     /**
      * Returns information about the feature of interest identified by **entityId**
      * @summary Get information about an individual feature of interest
-     * @param {number} entityId The id of the requested entity
+     * @param {string} entityId The id of the requested entity
      * @param {string} [$select] The list of properties that need to be returned
      * @param {string} [$expand] The list of related queries that need to be included in the result
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof FeaturesOfInterestApiInterface
      */
-    v11FeaturesOfInterestEntityIdGet(entityId: number, $select?: string, $expand?: string, options?: AxiosRequestConfig): AxiosPromise<FeatureOfInterest>;
+    v11FeaturesOfInterestEntityIdGet(entityId: string, $select?: string, $expand?: string, options?: AxiosRequestConfig): AxiosPromise<FeatureOfInterest>;
 
     /**
      * Returns all observations for the feature of interest identified by **entityId** (subject to any other parameters set)
      * @summary Get all observations for a feature of interest
-     * @param {number} entityId The id of the requested entity
+     * @param {string} entityId The id of the requested entity
      * @param {number} [$skip] The number of elements to skip from the collection
      * @param {number} [$top] The number of elements to return
      * @param {boolean} [$count] Flag indicating if the total number of items in the collection should be returned.
@@ -2438,7 +2624,7 @@ export interface FeaturesOfInterestApiInterface {
      * @throws {RequiredError}
      * @memberof FeaturesOfInterestApiInterface
      */
-    v11FeaturesOfInterestEntityIdObservationsGet(entityId: number, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: AxiosRequestConfig): AxiosPromise<Observations>;
+    v11FeaturesOfInterestEntityIdObservationsGet(entityId: string, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: AxiosRequestConfig): AxiosPromise<Observations>;
 
     /**
      * Returns all the features of interest provided by this api (subject to any parameters set)
@@ -2467,21 +2653,21 @@ export class FeaturesOfInterestApi extends BaseAPI implements FeaturesOfInterest
     /**
      * Returns information about the feature of interest identified by **entityId**
      * @summary Get information about an individual feature of interest
-     * @param {number} entityId The id of the requested entity
+     * @param {string} entityId The id of the requested entity
      * @param {string} [$select] The list of properties that need to be returned
      * @param {string} [$expand] The list of related queries that need to be included in the result
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof FeaturesOfInterestApi
      */
-    public v11FeaturesOfInterestEntityIdGet(entityId: number, $select?: string, $expand?: string, options?: AxiosRequestConfig) {
+    public v11FeaturesOfInterestEntityIdGet(entityId: string, $select?: string, $expand?: string, options?: AxiosRequestConfig) {
         return FeaturesOfInterestApiFp(this.configuration).v11FeaturesOfInterestEntityIdGet(entityId, $select, $expand, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * Returns all observations for the feature of interest identified by **entityId** (subject to any other parameters set)
      * @summary Get all observations for a feature of interest
-     * @param {number} entityId The id of the requested entity
+     * @param {string} entityId The id of the requested entity
      * @param {number} [$skip] The number of elements to skip from the collection
      * @param {number} [$top] The number of elements to return
      * @param {boolean} [$count] Flag indicating if the total number of items in the collection should be returned.
@@ -2492,7 +2678,7 @@ export class FeaturesOfInterestApi extends BaseAPI implements FeaturesOfInterest
      * @throws {RequiredError}
      * @memberof FeaturesOfInterestApi
      */
-    public v11FeaturesOfInterestEntityIdObservationsGet(entityId: number, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: AxiosRequestConfig) {
+    public v11FeaturesOfInterestEntityIdObservationsGet(entityId: string, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: AxiosRequestConfig) {
         return FeaturesOfInterestApiFp(this.configuration).v11FeaturesOfInterestEntityIdObservationsGet(entityId, $skip, $top, $count, $select, $expand, $filter, options).then((request) => request(this.axios, this.basePath));
     }
 
@@ -2524,13 +2710,13 @@ export const LocationsApiAxiosParamCreator = function (configuration?: Configura
         /**
          * Returns information about the location identified by **entityId**
          * @summary Get information about an individual location
-         * @param {number} entityId The id of the requested entity
+         * @param {string} entityId The id of the requested entity
          * @param {string} [$select] The list of properties that need to be returned
          * @param {string} [$expand] The list of related queries that need to be included in the result
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        v11LocationsEntityIdGet: async (entityId: number, $select?: string, $expand?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        v11LocationsEntityIdGet: async (entityId: string, $select?: string, $expand?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'entityId' is not null or undefined
             assertParamExists('v11LocationsEntityIdGet', 'entityId', entityId)
             const localVarPath = `/v1.1/Locations({entityId})`
@@ -2568,7 +2754,7 @@ export const LocationsApiAxiosParamCreator = function (configuration?: Configura
         /**
          * Returns information about the thing at the location identified by **entityId**
          * @summary Get information about the thing at the location
-         * @param {number} entityId The id of the requested entity
+         * @param {string} entityId The id of the requested entity
          * @param {number} [$skip] The number of elements to skip from the collection
          * @param {number} [$top] The number of elements to return
          * @param {boolean} [$count] Flag indicating if the total number of items in the collection should be returned.
@@ -2578,7 +2764,7 @@ export const LocationsApiAxiosParamCreator = function (configuration?: Configura
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        v11LocationsEntityIdThingsGet: async (entityId: number, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        v11LocationsEntityIdThingsGet: async (entityId: string, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'entityId' is not null or undefined
             assertParamExists('v11LocationsEntityIdThingsGet', 'entityId', entityId)
             const localVarPath = `/v1.1/Locations({entityId})/Things`
@@ -2702,20 +2888,20 @@ export const LocationsApiFp = function(configuration?: Configuration) {
         /**
          * Returns information about the location identified by **entityId**
          * @summary Get information about an individual location
-         * @param {number} entityId The id of the requested entity
+         * @param {string} entityId The id of the requested entity
          * @param {string} [$select] The list of properties that need to be returned
          * @param {string} [$expand] The list of related queries that need to be included in the result
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async v11LocationsEntityIdGet(entityId: number, $select?: string, $expand?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Location>> {
+        async v11LocationsEntityIdGet(entityId: string, $select?: string, $expand?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Location>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.v11LocationsEntityIdGet(entityId, $select, $expand, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * Returns information about the thing at the location identified by **entityId**
          * @summary Get information about the thing at the location
-         * @param {number} entityId The id of the requested entity
+         * @param {string} entityId The id of the requested entity
          * @param {number} [$skip] The number of elements to skip from the collection
          * @param {number} [$top] The number of elements to return
          * @param {boolean} [$count] Flag indicating if the total number of items in the collection should be returned.
@@ -2725,7 +2911,7 @@ export const LocationsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async v11LocationsEntityIdThingsGet(entityId: number, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Things>> {
+        async v11LocationsEntityIdThingsGet(entityId: string, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Things>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.v11LocationsEntityIdThingsGet(entityId, $skip, $top, $count, $select, $expand, $filter, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -2758,19 +2944,19 @@ export const LocationsApiFactory = function (configuration?: Configuration, base
         /**
          * Returns information about the location identified by **entityId**
          * @summary Get information about an individual location
-         * @param {number} entityId The id of the requested entity
+         * @param {string} entityId The id of the requested entity
          * @param {string} [$select] The list of properties that need to be returned
          * @param {string} [$expand] The list of related queries that need to be included in the result
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        v11LocationsEntityIdGet(entityId: number, $select?: string, $expand?: string, options?: any): AxiosPromise<Location> {
+        v11LocationsEntityIdGet(entityId: string, $select?: string, $expand?: string, options?: any): AxiosPromise<Location> {
             return localVarFp.v11LocationsEntityIdGet(entityId, $select, $expand, options).then((request) => request(axios, basePath));
         },
         /**
          * Returns information about the thing at the location identified by **entityId**
          * @summary Get information about the thing at the location
-         * @param {number} entityId The id of the requested entity
+         * @param {string} entityId The id of the requested entity
          * @param {number} [$skip] The number of elements to skip from the collection
          * @param {number} [$top] The number of elements to return
          * @param {boolean} [$count] Flag indicating if the total number of items in the collection should be returned.
@@ -2780,7 +2966,7 @@ export const LocationsApiFactory = function (configuration?: Configuration, base
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        v11LocationsEntityIdThingsGet(entityId: number, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: any): AxiosPromise<Things> {
+        v11LocationsEntityIdThingsGet(entityId: string, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: any): AxiosPromise<Things> {
             return localVarFp.v11LocationsEntityIdThingsGet(entityId, $skip, $top, $count, $select, $expand, $filter, options).then((request) => request(axios, basePath));
         },
         /**
@@ -2810,19 +2996,19 @@ export interface LocationsApiInterface {
     /**
      * Returns information about the location identified by **entityId**
      * @summary Get information about an individual location
-     * @param {number} entityId The id of the requested entity
+     * @param {string} entityId The id of the requested entity
      * @param {string} [$select] The list of properties that need to be returned
      * @param {string} [$expand] The list of related queries that need to be included in the result
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof LocationsApiInterface
      */
-    v11LocationsEntityIdGet(entityId: number, $select?: string, $expand?: string, options?: AxiosRequestConfig): AxiosPromise<Location>;
+    v11LocationsEntityIdGet(entityId: string, $select?: string, $expand?: string, options?: AxiosRequestConfig): AxiosPromise<Location>;
 
     /**
      * Returns information about the thing at the location identified by **entityId**
      * @summary Get information about the thing at the location
-     * @param {number} entityId The id of the requested entity
+     * @param {string} entityId The id of the requested entity
      * @param {number} [$skip] The number of elements to skip from the collection
      * @param {number} [$top] The number of elements to return
      * @param {boolean} [$count] Flag indicating if the total number of items in the collection should be returned.
@@ -2833,7 +3019,7 @@ export interface LocationsApiInterface {
      * @throws {RequiredError}
      * @memberof LocationsApiInterface
      */
-    v11LocationsEntityIdThingsGet(entityId: number, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: AxiosRequestConfig): AxiosPromise<Things>;
+    v11LocationsEntityIdThingsGet(entityId: string, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: AxiosRequestConfig): AxiosPromise<Things>;
 
     /**
      * Returns all the locations provided by this api (subject to any parameters set)
@@ -2862,21 +3048,21 @@ export class LocationsApi extends BaseAPI implements LocationsApiInterface {
     /**
      * Returns information about the location identified by **entityId**
      * @summary Get information about an individual location
-     * @param {number} entityId The id of the requested entity
+     * @param {string} entityId The id of the requested entity
      * @param {string} [$select] The list of properties that need to be returned
      * @param {string} [$expand] The list of related queries that need to be included in the result
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof LocationsApi
      */
-    public v11LocationsEntityIdGet(entityId: number, $select?: string, $expand?: string, options?: AxiosRequestConfig) {
+    public v11LocationsEntityIdGet(entityId: string, $select?: string, $expand?: string, options?: AxiosRequestConfig) {
         return LocationsApiFp(this.configuration).v11LocationsEntityIdGet(entityId, $select, $expand, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * Returns information about the thing at the location identified by **entityId**
      * @summary Get information about the thing at the location
-     * @param {number} entityId The id of the requested entity
+     * @param {string} entityId The id of the requested entity
      * @param {number} [$skip] The number of elements to skip from the collection
      * @param {number} [$top] The number of elements to return
      * @param {boolean} [$count] Flag indicating if the total number of items in the collection should be returned.
@@ -2887,7 +3073,7 @@ export class LocationsApi extends BaseAPI implements LocationsApiInterface {
      * @throws {RequiredError}
      * @memberof LocationsApi
      */
-    public v11LocationsEntityIdThingsGet(entityId: number, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: AxiosRequestConfig) {
+    public v11LocationsEntityIdThingsGet(entityId: string, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: AxiosRequestConfig) {
         return LocationsApiFp(this.configuration).v11LocationsEntityIdThingsGet(entityId, $skip, $top, $count, $select, $expand, $filter, options).then((request) => request(this.axios, this.basePath));
     }
 
@@ -2919,13 +3105,13 @@ export const ObservationsApiAxiosParamCreator = function (configuration?: Config
         /**
          * Returns information about the datastream for the observation identified by **entityId**
          * @summary Get information about an observation\'s datastream
-         * @param {number} entityId The id of the requested entity
+         * @param {string} entityId The id of the requested entity
          * @param {string} [$select] The list of properties that need to be returned
          * @param {string} [$expand] The list of related queries that need to be included in the result
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        v11ObservationsEntityIdDatastreamGet: async (entityId: number, $select?: string, $expand?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        v11ObservationsEntityIdDatastreamGet: async (entityId: string, $select?: string, $expand?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'entityId' is not null or undefined
             assertParamExists('v11ObservationsEntityIdDatastreamGet', 'entityId', entityId)
             const localVarPath = `/v1.1/Observations({entityId})/Datastream`
@@ -2963,7 +3149,7 @@ export const ObservationsApiAxiosParamCreator = function (configuration?: Config
         /**
          * Returns all observations for the datastream of the observation identified by **entityId** (subject to any other parameters set)
          * @summary Get all observations for an observations\'s datastream
-         * @param {number} entityId The id of the requested entity
+         * @param {string} entityId The id of the requested entity
          * @param {number} [$skip] The number of elements to skip from the collection
          * @param {number} [$top] The number of elements to return
          * @param {boolean} [$count] Flag indicating if the total number of items in the collection should be returned.
@@ -2973,7 +3159,7 @@ export const ObservationsApiAxiosParamCreator = function (configuration?: Config
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        v11ObservationsEntityIdDatastreamObservationsGet: async (entityId: number, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        v11ObservationsEntityIdDatastreamObservationsGet: async (entityId: string, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'entityId' is not null or undefined
             assertParamExists('v11ObservationsEntityIdDatastreamObservationsGet', 'entityId', entityId)
             const localVarPath = `/v1.1/Observations({entityId})/Datastream/Observations`
@@ -3026,7 +3212,7 @@ export const ObservationsApiAxiosParamCreator = function (configuration?: Config
         },
         /**
          * 
-         * @param {number} entityId The id of the requested entity
+         * @param {string} entityId The id of the requested entity
          * @param {number} [$skip] The number of elements to skip from the collection
          * @param {number} [$top] The number of elements to return
          * @param {boolean} [$count] Flag indicating if the total number of items in the collection should be returned.
@@ -3036,7 +3222,7 @@ export const ObservationsApiAxiosParamCreator = function (configuration?: Config
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        v11ObservationsEntityIdDatastreamObservedPropertyDatastreamsGet: async (entityId: number, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        v11ObservationsEntityIdDatastreamObservedPropertyDatastreamsGet: async (entityId: string, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'entityId' is not null or undefined
             assertParamExists('v11ObservationsEntityIdDatastreamObservedPropertyDatastreamsGet', 'entityId', entityId)
             const localVarPath = `/v1.1/Observations({entityId})/Datastream/ObservedProperty/Datastreams`
@@ -3089,13 +3275,13 @@ export const ObservationsApiAxiosParamCreator = function (configuration?: Config
         },
         /**
          * 
-         * @param {number} entityId The id of the requested entity
+         * @param {string} entityId The id of the requested entity
          * @param {string} [$select] The list of properties that need to be returned
          * @param {string} [$expand] The list of related queries that need to be included in the result
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        v11ObservationsEntityIdDatastreamObservedPropertyGet: async (entityId: number, $select?: string, $expand?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        v11ObservationsEntityIdDatastreamObservedPropertyGet: async (entityId: string, $select?: string, $expand?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'entityId' is not null or undefined
             assertParamExists('v11ObservationsEntityIdDatastreamObservedPropertyGet', 'entityId', entityId)
             const localVarPath = `/v1.1/Observations({entityId})/Datastream/ObservedProperty`
@@ -3132,7 +3318,7 @@ export const ObservationsApiAxiosParamCreator = function (configuration?: Config
         },
         /**
          * 
-         * @param {number} entityId The id of the requested entity
+         * @param {string} entityId The id of the requested entity
          * @param {number} [$skip] The number of elements to skip from the collection
          * @param {number} [$top] The number of elements to return
          * @param {boolean} [$count] Flag indicating if the total number of items in the collection should be returned.
@@ -3142,7 +3328,7 @@ export const ObservationsApiAxiosParamCreator = function (configuration?: Config
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        v11ObservationsEntityIdDatastreamSensorDatastreamsGet: async (entityId: number, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        v11ObservationsEntityIdDatastreamSensorDatastreamsGet: async (entityId: string, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'entityId' is not null or undefined
             assertParamExists('v11ObservationsEntityIdDatastreamSensorDatastreamsGet', 'entityId', entityId)
             const localVarPath = `/v1.1/Observations({entityId})/Datastream/Sensor/Datastreams`
@@ -3195,13 +3381,13 @@ export const ObservationsApiAxiosParamCreator = function (configuration?: Config
         },
         /**
          * 
-         * @param {number} entityId The id of the requested entity
+         * @param {string} entityId The id of the requested entity
          * @param {string} [$select] The list of properties that need to be returned
          * @param {string} [$expand] The list of related queries that need to be included in the result
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        v11ObservationsEntityIdDatastreamSensorGet: async (entityId: number, $select?: string, $expand?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        v11ObservationsEntityIdDatastreamSensorGet: async (entityId: string, $select?: string, $expand?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'entityId' is not null or undefined
             assertParamExists('v11ObservationsEntityIdDatastreamSensorGet', 'entityId', entityId)
             const localVarPath = `/v1.1/Observations({entityId})/Datastream/Sensor`
@@ -3238,7 +3424,7 @@ export const ObservationsApiAxiosParamCreator = function (configuration?: Config
         },
         /**
          * 
-         * @param {number} entityId The id of the requested entity
+         * @param {string} entityId The id of the requested entity
          * @param {number} [$skip] The number of elements to skip from the collection
          * @param {number} [$top] The number of elements to return
          * @param {boolean} [$count] Flag indicating if the total number of items in the collection should be returned.
@@ -3248,7 +3434,7 @@ export const ObservationsApiAxiosParamCreator = function (configuration?: Config
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        v11ObservationsEntityIdDatastreamThingDatastreamsGet: async (entityId: number, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        v11ObservationsEntityIdDatastreamThingDatastreamsGet: async (entityId: string, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'entityId' is not null or undefined
             assertParamExists('v11ObservationsEntityIdDatastreamThingDatastreamsGet', 'entityId', entityId)
             const localVarPath = `/v1.1/Observations({entityId})/Datastream/Thing/Datastreams`
@@ -3301,13 +3487,13 @@ export const ObservationsApiAxiosParamCreator = function (configuration?: Config
         },
         /**
          * 
-         * @param {number} entityId The id of the requested entity
+         * @param {string} entityId The id of the requested entity
          * @param {string} [$select] The list of properties that need to be returned
          * @param {string} [$expand] The list of related queries that need to be included in the result
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        v11ObservationsEntityIdDatastreamThingGet: async (entityId: number, $select?: string, $expand?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        v11ObservationsEntityIdDatastreamThingGet: async (entityId: string, $select?: string, $expand?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'entityId' is not null or undefined
             assertParamExists('v11ObservationsEntityIdDatastreamThingGet', 'entityId', entityId)
             const localVarPath = `/v1.1/Observations({entityId})/Datastream/Thing`
@@ -3344,7 +3530,7 @@ export const ObservationsApiAxiosParamCreator = function (configuration?: Config
         },
         /**
          * 
-         * @param {number} entityId The id of the requested entity
+         * @param {string} entityId The id of the requested entity
          * @param {number} [$skip] The number of elements to skip from the collection
          * @param {number} [$top] The number of elements to return
          * @param {boolean} [$count] Flag indicating if the total number of items in the collection should be returned.
@@ -3354,7 +3540,7 @@ export const ObservationsApiAxiosParamCreator = function (configuration?: Config
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        v11ObservationsEntityIdDatastreamThingLocationsGet: async (entityId: number, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        v11ObservationsEntityIdDatastreamThingLocationsGet: async (entityId: string, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'entityId' is not null or undefined
             assertParamExists('v11ObservationsEntityIdDatastreamThingLocationsGet', 'entityId', entityId)
             const localVarPath = `/v1.1/Observations({entityId})/Datastream/Thing/Locations`
@@ -3408,13 +3594,13 @@ export const ObservationsApiAxiosParamCreator = function (configuration?: Config
         /**
          * Returns information about the feature of interest for the observation identified by **entityId**
          * @summary Get information about an observation\'s feature of interest
-         * @param {number} entityId The id of the requested entity
+         * @param {string} entityId The id of the requested entity
          * @param {string} [$select] The list of properties that need to be returned
          * @param {string} [$expand] The list of related queries that need to be included in the result
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        v11ObservationsEntityIdFeatureOfInterestGet: async (entityId: number, $select?: string, $expand?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        v11ObservationsEntityIdFeatureOfInterestGet: async (entityId: string, $select?: string, $expand?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'entityId' is not null or undefined
             assertParamExists('v11ObservationsEntityIdFeatureOfInterestGet', 'entityId', entityId)
             const localVarPath = `/v1.1/Observations({entityId})/FeatureOfInterest`
@@ -3451,7 +3637,7 @@ export const ObservationsApiAxiosParamCreator = function (configuration?: Config
         },
         /**
          * 
-         * @param {number} entityId The id of the requested entity
+         * @param {string} entityId The id of the requested entity
          * @param {number} [$skip] The number of elements to skip from the collection
          * @param {number} [$top] The number of elements to return
          * @param {boolean} [$count] Flag indicating if the total number of items in the collection should be returned.
@@ -3461,7 +3647,7 @@ export const ObservationsApiAxiosParamCreator = function (configuration?: Config
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        v11ObservationsEntityIdFeatureOfInterestObservationsGet: async (entityId: number, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        v11ObservationsEntityIdFeatureOfInterestObservationsGet: async (entityId: string, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'entityId' is not null or undefined
             assertParamExists('v11ObservationsEntityIdFeatureOfInterestObservationsGet', 'entityId', entityId)
             const localVarPath = `/v1.1/Observations({entityId})/FeatureOfInterest/Observations`
@@ -3515,13 +3701,13 @@ export const ObservationsApiAxiosParamCreator = function (configuration?: Config
         /**
          * Returns information about the observation identified by **entityId**
          * @summary Get information about an individual observation
-         * @param {number} entityId The id of the requested entity
+         * @param {string} entityId The id of the requested entity
          * @param {string} [$select] The list of properties that need to be returned
          * @param {string} [$expand] The list of related queries that need to be included in the result
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        v11ObservationsEntityIdGet: async (entityId: number, $select?: string, $expand?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        v11ObservationsEntityIdGet: async (entityId: string, $select?: string, $expand?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'entityId' is not null or undefined
             assertParamExists('v11ObservationsEntityIdGet', 'entityId', entityId)
             const localVarPath = `/v1.1/Observations({entityId})`
@@ -3629,20 +3815,20 @@ export const ObservationsApiFp = function(configuration?: Configuration) {
         /**
          * Returns information about the datastream for the observation identified by **entityId**
          * @summary Get information about an observation\'s datastream
-         * @param {number} entityId The id of the requested entity
+         * @param {string} entityId The id of the requested entity
          * @param {string} [$select] The list of properties that need to be returned
          * @param {string} [$expand] The list of related queries that need to be included in the result
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async v11ObservationsEntityIdDatastreamGet(entityId: number, $select?: string, $expand?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Datastream>> {
+        async v11ObservationsEntityIdDatastreamGet(entityId: string, $select?: string, $expand?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Datastream>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.v11ObservationsEntityIdDatastreamGet(entityId, $select, $expand, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * Returns all observations for the datastream of the observation identified by **entityId** (subject to any other parameters set)
          * @summary Get all observations for an observations\'s datastream
-         * @param {number} entityId The id of the requested entity
+         * @param {string} entityId The id of the requested entity
          * @param {number} [$skip] The number of elements to skip from the collection
          * @param {number} [$top] The number of elements to return
          * @param {boolean} [$count] Flag indicating if the total number of items in the collection should be returned.
@@ -3652,13 +3838,13 @@ export const ObservationsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async v11ObservationsEntityIdDatastreamObservationsGet(entityId: number, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Observations>> {
+        async v11ObservationsEntityIdDatastreamObservationsGet(entityId: string, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Observations>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.v11ObservationsEntityIdDatastreamObservationsGet(entityId, $skip, $top, $count, $select, $expand, $filter, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * 
-         * @param {number} entityId The id of the requested entity
+         * @param {string} entityId The id of the requested entity
          * @param {number} [$skip] The number of elements to skip from the collection
          * @param {number} [$top] The number of elements to return
          * @param {boolean} [$count] Flag indicating if the total number of items in the collection should be returned.
@@ -3668,25 +3854,25 @@ export const ObservationsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async v11ObservationsEntityIdDatastreamObservedPropertyDatastreamsGet(entityId: number, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Datastreams>> {
+        async v11ObservationsEntityIdDatastreamObservedPropertyDatastreamsGet(entityId: string, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Datastreams>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.v11ObservationsEntityIdDatastreamObservedPropertyDatastreamsGet(entityId, $skip, $top, $count, $select, $expand, $filter, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * 
-         * @param {number} entityId The id of the requested entity
+         * @param {string} entityId The id of the requested entity
          * @param {string} [$select] The list of properties that need to be returned
          * @param {string} [$expand] The list of related queries that need to be included in the result
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async v11ObservationsEntityIdDatastreamObservedPropertyGet(entityId: number, $select?: string, $expand?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ObservedProperty>> {
+        async v11ObservationsEntityIdDatastreamObservedPropertyGet(entityId: string, $select?: string, $expand?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ObservedProperty>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.v11ObservationsEntityIdDatastreamObservedPropertyGet(entityId, $select, $expand, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * 
-         * @param {number} entityId The id of the requested entity
+         * @param {string} entityId The id of the requested entity
          * @param {number} [$skip] The number of elements to skip from the collection
          * @param {number} [$top] The number of elements to return
          * @param {boolean} [$count] Flag indicating if the total number of items in the collection should be returned.
@@ -3696,25 +3882,25 @@ export const ObservationsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async v11ObservationsEntityIdDatastreamSensorDatastreamsGet(entityId: number, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Datastreams>> {
+        async v11ObservationsEntityIdDatastreamSensorDatastreamsGet(entityId: string, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Datastreams>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.v11ObservationsEntityIdDatastreamSensorDatastreamsGet(entityId, $skip, $top, $count, $select, $expand, $filter, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * 
-         * @param {number} entityId The id of the requested entity
+         * @param {string} entityId The id of the requested entity
          * @param {string} [$select] The list of properties that need to be returned
          * @param {string} [$expand] The list of related queries that need to be included in the result
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async v11ObservationsEntityIdDatastreamSensorGet(entityId: number, $select?: string, $expand?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Sensor>> {
+        async v11ObservationsEntityIdDatastreamSensorGet(entityId: string, $select?: string, $expand?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Sensor>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.v11ObservationsEntityIdDatastreamSensorGet(entityId, $select, $expand, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * 
-         * @param {number} entityId The id of the requested entity
+         * @param {string} entityId The id of the requested entity
          * @param {number} [$skip] The number of elements to skip from the collection
          * @param {number} [$top] The number of elements to return
          * @param {boolean} [$count] Flag indicating if the total number of items in the collection should be returned.
@@ -3724,25 +3910,25 @@ export const ObservationsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async v11ObservationsEntityIdDatastreamThingDatastreamsGet(entityId: number, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Datastreams>> {
+        async v11ObservationsEntityIdDatastreamThingDatastreamsGet(entityId: string, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Datastreams>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.v11ObservationsEntityIdDatastreamThingDatastreamsGet(entityId, $skip, $top, $count, $select, $expand, $filter, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * 
-         * @param {number} entityId The id of the requested entity
+         * @param {string} entityId The id of the requested entity
          * @param {string} [$select] The list of properties that need to be returned
          * @param {string} [$expand] The list of related queries that need to be included in the result
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async v11ObservationsEntityIdDatastreamThingGet(entityId: number, $select?: string, $expand?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Thing>> {
+        async v11ObservationsEntityIdDatastreamThingGet(entityId: string, $select?: string, $expand?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Thing>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.v11ObservationsEntityIdDatastreamThingGet(entityId, $select, $expand, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * 
-         * @param {number} entityId The id of the requested entity
+         * @param {string} entityId The id of the requested entity
          * @param {number} [$skip] The number of elements to skip from the collection
          * @param {number} [$top] The number of elements to return
          * @param {boolean} [$count] Flag indicating if the total number of items in the collection should be returned.
@@ -3752,26 +3938,26 @@ export const ObservationsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async v11ObservationsEntityIdDatastreamThingLocationsGet(entityId: number, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Locations>> {
+        async v11ObservationsEntityIdDatastreamThingLocationsGet(entityId: string, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Locations>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.v11ObservationsEntityIdDatastreamThingLocationsGet(entityId, $skip, $top, $count, $select, $expand, $filter, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * Returns information about the feature of interest for the observation identified by **entityId**
          * @summary Get information about an observation\'s feature of interest
-         * @param {number} entityId The id of the requested entity
+         * @param {string} entityId The id of the requested entity
          * @param {string} [$select] The list of properties that need to be returned
          * @param {string} [$expand] The list of related queries that need to be included in the result
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async v11ObservationsEntityIdFeatureOfInterestGet(entityId: number, $select?: string, $expand?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<FeatureOfInterest>> {
+        async v11ObservationsEntityIdFeatureOfInterestGet(entityId: string, $select?: string, $expand?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<FeatureOfInterest>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.v11ObservationsEntityIdFeatureOfInterestGet(entityId, $select, $expand, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * 
-         * @param {number} entityId The id of the requested entity
+         * @param {string} entityId The id of the requested entity
          * @param {number} [$skip] The number of elements to skip from the collection
          * @param {number} [$top] The number of elements to return
          * @param {boolean} [$count] Flag indicating if the total number of items in the collection should be returned.
@@ -3781,20 +3967,20 @@ export const ObservationsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async v11ObservationsEntityIdFeatureOfInterestObservationsGet(entityId: number, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Observations>> {
+        async v11ObservationsEntityIdFeatureOfInterestObservationsGet(entityId: string, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Observations>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.v11ObservationsEntityIdFeatureOfInterestObservationsGet(entityId, $skip, $top, $count, $select, $expand, $filter, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * Returns information about the observation identified by **entityId**
          * @summary Get information about an individual observation
-         * @param {number} entityId The id of the requested entity
+         * @param {string} entityId The id of the requested entity
          * @param {string} [$select] The list of properties that need to be returned
          * @param {string} [$expand] The list of related queries that need to be included in the result
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async v11ObservationsEntityIdGet(entityId: number, $select?: string, $expand?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Observation>> {
+        async v11ObservationsEntityIdGet(entityId: string, $select?: string, $expand?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Observation>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.v11ObservationsEntityIdGet(entityId, $select, $expand, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -3827,19 +4013,19 @@ export const ObservationsApiFactory = function (configuration?: Configuration, b
         /**
          * Returns information about the datastream for the observation identified by **entityId**
          * @summary Get information about an observation\'s datastream
-         * @param {number} entityId The id of the requested entity
+         * @param {string} entityId The id of the requested entity
          * @param {string} [$select] The list of properties that need to be returned
          * @param {string} [$expand] The list of related queries that need to be included in the result
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        v11ObservationsEntityIdDatastreamGet(entityId: number, $select?: string, $expand?: string, options?: any): AxiosPromise<Datastream> {
+        v11ObservationsEntityIdDatastreamGet(entityId: string, $select?: string, $expand?: string, options?: any): AxiosPromise<Datastream> {
             return localVarFp.v11ObservationsEntityIdDatastreamGet(entityId, $select, $expand, options).then((request) => request(axios, basePath));
         },
         /**
          * Returns all observations for the datastream of the observation identified by **entityId** (subject to any other parameters set)
          * @summary Get all observations for an observations\'s datastream
-         * @param {number} entityId The id of the requested entity
+         * @param {string} entityId The id of the requested entity
          * @param {number} [$skip] The number of elements to skip from the collection
          * @param {number} [$top] The number of elements to return
          * @param {boolean} [$count] Flag indicating if the total number of items in the collection should be returned.
@@ -3849,12 +4035,12 @@ export const ObservationsApiFactory = function (configuration?: Configuration, b
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        v11ObservationsEntityIdDatastreamObservationsGet(entityId: number, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: any): AxiosPromise<Observations> {
+        v11ObservationsEntityIdDatastreamObservationsGet(entityId: string, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: any): AxiosPromise<Observations> {
             return localVarFp.v11ObservationsEntityIdDatastreamObservationsGet(entityId, $skip, $top, $count, $select, $expand, $filter, options).then((request) => request(axios, basePath));
         },
         /**
          * 
-         * @param {number} entityId The id of the requested entity
+         * @param {string} entityId The id of the requested entity
          * @param {number} [$skip] The number of elements to skip from the collection
          * @param {number} [$top] The number of elements to return
          * @param {boolean} [$count] Flag indicating if the total number of items in the collection should be returned.
@@ -3864,23 +4050,23 @@ export const ObservationsApiFactory = function (configuration?: Configuration, b
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        v11ObservationsEntityIdDatastreamObservedPropertyDatastreamsGet(entityId: number, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: any): AxiosPromise<Datastreams> {
+        v11ObservationsEntityIdDatastreamObservedPropertyDatastreamsGet(entityId: string, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: any): AxiosPromise<Datastreams> {
             return localVarFp.v11ObservationsEntityIdDatastreamObservedPropertyDatastreamsGet(entityId, $skip, $top, $count, $select, $expand, $filter, options).then((request) => request(axios, basePath));
         },
         /**
          * 
-         * @param {number} entityId The id of the requested entity
+         * @param {string} entityId The id of the requested entity
          * @param {string} [$select] The list of properties that need to be returned
          * @param {string} [$expand] The list of related queries that need to be included in the result
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        v11ObservationsEntityIdDatastreamObservedPropertyGet(entityId: number, $select?: string, $expand?: string, options?: any): AxiosPromise<ObservedProperty> {
+        v11ObservationsEntityIdDatastreamObservedPropertyGet(entityId: string, $select?: string, $expand?: string, options?: any): AxiosPromise<ObservedProperty> {
             return localVarFp.v11ObservationsEntityIdDatastreamObservedPropertyGet(entityId, $select, $expand, options).then((request) => request(axios, basePath));
         },
         /**
          * 
-         * @param {number} entityId The id of the requested entity
+         * @param {string} entityId The id of the requested entity
          * @param {number} [$skip] The number of elements to skip from the collection
          * @param {number} [$top] The number of elements to return
          * @param {boolean} [$count] Flag indicating if the total number of items in the collection should be returned.
@@ -3890,23 +4076,23 @@ export const ObservationsApiFactory = function (configuration?: Configuration, b
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        v11ObservationsEntityIdDatastreamSensorDatastreamsGet(entityId: number, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: any): AxiosPromise<Datastreams> {
+        v11ObservationsEntityIdDatastreamSensorDatastreamsGet(entityId: string, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: any): AxiosPromise<Datastreams> {
             return localVarFp.v11ObservationsEntityIdDatastreamSensorDatastreamsGet(entityId, $skip, $top, $count, $select, $expand, $filter, options).then((request) => request(axios, basePath));
         },
         /**
          * 
-         * @param {number} entityId The id of the requested entity
+         * @param {string} entityId The id of the requested entity
          * @param {string} [$select] The list of properties that need to be returned
          * @param {string} [$expand] The list of related queries that need to be included in the result
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        v11ObservationsEntityIdDatastreamSensorGet(entityId: number, $select?: string, $expand?: string, options?: any): AxiosPromise<Sensor> {
+        v11ObservationsEntityIdDatastreamSensorGet(entityId: string, $select?: string, $expand?: string, options?: any): AxiosPromise<Sensor> {
             return localVarFp.v11ObservationsEntityIdDatastreamSensorGet(entityId, $select, $expand, options).then((request) => request(axios, basePath));
         },
         /**
          * 
-         * @param {number} entityId The id of the requested entity
+         * @param {string} entityId The id of the requested entity
          * @param {number} [$skip] The number of elements to skip from the collection
          * @param {number} [$top] The number of elements to return
          * @param {boolean} [$count] Flag indicating if the total number of items in the collection should be returned.
@@ -3916,23 +4102,23 @@ export const ObservationsApiFactory = function (configuration?: Configuration, b
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        v11ObservationsEntityIdDatastreamThingDatastreamsGet(entityId: number, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: any): AxiosPromise<Datastreams> {
+        v11ObservationsEntityIdDatastreamThingDatastreamsGet(entityId: string, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: any): AxiosPromise<Datastreams> {
             return localVarFp.v11ObservationsEntityIdDatastreamThingDatastreamsGet(entityId, $skip, $top, $count, $select, $expand, $filter, options).then((request) => request(axios, basePath));
         },
         /**
          * 
-         * @param {number} entityId The id of the requested entity
+         * @param {string} entityId The id of the requested entity
          * @param {string} [$select] The list of properties that need to be returned
          * @param {string} [$expand] The list of related queries that need to be included in the result
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        v11ObservationsEntityIdDatastreamThingGet(entityId: number, $select?: string, $expand?: string, options?: any): AxiosPromise<Thing> {
+        v11ObservationsEntityIdDatastreamThingGet(entityId: string, $select?: string, $expand?: string, options?: any): AxiosPromise<Thing> {
             return localVarFp.v11ObservationsEntityIdDatastreamThingGet(entityId, $select, $expand, options).then((request) => request(axios, basePath));
         },
         /**
          * 
-         * @param {number} entityId The id of the requested entity
+         * @param {string} entityId The id of the requested entity
          * @param {number} [$skip] The number of elements to skip from the collection
          * @param {number} [$top] The number of elements to return
          * @param {boolean} [$count] Flag indicating if the total number of items in the collection should be returned.
@@ -3942,24 +4128,24 @@ export const ObservationsApiFactory = function (configuration?: Configuration, b
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        v11ObservationsEntityIdDatastreamThingLocationsGet(entityId: number, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: any): AxiosPromise<Locations> {
+        v11ObservationsEntityIdDatastreamThingLocationsGet(entityId: string, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: any): AxiosPromise<Locations> {
             return localVarFp.v11ObservationsEntityIdDatastreamThingLocationsGet(entityId, $skip, $top, $count, $select, $expand, $filter, options).then((request) => request(axios, basePath));
         },
         /**
          * Returns information about the feature of interest for the observation identified by **entityId**
          * @summary Get information about an observation\'s feature of interest
-         * @param {number} entityId The id of the requested entity
+         * @param {string} entityId The id of the requested entity
          * @param {string} [$select] The list of properties that need to be returned
          * @param {string} [$expand] The list of related queries that need to be included in the result
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        v11ObservationsEntityIdFeatureOfInterestGet(entityId: number, $select?: string, $expand?: string, options?: any): AxiosPromise<FeatureOfInterest> {
+        v11ObservationsEntityIdFeatureOfInterestGet(entityId: string, $select?: string, $expand?: string, options?: any): AxiosPromise<FeatureOfInterest> {
             return localVarFp.v11ObservationsEntityIdFeatureOfInterestGet(entityId, $select, $expand, options).then((request) => request(axios, basePath));
         },
         /**
          * 
-         * @param {number} entityId The id of the requested entity
+         * @param {string} entityId The id of the requested entity
          * @param {number} [$skip] The number of elements to skip from the collection
          * @param {number} [$top] The number of elements to return
          * @param {boolean} [$count] Flag indicating if the total number of items in the collection should be returned.
@@ -3969,19 +4155,19 @@ export const ObservationsApiFactory = function (configuration?: Configuration, b
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        v11ObservationsEntityIdFeatureOfInterestObservationsGet(entityId: number, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: any): AxiosPromise<Observations> {
+        v11ObservationsEntityIdFeatureOfInterestObservationsGet(entityId: string, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: any): AxiosPromise<Observations> {
             return localVarFp.v11ObservationsEntityIdFeatureOfInterestObservationsGet(entityId, $skip, $top, $count, $select, $expand, $filter, options).then((request) => request(axios, basePath));
         },
         /**
          * Returns information about the observation identified by **entityId**
          * @summary Get information about an individual observation
-         * @param {number} entityId The id of the requested entity
+         * @param {string} entityId The id of the requested entity
          * @param {string} [$select] The list of properties that need to be returned
          * @param {string} [$expand] The list of related queries that need to be included in the result
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        v11ObservationsEntityIdGet(entityId: number, $select?: string, $expand?: string, options?: any): AxiosPromise<Observation> {
+        v11ObservationsEntityIdGet(entityId: string, $select?: string, $expand?: string, options?: any): AxiosPromise<Observation> {
             return localVarFp.v11ObservationsEntityIdGet(entityId, $select, $expand, options).then((request) => request(axios, basePath));
         },
         /**
@@ -4011,19 +4197,19 @@ export interface ObservationsApiInterface {
     /**
      * Returns information about the datastream for the observation identified by **entityId**
      * @summary Get information about an observation\'s datastream
-     * @param {number} entityId The id of the requested entity
+     * @param {string} entityId The id of the requested entity
      * @param {string} [$select] The list of properties that need to be returned
      * @param {string} [$expand] The list of related queries that need to be included in the result
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ObservationsApiInterface
      */
-    v11ObservationsEntityIdDatastreamGet(entityId: number, $select?: string, $expand?: string, options?: AxiosRequestConfig): AxiosPromise<Datastream>;
+    v11ObservationsEntityIdDatastreamGet(entityId: string, $select?: string, $expand?: string, options?: AxiosRequestConfig): AxiosPromise<Datastream>;
 
     /**
      * Returns all observations for the datastream of the observation identified by **entityId** (subject to any other parameters set)
      * @summary Get all observations for an observations\'s datastream
-     * @param {number} entityId The id of the requested entity
+     * @param {string} entityId The id of the requested entity
      * @param {number} [$skip] The number of elements to skip from the collection
      * @param {number} [$top] The number of elements to return
      * @param {boolean} [$count] Flag indicating if the total number of items in the collection should be returned.
@@ -4034,11 +4220,11 @@ export interface ObservationsApiInterface {
      * @throws {RequiredError}
      * @memberof ObservationsApiInterface
      */
-    v11ObservationsEntityIdDatastreamObservationsGet(entityId: number, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: AxiosRequestConfig): AxiosPromise<Observations>;
+    v11ObservationsEntityIdDatastreamObservationsGet(entityId: string, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: AxiosRequestConfig): AxiosPromise<Observations>;
 
     /**
      * 
-     * @param {number} entityId The id of the requested entity
+     * @param {string} entityId The id of the requested entity
      * @param {number} [$skip] The number of elements to skip from the collection
      * @param {number} [$top] The number of elements to return
      * @param {boolean} [$count] Flag indicating if the total number of items in the collection should be returned.
@@ -4049,22 +4235,22 @@ export interface ObservationsApiInterface {
      * @throws {RequiredError}
      * @memberof ObservationsApiInterface
      */
-    v11ObservationsEntityIdDatastreamObservedPropertyDatastreamsGet(entityId: number, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: AxiosRequestConfig): AxiosPromise<Datastreams>;
+    v11ObservationsEntityIdDatastreamObservedPropertyDatastreamsGet(entityId: string, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: AxiosRequestConfig): AxiosPromise<Datastreams>;
 
     /**
      * 
-     * @param {number} entityId The id of the requested entity
+     * @param {string} entityId The id of the requested entity
      * @param {string} [$select] The list of properties that need to be returned
      * @param {string} [$expand] The list of related queries that need to be included in the result
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ObservationsApiInterface
      */
-    v11ObservationsEntityIdDatastreamObservedPropertyGet(entityId: number, $select?: string, $expand?: string, options?: AxiosRequestConfig): AxiosPromise<ObservedProperty>;
+    v11ObservationsEntityIdDatastreamObservedPropertyGet(entityId: string, $select?: string, $expand?: string, options?: AxiosRequestConfig): AxiosPromise<ObservedProperty>;
 
     /**
      * 
-     * @param {number} entityId The id of the requested entity
+     * @param {string} entityId The id of the requested entity
      * @param {number} [$skip] The number of elements to skip from the collection
      * @param {number} [$top] The number of elements to return
      * @param {boolean} [$count] Flag indicating if the total number of items in the collection should be returned.
@@ -4075,22 +4261,22 @@ export interface ObservationsApiInterface {
      * @throws {RequiredError}
      * @memberof ObservationsApiInterface
      */
-    v11ObservationsEntityIdDatastreamSensorDatastreamsGet(entityId: number, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: AxiosRequestConfig): AxiosPromise<Datastreams>;
+    v11ObservationsEntityIdDatastreamSensorDatastreamsGet(entityId: string, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: AxiosRequestConfig): AxiosPromise<Datastreams>;
 
     /**
      * 
-     * @param {number} entityId The id of the requested entity
+     * @param {string} entityId The id of the requested entity
      * @param {string} [$select] The list of properties that need to be returned
      * @param {string} [$expand] The list of related queries that need to be included in the result
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ObservationsApiInterface
      */
-    v11ObservationsEntityIdDatastreamSensorGet(entityId: number, $select?: string, $expand?: string, options?: AxiosRequestConfig): AxiosPromise<Sensor>;
+    v11ObservationsEntityIdDatastreamSensorGet(entityId: string, $select?: string, $expand?: string, options?: AxiosRequestConfig): AxiosPromise<Sensor>;
 
     /**
      * 
-     * @param {number} entityId The id of the requested entity
+     * @param {string} entityId The id of the requested entity
      * @param {number} [$skip] The number of elements to skip from the collection
      * @param {number} [$top] The number of elements to return
      * @param {boolean} [$count] Flag indicating if the total number of items in the collection should be returned.
@@ -4101,22 +4287,22 @@ export interface ObservationsApiInterface {
      * @throws {RequiredError}
      * @memberof ObservationsApiInterface
      */
-    v11ObservationsEntityIdDatastreamThingDatastreamsGet(entityId: number, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: AxiosRequestConfig): AxiosPromise<Datastreams>;
+    v11ObservationsEntityIdDatastreamThingDatastreamsGet(entityId: string, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: AxiosRequestConfig): AxiosPromise<Datastreams>;
 
     /**
      * 
-     * @param {number} entityId The id of the requested entity
+     * @param {string} entityId The id of the requested entity
      * @param {string} [$select] The list of properties that need to be returned
      * @param {string} [$expand] The list of related queries that need to be included in the result
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ObservationsApiInterface
      */
-    v11ObservationsEntityIdDatastreamThingGet(entityId: number, $select?: string, $expand?: string, options?: AxiosRequestConfig): AxiosPromise<Thing>;
+    v11ObservationsEntityIdDatastreamThingGet(entityId: string, $select?: string, $expand?: string, options?: AxiosRequestConfig): AxiosPromise<Thing>;
 
     /**
      * 
-     * @param {number} entityId The id of the requested entity
+     * @param {string} entityId The id of the requested entity
      * @param {number} [$skip] The number of elements to skip from the collection
      * @param {number} [$top] The number of elements to return
      * @param {boolean} [$count] Flag indicating if the total number of items in the collection should be returned.
@@ -4127,23 +4313,23 @@ export interface ObservationsApiInterface {
      * @throws {RequiredError}
      * @memberof ObservationsApiInterface
      */
-    v11ObservationsEntityIdDatastreamThingLocationsGet(entityId: number, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: AxiosRequestConfig): AxiosPromise<Locations>;
+    v11ObservationsEntityIdDatastreamThingLocationsGet(entityId: string, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: AxiosRequestConfig): AxiosPromise<Locations>;
 
     /**
      * Returns information about the feature of interest for the observation identified by **entityId**
      * @summary Get information about an observation\'s feature of interest
-     * @param {number} entityId The id of the requested entity
+     * @param {string} entityId The id of the requested entity
      * @param {string} [$select] The list of properties that need to be returned
      * @param {string} [$expand] The list of related queries that need to be included in the result
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ObservationsApiInterface
      */
-    v11ObservationsEntityIdFeatureOfInterestGet(entityId: number, $select?: string, $expand?: string, options?: AxiosRequestConfig): AxiosPromise<FeatureOfInterest>;
+    v11ObservationsEntityIdFeatureOfInterestGet(entityId: string, $select?: string, $expand?: string, options?: AxiosRequestConfig): AxiosPromise<FeatureOfInterest>;
 
     /**
      * 
-     * @param {number} entityId The id of the requested entity
+     * @param {string} entityId The id of the requested entity
      * @param {number} [$skip] The number of elements to skip from the collection
      * @param {number} [$top] The number of elements to return
      * @param {boolean} [$count] Flag indicating if the total number of items in the collection should be returned.
@@ -4154,19 +4340,19 @@ export interface ObservationsApiInterface {
      * @throws {RequiredError}
      * @memberof ObservationsApiInterface
      */
-    v11ObservationsEntityIdFeatureOfInterestObservationsGet(entityId: number, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: AxiosRequestConfig): AxiosPromise<Observations>;
+    v11ObservationsEntityIdFeatureOfInterestObservationsGet(entityId: string, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: AxiosRequestConfig): AxiosPromise<Observations>;
 
     /**
      * Returns information about the observation identified by **entityId**
      * @summary Get information about an individual observation
-     * @param {number} entityId The id of the requested entity
+     * @param {string} entityId The id of the requested entity
      * @param {string} [$select] The list of properties that need to be returned
      * @param {string} [$expand] The list of related queries that need to be included in the result
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ObservationsApiInterface
      */
-    v11ObservationsEntityIdGet(entityId: number, $select?: string, $expand?: string, options?: AxiosRequestConfig): AxiosPromise<Observation>;
+    v11ObservationsEntityIdGet(entityId: string, $select?: string, $expand?: string, options?: AxiosRequestConfig): AxiosPromise<Observation>;
 
     /**
      * Returns all the observations provided by this api (subject to any parameters set)
@@ -4195,21 +4381,21 @@ export class ObservationsApi extends BaseAPI implements ObservationsApiInterface
     /**
      * Returns information about the datastream for the observation identified by **entityId**
      * @summary Get information about an observation\'s datastream
-     * @param {number} entityId The id of the requested entity
+     * @param {string} entityId The id of the requested entity
      * @param {string} [$select] The list of properties that need to be returned
      * @param {string} [$expand] The list of related queries that need to be included in the result
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ObservationsApi
      */
-    public v11ObservationsEntityIdDatastreamGet(entityId: number, $select?: string, $expand?: string, options?: AxiosRequestConfig) {
+    public v11ObservationsEntityIdDatastreamGet(entityId: string, $select?: string, $expand?: string, options?: AxiosRequestConfig) {
         return ObservationsApiFp(this.configuration).v11ObservationsEntityIdDatastreamGet(entityId, $select, $expand, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * Returns all observations for the datastream of the observation identified by **entityId** (subject to any other parameters set)
      * @summary Get all observations for an observations\'s datastream
-     * @param {number} entityId The id of the requested entity
+     * @param {string} entityId The id of the requested entity
      * @param {number} [$skip] The number of elements to skip from the collection
      * @param {number} [$top] The number of elements to return
      * @param {boolean} [$count] Flag indicating if the total number of items in the collection should be returned.
@@ -4220,13 +4406,13 @@ export class ObservationsApi extends BaseAPI implements ObservationsApiInterface
      * @throws {RequiredError}
      * @memberof ObservationsApi
      */
-    public v11ObservationsEntityIdDatastreamObservationsGet(entityId: number, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: AxiosRequestConfig) {
+    public v11ObservationsEntityIdDatastreamObservationsGet(entityId: string, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: AxiosRequestConfig) {
         return ObservationsApiFp(this.configuration).v11ObservationsEntityIdDatastreamObservationsGet(entityId, $skip, $top, $count, $select, $expand, $filter, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
-     * @param {number} entityId The id of the requested entity
+     * @param {string} entityId The id of the requested entity
      * @param {number} [$skip] The number of elements to skip from the collection
      * @param {number} [$top] The number of elements to return
      * @param {boolean} [$count] Flag indicating if the total number of items in the collection should be returned.
@@ -4237,26 +4423,26 @@ export class ObservationsApi extends BaseAPI implements ObservationsApiInterface
      * @throws {RequiredError}
      * @memberof ObservationsApi
      */
-    public v11ObservationsEntityIdDatastreamObservedPropertyDatastreamsGet(entityId: number, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: AxiosRequestConfig) {
+    public v11ObservationsEntityIdDatastreamObservedPropertyDatastreamsGet(entityId: string, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: AxiosRequestConfig) {
         return ObservationsApiFp(this.configuration).v11ObservationsEntityIdDatastreamObservedPropertyDatastreamsGet(entityId, $skip, $top, $count, $select, $expand, $filter, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
-     * @param {number} entityId The id of the requested entity
+     * @param {string} entityId The id of the requested entity
      * @param {string} [$select] The list of properties that need to be returned
      * @param {string} [$expand] The list of related queries that need to be included in the result
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ObservationsApi
      */
-    public v11ObservationsEntityIdDatastreamObservedPropertyGet(entityId: number, $select?: string, $expand?: string, options?: AxiosRequestConfig) {
+    public v11ObservationsEntityIdDatastreamObservedPropertyGet(entityId: string, $select?: string, $expand?: string, options?: AxiosRequestConfig) {
         return ObservationsApiFp(this.configuration).v11ObservationsEntityIdDatastreamObservedPropertyGet(entityId, $select, $expand, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
-     * @param {number} entityId The id of the requested entity
+     * @param {string} entityId The id of the requested entity
      * @param {number} [$skip] The number of elements to skip from the collection
      * @param {number} [$top] The number of elements to return
      * @param {boolean} [$count] Flag indicating if the total number of items in the collection should be returned.
@@ -4267,26 +4453,26 @@ export class ObservationsApi extends BaseAPI implements ObservationsApiInterface
      * @throws {RequiredError}
      * @memberof ObservationsApi
      */
-    public v11ObservationsEntityIdDatastreamSensorDatastreamsGet(entityId: number, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: AxiosRequestConfig) {
+    public v11ObservationsEntityIdDatastreamSensorDatastreamsGet(entityId: string, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: AxiosRequestConfig) {
         return ObservationsApiFp(this.configuration).v11ObservationsEntityIdDatastreamSensorDatastreamsGet(entityId, $skip, $top, $count, $select, $expand, $filter, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
-     * @param {number} entityId The id of the requested entity
+     * @param {string} entityId The id of the requested entity
      * @param {string} [$select] The list of properties that need to be returned
      * @param {string} [$expand] The list of related queries that need to be included in the result
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ObservationsApi
      */
-    public v11ObservationsEntityIdDatastreamSensorGet(entityId: number, $select?: string, $expand?: string, options?: AxiosRequestConfig) {
+    public v11ObservationsEntityIdDatastreamSensorGet(entityId: string, $select?: string, $expand?: string, options?: AxiosRequestConfig) {
         return ObservationsApiFp(this.configuration).v11ObservationsEntityIdDatastreamSensorGet(entityId, $select, $expand, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
-     * @param {number} entityId The id of the requested entity
+     * @param {string} entityId The id of the requested entity
      * @param {number} [$skip] The number of elements to skip from the collection
      * @param {number} [$top] The number of elements to return
      * @param {boolean} [$count] Flag indicating if the total number of items in the collection should be returned.
@@ -4297,26 +4483,26 @@ export class ObservationsApi extends BaseAPI implements ObservationsApiInterface
      * @throws {RequiredError}
      * @memberof ObservationsApi
      */
-    public v11ObservationsEntityIdDatastreamThingDatastreamsGet(entityId: number, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: AxiosRequestConfig) {
+    public v11ObservationsEntityIdDatastreamThingDatastreamsGet(entityId: string, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: AxiosRequestConfig) {
         return ObservationsApiFp(this.configuration).v11ObservationsEntityIdDatastreamThingDatastreamsGet(entityId, $skip, $top, $count, $select, $expand, $filter, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
-     * @param {number} entityId The id of the requested entity
+     * @param {string} entityId The id of the requested entity
      * @param {string} [$select] The list of properties that need to be returned
      * @param {string} [$expand] The list of related queries that need to be included in the result
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ObservationsApi
      */
-    public v11ObservationsEntityIdDatastreamThingGet(entityId: number, $select?: string, $expand?: string, options?: AxiosRequestConfig) {
+    public v11ObservationsEntityIdDatastreamThingGet(entityId: string, $select?: string, $expand?: string, options?: AxiosRequestConfig) {
         return ObservationsApiFp(this.configuration).v11ObservationsEntityIdDatastreamThingGet(entityId, $select, $expand, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
-     * @param {number} entityId The id of the requested entity
+     * @param {string} entityId The id of the requested entity
      * @param {number} [$skip] The number of elements to skip from the collection
      * @param {number} [$top] The number of elements to return
      * @param {boolean} [$count] Flag indicating if the total number of items in the collection should be returned.
@@ -4327,27 +4513,27 @@ export class ObservationsApi extends BaseAPI implements ObservationsApiInterface
      * @throws {RequiredError}
      * @memberof ObservationsApi
      */
-    public v11ObservationsEntityIdDatastreamThingLocationsGet(entityId: number, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: AxiosRequestConfig) {
+    public v11ObservationsEntityIdDatastreamThingLocationsGet(entityId: string, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: AxiosRequestConfig) {
         return ObservationsApiFp(this.configuration).v11ObservationsEntityIdDatastreamThingLocationsGet(entityId, $skip, $top, $count, $select, $expand, $filter, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * Returns information about the feature of interest for the observation identified by **entityId**
      * @summary Get information about an observation\'s feature of interest
-     * @param {number} entityId The id of the requested entity
+     * @param {string} entityId The id of the requested entity
      * @param {string} [$select] The list of properties that need to be returned
      * @param {string} [$expand] The list of related queries that need to be included in the result
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ObservationsApi
      */
-    public v11ObservationsEntityIdFeatureOfInterestGet(entityId: number, $select?: string, $expand?: string, options?: AxiosRequestConfig) {
+    public v11ObservationsEntityIdFeatureOfInterestGet(entityId: string, $select?: string, $expand?: string, options?: AxiosRequestConfig) {
         return ObservationsApiFp(this.configuration).v11ObservationsEntityIdFeatureOfInterestGet(entityId, $select, $expand, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
-     * @param {number} entityId The id of the requested entity
+     * @param {string} entityId The id of the requested entity
      * @param {number} [$skip] The number of elements to skip from the collection
      * @param {number} [$top] The number of elements to return
      * @param {boolean} [$count] Flag indicating if the total number of items in the collection should be returned.
@@ -4358,21 +4544,21 @@ export class ObservationsApi extends BaseAPI implements ObservationsApiInterface
      * @throws {RequiredError}
      * @memberof ObservationsApi
      */
-    public v11ObservationsEntityIdFeatureOfInterestObservationsGet(entityId: number, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: AxiosRequestConfig) {
+    public v11ObservationsEntityIdFeatureOfInterestObservationsGet(entityId: string, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: AxiosRequestConfig) {
         return ObservationsApiFp(this.configuration).v11ObservationsEntityIdFeatureOfInterestObservationsGet(entityId, $skip, $top, $count, $select, $expand, $filter, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * Returns information about the observation identified by **entityId**
      * @summary Get information about an individual observation
-     * @param {number} entityId The id of the requested entity
+     * @param {string} entityId The id of the requested entity
      * @param {string} [$select] The list of properties that need to be returned
      * @param {string} [$expand] The list of related queries that need to be included in the result
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ObservationsApi
      */
-    public v11ObservationsEntityIdGet(entityId: number, $select?: string, $expand?: string, options?: AxiosRequestConfig) {
+    public v11ObservationsEntityIdGet(entityId: string, $select?: string, $expand?: string, options?: AxiosRequestConfig) {
         return ObservationsApiFp(this.configuration).v11ObservationsEntityIdGet(entityId, $select, $expand, options).then((request) => request(this.axios, this.basePath));
     }
 
@@ -4404,7 +4590,7 @@ export const ObservedPropertiesApiAxiosParamCreator = function (configuration?: 
         /**
          * Returns all datastreams for the observed property identified by **entityId** (subject to any other parameters set)
          * @summary Get all datastreams for an observed property
-         * @param {number} entityId The id of the requested entity
+         * @param {string} entityId The id of the requested entity
          * @param {number} [$skip] The number of elements to skip from the collection
          * @param {number} [$top] The number of elements to return
          * @param {boolean} [$count] Flag indicating if the total number of items in the collection should be returned.
@@ -4414,7 +4600,7 @@ export const ObservedPropertiesApiAxiosParamCreator = function (configuration?: 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        v11ObservedPropertiesEntityIdDatastreamsGet: async (entityId: number, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        v11ObservedPropertiesEntityIdDatastreamsGet: async (entityId: string, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'entityId' is not null or undefined
             assertParamExists('v11ObservedPropertiesEntityIdDatastreamsGet', 'entityId', entityId)
             const localVarPath = `/v1.1/ObservedProperties({entityId})/Datastreams`
@@ -4468,13 +4654,13 @@ export const ObservedPropertiesApiAxiosParamCreator = function (configuration?: 
         /**
          * Returns information about the observed property identified by **entityId**
          * @summary Get information about an individual observed property
-         * @param {number} entityId The id of the requested entity
+         * @param {string} entityId The id of the requested entity
          * @param {string} [$select] The list of properties that need to be returned
          * @param {string} [$expand] The list of related queries that need to be included in the result
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        v11ObservedPropertiesEntityIdGet: async (entityId: number, $select?: string, $expand?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        v11ObservedPropertiesEntityIdGet: async (entityId: string, $select?: string, $expand?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'entityId' is not null or undefined
             assertParamExists('v11ObservedPropertiesEntityIdGet', 'entityId', entityId)
             const localVarPath = `/v1.1/ObservedProperties({entityId})`
@@ -4582,7 +4768,7 @@ export const ObservedPropertiesApiFp = function(configuration?: Configuration) {
         /**
          * Returns all datastreams for the observed property identified by **entityId** (subject to any other parameters set)
          * @summary Get all datastreams for an observed property
-         * @param {number} entityId The id of the requested entity
+         * @param {string} entityId The id of the requested entity
          * @param {number} [$skip] The number of elements to skip from the collection
          * @param {number} [$top] The number of elements to return
          * @param {boolean} [$count] Flag indicating if the total number of items in the collection should be returned.
@@ -4592,20 +4778,20 @@ export const ObservedPropertiesApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async v11ObservedPropertiesEntityIdDatastreamsGet(entityId: number, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Datastreams>> {
+        async v11ObservedPropertiesEntityIdDatastreamsGet(entityId: string, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Datastreams>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.v11ObservedPropertiesEntityIdDatastreamsGet(entityId, $skip, $top, $count, $select, $expand, $filter, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * Returns information about the observed property identified by **entityId**
          * @summary Get information about an individual observed property
-         * @param {number} entityId The id of the requested entity
+         * @param {string} entityId The id of the requested entity
          * @param {string} [$select] The list of properties that need to be returned
          * @param {string} [$expand] The list of related queries that need to be included in the result
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async v11ObservedPropertiesEntityIdGet(entityId: number, $select?: string, $expand?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ObservedProperty>> {
+        async v11ObservedPropertiesEntityIdGet(entityId: string, $select?: string, $expand?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ObservedProperty>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.v11ObservedPropertiesEntityIdGet(entityId, $select, $expand, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -4638,7 +4824,7 @@ export const ObservedPropertiesApiFactory = function (configuration?: Configurat
         /**
          * Returns all datastreams for the observed property identified by **entityId** (subject to any other parameters set)
          * @summary Get all datastreams for an observed property
-         * @param {number} entityId The id of the requested entity
+         * @param {string} entityId The id of the requested entity
          * @param {number} [$skip] The number of elements to skip from the collection
          * @param {number} [$top] The number of elements to return
          * @param {boolean} [$count] Flag indicating if the total number of items in the collection should be returned.
@@ -4648,19 +4834,19 @@ export const ObservedPropertiesApiFactory = function (configuration?: Configurat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        v11ObservedPropertiesEntityIdDatastreamsGet(entityId: number, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: any): AxiosPromise<Datastreams> {
+        v11ObservedPropertiesEntityIdDatastreamsGet(entityId: string, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: any): AxiosPromise<Datastreams> {
             return localVarFp.v11ObservedPropertiesEntityIdDatastreamsGet(entityId, $skip, $top, $count, $select, $expand, $filter, options).then((request) => request(axios, basePath));
         },
         /**
          * Returns information about the observed property identified by **entityId**
          * @summary Get information about an individual observed property
-         * @param {number} entityId The id of the requested entity
+         * @param {string} entityId The id of the requested entity
          * @param {string} [$select] The list of properties that need to be returned
          * @param {string} [$expand] The list of related queries that need to be included in the result
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        v11ObservedPropertiesEntityIdGet(entityId: number, $select?: string, $expand?: string, options?: any): AxiosPromise<ObservedProperty> {
+        v11ObservedPropertiesEntityIdGet(entityId: string, $select?: string, $expand?: string, options?: any): AxiosPromise<ObservedProperty> {
             return localVarFp.v11ObservedPropertiesEntityIdGet(entityId, $select, $expand, options).then((request) => request(axios, basePath));
         },
         /**
@@ -4690,7 +4876,7 @@ export interface ObservedPropertiesApiInterface {
     /**
      * Returns all datastreams for the observed property identified by **entityId** (subject to any other parameters set)
      * @summary Get all datastreams for an observed property
-     * @param {number} entityId The id of the requested entity
+     * @param {string} entityId The id of the requested entity
      * @param {number} [$skip] The number of elements to skip from the collection
      * @param {number} [$top] The number of elements to return
      * @param {boolean} [$count] Flag indicating if the total number of items in the collection should be returned.
@@ -4701,19 +4887,19 @@ export interface ObservedPropertiesApiInterface {
      * @throws {RequiredError}
      * @memberof ObservedPropertiesApiInterface
      */
-    v11ObservedPropertiesEntityIdDatastreamsGet(entityId: number, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: AxiosRequestConfig): AxiosPromise<Datastreams>;
+    v11ObservedPropertiesEntityIdDatastreamsGet(entityId: string, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: AxiosRequestConfig): AxiosPromise<Datastreams>;
 
     /**
      * Returns information about the observed property identified by **entityId**
      * @summary Get information about an individual observed property
-     * @param {number} entityId The id of the requested entity
+     * @param {string} entityId The id of the requested entity
      * @param {string} [$select] The list of properties that need to be returned
      * @param {string} [$expand] The list of related queries that need to be included in the result
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ObservedPropertiesApiInterface
      */
-    v11ObservedPropertiesEntityIdGet(entityId: number, $select?: string, $expand?: string, options?: AxiosRequestConfig): AxiosPromise<ObservedProperty>;
+    v11ObservedPropertiesEntityIdGet(entityId: string, $select?: string, $expand?: string, options?: AxiosRequestConfig): AxiosPromise<ObservedProperty>;
 
     /**
      * Returns all the observed properties provided by this api (subject to any parameters set)
@@ -4742,7 +4928,7 @@ export class ObservedPropertiesApi extends BaseAPI implements ObservedProperties
     /**
      * Returns all datastreams for the observed property identified by **entityId** (subject to any other parameters set)
      * @summary Get all datastreams for an observed property
-     * @param {number} entityId The id of the requested entity
+     * @param {string} entityId The id of the requested entity
      * @param {number} [$skip] The number of elements to skip from the collection
      * @param {number} [$top] The number of elements to return
      * @param {boolean} [$count] Flag indicating if the total number of items in the collection should be returned.
@@ -4753,21 +4939,21 @@ export class ObservedPropertiesApi extends BaseAPI implements ObservedProperties
      * @throws {RequiredError}
      * @memberof ObservedPropertiesApi
      */
-    public v11ObservedPropertiesEntityIdDatastreamsGet(entityId: number, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: AxiosRequestConfig) {
+    public v11ObservedPropertiesEntityIdDatastreamsGet(entityId: string, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: AxiosRequestConfig) {
         return ObservedPropertiesApiFp(this.configuration).v11ObservedPropertiesEntityIdDatastreamsGet(entityId, $skip, $top, $count, $select, $expand, $filter, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * Returns information about the observed property identified by **entityId**
      * @summary Get information about an individual observed property
-     * @param {number} entityId The id of the requested entity
+     * @param {string} entityId The id of the requested entity
      * @param {string} [$select] The list of properties that need to be returned
      * @param {string} [$expand] The list of related queries that need to be included in the result
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ObservedPropertiesApi
      */
-    public v11ObservedPropertiesEntityIdGet(entityId: number, $select?: string, $expand?: string, options?: AxiosRequestConfig) {
+    public v11ObservedPropertiesEntityIdGet(entityId: string, $select?: string, $expand?: string, options?: AxiosRequestConfig) {
         return ObservedPropertiesApiFp(this.configuration).v11ObservedPropertiesEntityIdGet(entityId, $select, $expand, options).then((request) => request(this.axios, this.basePath));
     }
 
@@ -4799,7 +4985,7 @@ export const SensorsApiAxiosParamCreator = function (configuration?: Configurati
         /**
          * Returns all datastreams for the sensor type identified by **entityId** (subject to any other parameters set)
          * @summary Get all datastreams for a sensor type
-         * @param {number} entityId The id of the requested entity
+         * @param {string} entityId The id of the requested entity
          * @param {number} [$skip] The number of elements to skip from the collection
          * @param {number} [$top] The number of elements to return
          * @param {boolean} [$count] Flag indicating if the total number of items in the collection should be returned.
@@ -4809,7 +4995,7 @@ export const SensorsApiAxiosParamCreator = function (configuration?: Configurati
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        v11SensorsEntityIdDatastreamsGet: async (entityId: number, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        v11SensorsEntityIdDatastreamsGet: async (entityId: string, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'entityId' is not null or undefined
             assertParamExists('v11SensorsEntityIdDatastreamsGet', 'entityId', entityId)
             const localVarPath = `/v1.1/Sensors({entityId})/Datastreams`
@@ -4863,13 +5049,13 @@ export const SensorsApiAxiosParamCreator = function (configuration?: Configurati
         /**
          * Returns information about the sensor type identified by **entityId**
          * @summary Get information about an individual sensor type
-         * @param {number} entityId The id of the requested entity
+         * @param {string} entityId The id of the requested entity
          * @param {string} [$select] The list of properties that need to be returned
          * @param {string} [$expand] The list of related queries that need to be included in the result
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        v11SensorsEntityIdGet: async (entityId: number, $select?: string, $expand?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        v11SensorsEntityIdGet: async (entityId: string, $select?: string, $expand?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'entityId' is not null or undefined
             assertParamExists('v11SensorsEntityIdGet', 'entityId', entityId)
             const localVarPath = `/v1.1/Sensors({entityId})`
@@ -4977,7 +5163,7 @@ export const SensorsApiFp = function(configuration?: Configuration) {
         /**
          * Returns all datastreams for the sensor type identified by **entityId** (subject to any other parameters set)
          * @summary Get all datastreams for a sensor type
-         * @param {number} entityId The id of the requested entity
+         * @param {string} entityId The id of the requested entity
          * @param {number} [$skip] The number of elements to skip from the collection
          * @param {number} [$top] The number of elements to return
          * @param {boolean} [$count] Flag indicating if the total number of items in the collection should be returned.
@@ -4987,20 +5173,20 @@ export const SensorsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async v11SensorsEntityIdDatastreamsGet(entityId: number, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Datastreams>> {
+        async v11SensorsEntityIdDatastreamsGet(entityId: string, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Datastreams>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.v11SensorsEntityIdDatastreamsGet(entityId, $skip, $top, $count, $select, $expand, $filter, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * Returns information about the sensor type identified by **entityId**
          * @summary Get information about an individual sensor type
-         * @param {number} entityId The id of the requested entity
+         * @param {string} entityId The id of the requested entity
          * @param {string} [$select] The list of properties that need to be returned
          * @param {string} [$expand] The list of related queries that need to be included in the result
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async v11SensorsEntityIdGet(entityId: number, $select?: string, $expand?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Sensor>> {
+        async v11SensorsEntityIdGet(entityId: string, $select?: string, $expand?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Sensor>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.v11SensorsEntityIdGet(entityId, $select, $expand, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -5033,7 +5219,7 @@ export const SensorsApiFactory = function (configuration?: Configuration, basePa
         /**
          * Returns all datastreams for the sensor type identified by **entityId** (subject to any other parameters set)
          * @summary Get all datastreams for a sensor type
-         * @param {number} entityId The id of the requested entity
+         * @param {string} entityId The id of the requested entity
          * @param {number} [$skip] The number of elements to skip from the collection
          * @param {number} [$top] The number of elements to return
          * @param {boolean} [$count] Flag indicating if the total number of items in the collection should be returned.
@@ -5043,19 +5229,19 @@ export const SensorsApiFactory = function (configuration?: Configuration, basePa
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        v11SensorsEntityIdDatastreamsGet(entityId: number, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: any): AxiosPromise<Datastreams> {
+        v11SensorsEntityIdDatastreamsGet(entityId: string, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: any): AxiosPromise<Datastreams> {
             return localVarFp.v11SensorsEntityIdDatastreamsGet(entityId, $skip, $top, $count, $select, $expand, $filter, options).then((request) => request(axios, basePath));
         },
         /**
          * Returns information about the sensor type identified by **entityId**
          * @summary Get information about an individual sensor type
-         * @param {number} entityId The id of the requested entity
+         * @param {string} entityId The id of the requested entity
          * @param {string} [$select] The list of properties that need to be returned
          * @param {string} [$expand] The list of related queries that need to be included in the result
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        v11SensorsEntityIdGet(entityId: number, $select?: string, $expand?: string, options?: any): AxiosPromise<Sensor> {
+        v11SensorsEntityIdGet(entityId: string, $select?: string, $expand?: string, options?: any): AxiosPromise<Sensor> {
             return localVarFp.v11SensorsEntityIdGet(entityId, $select, $expand, options).then((request) => request(axios, basePath));
         },
         /**
@@ -5085,7 +5271,7 @@ export interface SensorsApiInterface {
     /**
      * Returns all datastreams for the sensor type identified by **entityId** (subject to any other parameters set)
      * @summary Get all datastreams for a sensor type
-     * @param {number} entityId The id of the requested entity
+     * @param {string} entityId The id of the requested entity
      * @param {number} [$skip] The number of elements to skip from the collection
      * @param {number} [$top] The number of elements to return
      * @param {boolean} [$count] Flag indicating if the total number of items in the collection should be returned.
@@ -5096,19 +5282,19 @@ export interface SensorsApiInterface {
      * @throws {RequiredError}
      * @memberof SensorsApiInterface
      */
-    v11SensorsEntityIdDatastreamsGet(entityId: number, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: AxiosRequestConfig): AxiosPromise<Datastreams>;
+    v11SensorsEntityIdDatastreamsGet(entityId: string, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: AxiosRequestConfig): AxiosPromise<Datastreams>;
 
     /**
      * Returns information about the sensor type identified by **entityId**
      * @summary Get information about an individual sensor type
-     * @param {number} entityId The id of the requested entity
+     * @param {string} entityId The id of the requested entity
      * @param {string} [$select] The list of properties that need to be returned
      * @param {string} [$expand] The list of related queries that need to be included in the result
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof SensorsApiInterface
      */
-    v11SensorsEntityIdGet(entityId: number, $select?: string, $expand?: string, options?: AxiosRequestConfig): AxiosPromise<Sensor>;
+    v11SensorsEntityIdGet(entityId: string, $select?: string, $expand?: string, options?: AxiosRequestConfig): AxiosPromise<Sensor>;
 
     /**
      * Returns all the sensor types provided by this api (subject to any parameters set)
@@ -5137,7 +5323,7 @@ export class SensorsApi extends BaseAPI implements SensorsApiInterface {
     /**
      * Returns all datastreams for the sensor type identified by **entityId** (subject to any other parameters set)
      * @summary Get all datastreams for a sensor type
-     * @param {number} entityId The id of the requested entity
+     * @param {string} entityId The id of the requested entity
      * @param {number} [$skip] The number of elements to skip from the collection
      * @param {number} [$top] The number of elements to return
      * @param {boolean} [$count] Flag indicating if the total number of items in the collection should be returned.
@@ -5148,21 +5334,21 @@ export class SensorsApi extends BaseAPI implements SensorsApiInterface {
      * @throws {RequiredError}
      * @memberof SensorsApi
      */
-    public v11SensorsEntityIdDatastreamsGet(entityId: number, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: AxiosRequestConfig) {
+    public v11SensorsEntityIdDatastreamsGet(entityId: string, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: AxiosRequestConfig) {
         return SensorsApiFp(this.configuration).v11SensorsEntityIdDatastreamsGet(entityId, $skip, $top, $count, $select, $expand, $filter, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * Returns information about the sensor type identified by **entityId**
      * @summary Get information about an individual sensor type
-     * @param {number} entityId The id of the requested entity
+     * @param {string} entityId The id of the requested entity
      * @param {string} [$select] The list of properties that need to be returned
      * @param {string} [$expand] The list of related queries that need to be included in the result
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof SensorsApi
      */
-    public v11SensorsEntityIdGet(entityId: number, $select?: string, $expand?: string, options?: AxiosRequestConfig) {
+    public v11SensorsEntityIdGet(entityId: string, $select?: string, $expand?: string, options?: AxiosRequestConfig) {
         return SensorsApiFp(this.configuration).v11SensorsEntityIdGet(entityId, $select, $expand, options).then((request) => request(this.axios, this.basePath));
     }
 
@@ -5194,7 +5380,7 @@ export const ThingsApiAxiosParamCreator = function (configuration?: Configuratio
         /**
          * Returns all datastreams for the thing identified by **entityId** (subject to any other parameters set)
          * @summary Get all datastreams for a thing
-         * @param {number} entityId The id of the requested entity
+         * @param {string} entityId The id of the requested entity
          * @param {number} [$skip] The number of elements to skip from the collection
          * @param {number} [$top] The number of elements to return
          * @param {boolean} [$count] Flag indicating if the total number of items in the collection should be returned.
@@ -5204,7 +5390,7 @@ export const ThingsApiAxiosParamCreator = function (configuration?: Configuratio
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        v11ThingsEntityIdDatastreamsGet: async (entityId: number, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        v11ThingsEntityIdDatastreamsGet: async (entityId: string, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'entityId' is not null or undefined
             assertParamExists('v11ThingsEntityIdDatastreamsGet', 'entityId', entityId)
             const localVarPath = `/v1.1/Things({entityId})/Datastreams`
@@ -5258,13 +5444,13 @@ export const ThingsApiAxiosParamCreator = function (configuration?: Configuratio
         /**
          * Returns information about the thing identified by **entityId**
          * @summary Get information about an individual thing
-         * @param {number} entityId The id of the requested entity
+         * @param {string} entityId The id of the requested entity
          * @param {string} [$select] The list of properties that need to be returned
          * @param {string} [$expand] The list of related queries that need to be included in the result
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        v11ThingsEntityIdGet: async (entityId: number, $select?: string, $expand?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        v11ThingsEntityIdGet: async (entityId: string, $select?: string, $expand?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'entityId' is not null or undefined
             assertParamExists('v11ThingsEntityIdGet', 'entityId', entityId)
             const localVarPath = `/v1.1/Things({entityId})`
@@ -5302,7 +5488,7 @@ export const ThingsApiAxiosParamCreator = function (configuration?: Configuratio
         /**
          * Returns information about the location for the thing identified by **entityId**
          * @summary Get information about a things\'s location
-         * @param {number} entityId The id of the requested entity
+         * @param {string} entityId The id of the requested entity
          * @param {number} [$skip] The number of elements to skip from the collection
          * @param {number} [$top] The number of elements to return
          * @param {boolean} [$count] Flag indicating if the total number of items in the collection should be returned.
@@ -5312,7 +5498,7 @@ export const ThingsApiAxiosParamCreator = function (configuration?: Configuratio
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        v11ThingsEntityIdLocationsGet: async (entityId: number, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        v11ThingsEntityIdLocationsGet: async (entityId: string, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'entityId' is not null or undefined
             assertParamExists('v11ThingsEntityIdLocationsGet', 'entityId', entityId)
             const localVarPath = `/v1.1/Things({entityId})/Locations`
@@ -5436,7 +5622,7 @@ export const ThingsApiFp = function(configuration?: Configuration) {
         /**
          * Returns all datastreams for the thing identified by **entityId** (subject to any other parameters set)
          * @summary Get all datastreams for a thing
-         * @param {number} entityId The id of the requested entity
+         * @param {string} entityId The id of the requested entity
          * @param {number} [$skip] The number of elements to skip from the collection
          * @param {number} [$top] The number of elements to return
          * @param {boolean} [$count] Flag indicating if the total number of items in the collection should be returned.
@@ -5446,27 +5632,27 @@ export const ThingsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async v11ThingsEntityIdDatastreamsGet(entityId: number, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Datastreams>> {
+        async v11ThingsEntityIdDatastreamsGet(entityId: string, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Datastreams>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.v11ThingsEntityIdDatastreamsGet(entityId, $skip, $top, $count, $select, $expand, $filter, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * Returns information about the thing identified by **entityId**
          * @summary Get information about an individual thing
-         * @param {number} entityId The id of the requested entity
+         * @param {string} entityId The id of the requested entity
          * @param {string} [$select] The list of properties that need to be returned
          * @param {string} [$expand] The list of related queries that need to be included in the result
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async v11ThingsEntityIdGet(entityId: number, $select?: string, $expand?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Thing>> {
+        async v11ThingsEntityIdGet(entityId: string, $select?: string, $expand?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Thing>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.v11ThingsEntityIdGet(entityId, $select, $expand, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * Returns information about the location for the thing identified by **entityId**
          * @summary Get information about a things\'s location
-         * @param {number} entityId The id of the requested entity
+         * @param {string} entityId The id of the requested entity
          * @param {number} [$skip] The number of elements to skip from the collection
          * @param {number} [$top] The number of elements to return
          * @param {boolean} [$count] Flag indicating if the total number of items in the collection should be returned.
@@ -5476,7 +5662,7 @@ export const ThingsApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async v11ThingsEntityIdLocationsGet(entityId: number, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Locations>> {
+        async v11ThingsEntityIdLocationsGet(entityId: string, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Locations>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.v11ThingsEntityIdLocationsGet(entityId, $skip, $top, $count, $select, $expand, $filter, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -5509,7 +5695,7 @@ export const ThingsApiFactory = function (configuration?: Configuration, basePat
         /**
          * Returns all datastreams for the thing identified by **entityId** (subject to any other parameters set)
          * @summary Get all datastreams for a thing
-         * @param {number} entityId The id of the requested entity
+         * @param {string} entityId The id of the requested entity
          * @param {number} [$skip] The number of elements to skip from the collection
          * @param {number} [$top] The number of elements to return
          * @param {boolean} [$count] Flag indicating if the total number of items in the collection should be returned.
@@ -5519,25 +5705,25 @@ export const ThingsApiFactory = function (configuration?: Configuration, basePat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        v11ThingsEntityIdDatastreamsGet(entityId: number, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: any): AxiosPromise<Datastreams> {
+        v11ThingsEntityIdDatastreamsGet(entityId: string, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: any): AxiosPromise<Datastreams> {
             return localVarFp.v11ThingsEntityIdDatastreamsGet(entityId, $skip, $top, $count, $select, $expand, $filter, options).then((request) => request(axios, basePath));
         },
         /**
          * Returns information about the thing identified by **entityId**
          * @summary Get information about an individual thing
-         * @param {number} entityId The id of the requested entity
+         * @param {string} entityId The id of the requested entity
          * @param {string} [$select] The list of properties that need to be returned
          * @param {string} [$expand] The list of related queries that need to be included in the result
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        v11ThingsEntityIdGet(entityId: number, $select?: string, $expand?: string, options?: any): AxiosPromise<Thing> {
+        v11ThingsEntityIdGet(entityId: string, $select?: string, $expand?: string, options?: any): AxiosPromise<Thing> {
             return localVarFp.v11ThingsEntityIdGet(entityId, $select, $expand, options).then((request) => request(axios, basePath));
         },
         /**
          * Returns information about the location for the thing identified by **entityId**
          * @summary Get information about a things\'s location
-         * @param {number} entityId The id of the requested entity
+         * @param {string} entityId The id of the requested entity
          * @param {number} [$skip] The number of elements to skip from the collection
          * @param {number} [$top] The number of elements to return
          * @param {boolean} [$count] Flag indicating if the total number of items in the collection should be returned.
@@ -5547,7 +5733,7 @@ export const ThingsApiFactory = function (configuration?: Configuration, basePat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        v11ThingsEntityIdLocationsGet(entityId: number, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: any): AxiosPromise<Locations> {
+        v11ThingsEntityIdLocationsGet(entityId: string, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: any): AxiosPromise<Locations> {
             return localVarFp.v11ThingsEntityIdLocationsGet(entityId, $skip, $top, $count, $select, $expand, $filter, options).then((request) => request(axios, basePath));
         },
         /**
@@ -5577,7 +5763,7 @@ export interface ThingsApiInterface {
     /**
      * Returns all datastreams for the thing identified by **entityId** (subject to any other parameters set)
      * @summary Get all datastreams for a thing
-     * @param {number} entityId The id of the requested entity
+     * @param {string} entityId The id of the requested entity
      * @param {number} [$skip] The number of elements to skip from the collection
      * @param {number} [$top] The number of elements to return
      * @param {boolean} [$count] Flag indicating if the total number of items in the collection should be returned.
@@ -5588,24 +5774,24 @@ export interface ThingsApiInterface {
      * @throws {RequiredError}
      * @memberof ThingsApiInterface
      */
-    v11ThingsEntityIdDatastreamsGet(entityId: number, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: AxiosRequestConfig): AxiosPromise<Datastreams>;
+    v11ThingsEntityIdDatastreamsGet(entityId: string, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: AxiosRequestConfig): AxiosPromise<Datastreams>;
 
     /**
      * Returns information about the thing identified by **entityId**
      * @summary Get information about an individual thing
-     * @param {number} entityId The id of the requested entity
+     * @param {string} entityId The id of the requested entity
      * @param {string} [$select] The list of properties that need to be returned
      * @param {string} [$expand] The list of related queries that need to be included in the result
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ThingsApiInterface
      */
-    v11ThingsEntityIdGet(entityId: number, $select?: string, $expand?: string, options?: AxiosRequestConfig): AxiosPromise<Thing>;
+    v11ThingsEntityIdGet(entityId: string, $select?: string, $expand?: string, options?: AxiosRequestConfig): AxiosPromise<Thing>;
 
     /**
      * Returns information about the location for the thing identified by **entityId**
      * @summary Get information about a things\'s location
-     * @param {number} entityId The id of the requested entity
+     * @param {string} entityId The id of the requested entity
      * @param {number} [$skip] The number of elements to skip from the collection
      * @param {number} [$top] The number of elements to return
      * @param {boolean} [$count] Flag indicating if the total number of items in the collection should be returned.
@@ -5616,7 +5802,7 @@ export interface ThingsApiInterface {
      * @throws {RequiredError}
      * @memberof ThingsApiInterface
      */
-    v11ThingsEntityIdLocationsGet(entityId: number, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: AxiosRequestConfig): AxiosPromise<Locations>;
+    v11ThingsEntityIdLocationsGet(entityId: string, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: AxiosRequestConfig): AxiosPromise<Locations>;
 
     /**
      * Returns all the things provided by this api (subject to any parameters set)
@@ -5645,7 +5831,7 @@ export class ThingsApi extends BaseAPI implements ThingsApiInterface {
     /**
      * Returns all datastreams for the thing identified by **entityId** (subject to any other parameters set)
      * @summary Get all datastreams for a thing
-     * @param {number} entityId The id of the requested entity
+     * @param {string} entityId The id of the requested entity
      * @param {number} [$skip] The number of elements to skip from the collection
      * @param {number} [$top] The number of elements to return
      * @param {boolean} [$count] Flag indicating if the total number of items in the collection should be returned.
@@ -5656,28 +5842,28 @@ export class ThingsApi extends BaseAPI implements ThingsApiInterface {
      * @throws {RequiredError}
      * @memberof ThingsApi
      */
-    public v11ThingsEntityIdDatastreamsGet(entityId: number, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: AxiosRequestConfig) {
+    public v11ThingsEntityIdDatastreamsGet(entityId: string, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: AxiosRequestConfig) {
         return ThingsApiFp(this.configuration).v11ThingsEntityIdDatastreamsGet(entityId, $skip, $top, $count, $select, $expand, $filter, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * Returns information about the thing identified by **entityId**
      * @summary Get information about an individual thing
-     * @param {number} entityId The id of the requested entity
+     * @param {string} entityId The id of the requested entity
      * @param {string} [$select] The list of properties that need to be returned
      * @param {string} [$expand] The list of related queries that need to be included in the result
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ThingsApi
      */
-    public v11ThingsEntityIdGet(entityId: number, $select?: string, $expand?: string, options?: AxiosRequestConfig) {
+    public v11ThingsEntityIdGet(entityId: string, $select?: string, $expand?: string, options?: AxiosRequestConfig) {
         return ThingsApiFp(this.configuration).v11ThingsEntityIdGet(entityId, $select, $expand, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * Returns information about the location for the thing identified by **entityId**
      * @summary Get information about a things\'s location
-     * @param {number} entityId The id of the requested entity
+     * @param {string} entityId The id of the requested entity
      * @param {number} [$skip] The number of elements to skip from the collection
      * @param {number} [$top] The number of elements to return
      * @param {boolean} [$count] Flag indicating if the total number of items in the collection should be returned.
@@ -5688,7 +5874,7 @@ export class ThingsApi extends BaseAPI implements ThingsApiInterface {
      * @throws {RequiredError}
      * @memberof ThingsApi
      */
-    public v11ThingsEntityIdLocationsGet(entityId: number, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: AxiosRequestConfig) {
+    public v11ThingsEntityIdLocationsGet(entityId: string, $skip?: number, $top?: number, $count?: boolean, $select?: string, $expand?: string, $filter?: string, options?: AxiosRequestConfig) {
         return ThingsApiFp(this.configuration).v11ThingsEntityIdLocationsGet(entityId, $skip, $top, $count, $select, $expand, $filter, options).then((request) => request(this.axios, this.basePath));
     }
 

@@ -1,22 +1,26 @@
-import Picon  from './TestPlugin/Icon/PiconWidget.vue';
+import ThingWidget  from './TestPlugin/widgets/ThingWidget.vue';
 
 import {enabledWidgets, widgetNames} from "@/components/Widgets";
-import {cid, container, inject, injectable} from 'inversify-props';
 import {type StoreManagerI, useStoreManager} from "@/composables/storeManager";
 import {useDatasourceManager} from "@/composables/datasourceManager";
+import {useDataPointRegistry} from "@/plugins/TestPlugin/composables/datapointRegistry";
 import STADataSource from "@/plugins/TestPlugin/dataSources/STADataSource";
 import StaStore from "@/plugins/TestPlugin/stores/StaStore";
+import TLCDataLabelRendererDescription
+    from "@/plugins/TestPlugin/widgets/parts/dataLabelRenderer/TLCDataLabelRendererDescription";
+import ValueUnitDataLabelRendererDescription
+    from "@/plugins/TestPlugin/widgets/parts/dataLabelRenderer/ValueUnitDataLabelRendererDescription";
 
 
 
 export default {
 
     install: (app) => {
-        app.component(Picon);
-        enabledWidgets['PiconWidget']= Picon;  //ToDo add register Method on widget registery
-        widgetNames.push( { name: "PiconWidget", label: "p-icon"});
+        app.component(ThingWidget);
+        enabledWidgets['ThingWidget']= ThingWidget;  //ToDo add register Method on widget registery
+        widgetNames.push( { name: "ThingWidget", label: "ThingWidget"});
 
-        const storemanger = container.get<StoreManagerI>(cid.UseStoreManager); // injection via inverserify
+        //const storemanger = container.get<StoreManagerI>(cid.UseStoreManager); // injection via inverserify
         //console.log(storemanger.register(...)) //register Store
 
         const storeMgr = useStoreManager();
@@ -24,6 +28,8 @@ export default {
 
         dataSourceMgr.registerDataSource(STADataSource);
         storeMgr.registerStoreType(StaStore);
+        useDataPointRegistry().registerDataPointRenderer(new TLCDataLabelRendererDescription())
+        useDataPointRegistry().registerDataPointRenderer(new ValueUnitDataLabelRendererDescription())
 
     }
 };
