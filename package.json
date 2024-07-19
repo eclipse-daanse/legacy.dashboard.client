@@ -84,7 +84,6 @@
     "chromedriver": "126.0.5",
     "chartjs-adapter-date-fns": "^3.0.0",
     "chartjs-adapter-moment": "^1.0.1",
-    "chromedriver": "119.0.1",
     "cross-fetch": "4.0.0",
     "date-fns": "^3.6.0",
     "eslint": "8.55.0",
