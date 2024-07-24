@@ -75,9 +75,6 @@ export class CSVComposer implements Composer<CSVSelector>{
                     from:undefined,
                 } as AxisData
             }
-
-
-
         });
     }
 
