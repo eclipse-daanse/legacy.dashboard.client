@@ -10,12 +10,14 @@ import TLCDataLabelRendererDescription
     from "@/plugins/TestPlugin/widgets/parts/dataLabelRenderer/TLCDataLabelRendererDescription";
 import ValueUnitDataLabelRendererDescription
     from "@/plugins/TestPlugin/widgets/parts/dataLabelRenderer/ValueUnitDataLabelRendererDescription";
+import OGCSTAStoreItem from "@/components/Stores/ListItems/OGCSTAStoreItem.vue";
 
 
 
 export default {
 
     install: (app) => {
+        app.component(OGCSTAStoreItem);
         app.component(ThingWidget);
         enabledWidgets['ThingWidget']= ThingWidget;  //ToDo add register Method on widget registery
         widgetNames.push( { name: "ThingWidget", label: "ThingWidget"});

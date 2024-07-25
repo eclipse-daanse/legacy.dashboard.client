@@ -19,7 +19,7 @@ declare interface IDatasource {
   id: string;
   caption: string;
   url: string;
-  type: "REST" | "XMLA" | "CSV" | "JSON" | "MQTT";
+  type: "REST" | "XMLA" | "CSV" | "JSON" | "MQTT"|"OGCSTA";
   getData: (params: any) => Promise<any>;
 }
 

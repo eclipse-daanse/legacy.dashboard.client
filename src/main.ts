@@ -87,6 +87,7 @@ import {XMLAStore} from "@/stores/Widgets/XMLAStore";
 import {Store} from "@/stores/Widgets/Store";
 import Chart from "@/plugins/charts/Chart";
 import CSVStore from "@/plugins/charts/stores/CSVStore";
+import OGCSTAComposerPlugin from "@/plugins/OGCSTAComposer/OGCSTAComposerPlugin";
 
 //@ts-ignore
 const app = createApp(App);
@@ -201,5 +202,6 @@ useStoreManager().registerStoreType(Store);
 
 
 app.use(Chart);
+app.use(OGCSTAComposerPlugin);
 app.mount("#app");
 export default app;
