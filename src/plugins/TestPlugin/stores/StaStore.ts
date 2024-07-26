@@ -32,9 +32,9 @@ export default class StaStore implements IStore,ISerializable{
     async getData(options=undefined): Promise<any>  {
         const datasource = this.datasourceManager.getDatasource(this.datasourceId);
         const newData = await datasource.getData(options);
-        if(options!=undefined){
-            this.data = newData;
-        }
+
+        this.data = newData;
+
         return this.data;
     }
     async getObservations(ds:Datastream){
@@ -50,7 +50,8 @@ export default class StaStore implements IStore,ISerializable{
             if(this.data){
                 return this.data.locations?.map(location=>location.Things).flat()
             }else {
-                return []
+                await this.getData();
+                return this.data!.locations.map(location=>location.Things).flat()
             }
     }
 

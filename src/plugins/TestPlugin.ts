@@ -17,7 +17,7 @@ import OGCSTAStoreItem from "@/components/Stores/ListItems/OGCSTAStoreItem.vue";
 export default {
 
     install: (app) => {
-        app.component(OGCSTAStoreItem);
+        app.component('OGCSTAStoreItem',OGCSTAStoreItem);
         app.component(ThingWidget);
         enabledWidgets['ThingWidget']= ThingWidget;  //ToDo add register Method on widget registery
         widgetNames.push( { name: "ThingWidget", label: "ThingWidget"});
