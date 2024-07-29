@@ -98,6 +98,7 @@ const headers = computed(()=>{
             />-->
         </template>
 </div>
+</div>
 </template>
 
 <style scoped lang="scss">
