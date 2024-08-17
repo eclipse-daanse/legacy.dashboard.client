@@ -89,7 +89,7 @@
     "eslint-plugin-import": "^2.29.0",
     "eslint-plugin-storybook": "^0.8.0",
     "eslint-plugin-vue": "^9.19.2",
-    "geckodriver": "^4.2.1",
+    "geckodriver": "^4.4.3",
     "jsdom": "^23.0.1",
     "mocha-json-output-reporter": "^2.1.0",
     "mocha-junit-reporter": "^2.2.1",
