@@ -39,7 +39,7 @@ export interface IOGCSTA{
 
 
 
-export default class STADataSource extends DataSource implements IDatasource {
+export default class STADataSource extends DataSource implements IDatasource,ISerializable {
 
     public static readonly TYPE = "OGCSTA";
     public readonly type = STADataSource.TYPE;
@@ -263,6 +263,24 @@ export default class STADataSource extends DataSource implements IDatasource {
             }
         }
         return locations;
+    }
+
+    getState(): any {
+        return {
+            id: this.id,
+            url: this.url,
+            caption: this.caption,
+            type: this.type
+        }
+    }
+
+    loadState(state: any, eventBus: any): void {
+        const parsed = JSON.parse(state);
+
+        this.id = parsed.id;
+        this.url = parsed.url;
+        this.caption = parsed.caption;
+        //this.type = parsed.type;
     }
 
 }

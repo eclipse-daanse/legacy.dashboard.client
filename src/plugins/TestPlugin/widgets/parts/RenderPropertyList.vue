@@ -1,12 +1,16 @@
 <script setup lang="ts">
 
-import type {Datastream, Thing} from "@/plugins/TestPlugin/dataSources/STAClient";
-import {ref, toRaw} from "vue";
+
+import {reactive, ref, toRaw} from "vue";
 import type {IRenderer} from "@/plugins/TestPlugin/widgets/api/Renderer";
-import RenderPropertyListItem from "@/plugins/TestPlugin/widgets/parts/RenderPropertyListItem.vue";
+import RenderPropertyListItemThing from "@/plugins/TestPlugin/widgets/parts/RenderPropertyListItemThing.vue";
 
 
-const model  = defineModel<IRenderer[]|undefined>();
+const model  = defineModel<IRenderer[]|undefined>({
+default:
+() => {
+    return (
+        reactive({}))}});
 const editmodel = ref<IRenderer|undefined>(undefined)
 const emit = defineEmits<{(
     e:'addRenderer',renderer:IRenderer[])
@@ -17,8 +21,6 @@ const renderers = ref<IRenderer[]>([] );
 const columns = [
   { key: "thing.prop", sortable: true },
   { key: "thing.value", sortable: true },
-  { key: "datastream.prop", sortable: true },
-  { key: "datastream.value", sortable: true },
   { key: "actions", width: 80 },
 ];
 const add = ()=>{
@@ -38,8 +40,6 @@ const deleteItemById = (row:number)=>{
 }
 
 const addRenderer = (renderer:IRenderer)=>{
-  console.log(renderer)
-  console.log(model)
   model.value?.push(renderer)
   //emit('addRenderer',renderers.value)
 }
@@ -95,9 +95,9 @@ const listitem = ref(null);
       blur
       max-height="800px"
       fixed-layout
-      :beforeOk="hide => {if(editmodel === undefined){(listitem as RenderPropertyListItem).submit()};hide()}"
+      :beforeOk="hide => {if(editmodel === undefined){(listitem as RenderPropertyListItemThing).submit()};hide()}"
   >
-   <RenderPropertyListItem ref="listitem" @add-renderer="addRenderer" v-model="editmodel"></RenderPropertyListItem>
+   <RenderPropertyListItemThing ref="listitem" @add-renderer="addRenderer" v-model="editmodel"></RenderPropertyListItemThing>
 
   </VaModal>
 

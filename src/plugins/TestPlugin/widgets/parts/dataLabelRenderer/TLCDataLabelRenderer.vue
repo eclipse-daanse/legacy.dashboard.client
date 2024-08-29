@@ -36,18 +36,16 @@ defineExpose({
 
 <style scoped>
 .tlc {
-  position: absolute;
-
-  border: 1px solid #ccc;
-
-  background: #fff;
-  padding: 4px;
-  border-radius: 21px;
-  /* box-shadow: 3px 14px 15px 0px rgba(0, 0, 0, 0.43); */
-  font-size: 16px;
-
+    position: absolute;
+    border: 1px solid #ccc;
+    background: #fff;
+    padding: 4px;
+    border-radius: 21px;
+    text-wrap: nowrap;
+    /* box-shadow: 3px 14px 15px 0px rgba(0, 0, 0, 0.43); */
+    font-size: 16px;
+    margin: 22px 0px;
     transform: rotate(-90deg);
-
 
 }
 

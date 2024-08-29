@@ -57,13 +57,23 @@ export default class StaStore implements IStore,ISerializable{
 
 
 
-    getState(): string {
-        return "";
+    getState(): any {
+        return {
+            caption: this.caption,
+            id: this.id,
+            events: this.events,
+            datasourceId: this.datasourceId,
+            type: this.type,
+        };
     }
 
 
 
-    loadState(state: string, eventBus: any): void {
+    loadState(state: any, eventBus: any): void {
+        this.caption = state.caption;
+        this.id = state.id;
+        this.events = state.events;
+        this.datasourceId = state.datasourceId;
     }
 
 

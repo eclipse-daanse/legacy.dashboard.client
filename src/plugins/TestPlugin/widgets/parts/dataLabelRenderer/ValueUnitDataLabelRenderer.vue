@@ -41,11 +41,16 @@ defineExpose({
 
 <style scoped>
 .datapoint{
-  position: absolute;
-  border: 1px solid #ccc;
-  background: #fff;
-  padding: 4px;
-  border-radius: 21px;
+    display: inline-block;
+    text-wrap: nowrap;
+    position: absolute;
+    border: 1px solid #ccc;
+    background: #fff;
+    padding: 4px;
+    margin-top: 32px;
+    margin-left: -38px;
+    border-radius: 21px;
+
 }
 
 </style>

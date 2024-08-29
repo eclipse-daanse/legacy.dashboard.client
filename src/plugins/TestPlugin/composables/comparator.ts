@@ -1,4 +1,4 @@
-import type {IRenderer} from "@/plugins/TestPlugin/widgets/api/Renderer";
+import type {IDSRenderer, IRenderer} from "@/plugins/TestPlugin/widgets/api/Renderer";
 import type {Datastream, Thing} from "@/plugins/TestPlugin/dataSources/STAClient";
 
 
@@ -32,7 +32,7 @@ export function useComparator() {
         return  firstStep;
     }
 
-    const compareDatastream=(ds:Datastream, renderer:IRenderer)=>{
+    const compareDatastream=(ds:Datastream, renderer:IDSRenderer)=>{
 
             if(!renderer.datastream){
                 return true

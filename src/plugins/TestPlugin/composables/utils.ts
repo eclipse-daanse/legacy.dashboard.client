@@ -20,6 +20,7 @@ export function useUtils() {
         return true;
     }
     const isFeatureCollection= (point: any)=>{
+             if (!point) return false;
             if (!point.type) return false;
             if (point.type !== 'FeatureCollection') return false;
             return true;

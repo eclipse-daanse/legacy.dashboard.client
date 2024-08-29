@@ -27,7 +27,7 @@ interface IThingWidgetProps {
 
 }
 import {pointOnFeature} from '@turf/point-on-feature';
-import {computed, onMounted, ref, watch} from "vue";
+import {computed, onMounted, reactive, ref, watch} from "vue";
 import ThingWidgetSettings from "./ThingWidgetSettings.vue";
 import { useSettings } from "@/composables/widgets/settings";
 import { useStore } from "@/composables/widgets/store";
@@ -40,18 +40,20 @@ import {useComparator} from "@/plugins/TestPlugin/composables/comparator";
 import {useDataPointRegistry} from "@/plugins/TestPlugin/composables/datapointRegistry";
 import StaStore from "@/plugins/TestPlugin/stores/StaStore";
 import {useUtils} from "@/plugins/TestPlugin/composables/utils";
-import {DivIcon} from "leaflet";
+import L, {divIcon, DivIcon, point} from "leaflet";
 import {LMarkerClusterGroup} from "vue-leaflet-markercluster";
 import "vue-leaflet-markercluster/dist/style.css";
+
+
 const settingsComponent = ThingWidgetSettings;
 
-const props = withDefaults(defineProps<IThingWidgetProps>(), {
+const props = withDefaults(defineProps<IThingWidgetProps>(), reactive({
   baseMapUrl: "https://a.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png",
   zoom:14,
   attribution: '&copy; <a href="https://www.stadiamaps.com/" target="_blank">Stadia Maps</a> &copy; <a href="https://openmaptiles.org/" target="_blank">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
   center: [50.93115286, 11.60392726],
   renderer:() => []
-});
+}));
 const map = ref(null);
 const { settings, setSetting } = useSettings<typeof props>(props);
 const { store, data, setStore } = useStore<StaStore>();
@@ -59,6 +61,7 @@ const { getState } = useSerialization(settings);
 const thingsLayer = ref(null);
 const {compareDatastream,compareThing} = useComparator();
 const {isPoint,isFeatureCollection} = useUtils();
+const openThing = ref<object[]>([])
 
 defineExpose({
   setSetting,
@@ -92,6 +95,30 @@ const locations = computed(()=>{
 })
 watch(settings,()=>{
   console.log('settings changed')
+
+    /*refHolder.value.forEach((val,key)=>{
+        console.log(val)
+        let layers =val.value[0].leafletObject.getLayers()
+        //val.value[0].leafletObject.clearLayers();
+        layers.forEach(layer=>{
+            layer.refreshIconOptions();
+            layer.update();
+
+            }
+        )
+
+    })*/
+    /*map.value.leafletObject.eachLayer(l=>{
+        try{
+            //console.log(l)
+            //l.update();
+            l.refreshClusters();
+        }catch (e){
+            console.log(e)
+        }*/
+
+
+
 },{deep:true})
 
 const rendereComp = computed(()=>{
@@ -181,12 +208,15 @@ const getPoints=(renderer)=>{
 const pointToLayerWrapper = (renderer)=>{
   return (feature, latlng) =>{
 
-    const el = new IconWidget().$mount().$el;
+    const el =new IconWidget().$mount().$el;
+    const outerhtlm =     "<div style='background-color:#c30b82;' class='marker-pin'>" +
+        el.outerHTML+
+        "</div>";
 
     return L.marker(latlng,{
       icon:new DivIcon({
 
-        html: el.outerHTML
+        html: outerhtlm
       })
     });
   }
@@ -226,11 +256,54 @@ const options=computed(()=>{
     }
   }
 })
+const clusterDrawer= (cluster: any) => {
+    const html = `${cluster.getChildCount()}`
+    const icon = divIcon({
+        className: 'red-cluster',
+        html,
+        iconSize: point(50, 50)
+    })
+    return icon
+}
+const refHolder = ref<Map<string,any>>(new Map<string,any>())
+const setRef = (render,thing)=>{
+
+    refHolder.value.set(render.id+'_'+thing['@iot.id'],ref(undefined))
+    return refHolder.value.get(render.id+'_'+thing['@iot.id']);
+}
+
+const _generatePointsSpiral = (count, centerPt)=>{
+    let spiderfyDistanceMultiplier = 3,
+        legLength = spiderfyDistanceMultiplier * 11,
+        separation = spiderfyDistanceMultiplier * 28,
+        lengthFactor = spiderfyDistanceMultiplier * 5 * Math.PI*2,
+        angle = 0,
+        res = [],
+        i;
+
+    res.length = count;
+
+    // Higher index, closer position to cluster center.
+    for (i = count; i >= 0; i--) {
+        // Skip the first position, so that we are already farther from center and we avoid
+        // being under the default cluster icon (especially important for Circle Markers).
+        if (i < count) {
+            res[i] = [Math.round(centerPt[0] + legLength * Math.cos(angle)), Math.round(centerPt[1] + legLength * Math.sin(angle))];
+        }
+        angle += separation / legLength + i * 0.0005;
+        legLength += lengthFactor / angle;
+    }
+    return res;
+}
+const c = ()=>{
+    alert('c')
+}
 </script>
 
 <template>
   <div class="cmap_container">
-    <l-map id="map" ref="map" :zoom="zoom" :center="center"  :max-zoom="21" @move="mapmove"style="height: 100%">
+      {{settings}}
+    <l-map id="map" ref="map" :zoom="zoom" :center="center"  :max-zoom="21" @move="mapmove"style="height: 100%" :useGlobalLeaflet="true">
       <l-tile-layer :url="baseMapUrl" :attribution="attribution" :options="{maxNativeZoom:19,
         maxZoom:25}"></l-tile-layer>
       <!--<l-geo-json  :geojson="location.location"  v-for="location in locations" ref="thingsLayer" :options-style="getStyle"></l-geo-json>-->
@@ -238,43 +311,88 @@ const options=computed(()=>{
                         ref="clusterRef2">-->
 
 
-      <template v-for="renderer in rendereComp" :key="renderer.id">
+      <template v-for="renderer in settings.renderer" :key="renderer.id">
 
         <template v-for="location in locations" :key="location['@iot.id']+'markr'">
           <template v-for="thing in location.Things??[]" :key="thing['@iot.id']+'markrThing'">
             <template v-if="compareThing(thing, renderer)">
               <template v-if="isFeatureCollection(location.location)">
                 <l-geo-json  :geojson="location.location"  ref="thingsLayer" :options-style="renderer.renderer.area" :options="options" v-if="!isPoint(location.location)"></l-geo-json>
-                {{location.location}}
               </template>
 
 
                 <l-marker
-                    :lat-lng="getPoint(location.location)" v-if="getPoint(location.location)">
+                    :lat-lng="getPoint(location.location) as  L.LatLngExpression" v-if="getPoint(location.location)" @click="openThing[thing['@iot.id']]=(openThing[thing['@iot.id']])?!openThing[thing['@iot.id']]:true">
                   <l-icon  class-name="someExtraClass">
-                    <div>
-                    <IconWidget v-bind="renderer.renderer.point" v-if="resolve(settings,'renderer',0,'renderer','point')"> </IconWidget>
-                    </div>
+                      <template v-if="renderer.renderer.point_render_as=='icon'">
+                          <div class="pin icon" :style="{background:renderer.renderer.pointPin.color}">
+                              <div class="inner">
+                                  <IconWidget currentIcon="add_location_alt" v-bind="renderer.renderer.point" >  </IconWidget>
+                              </div>
+                          </div>
+
+
+                      </template>
+                      <template v-if="renderer.renderer.point_render_as=='prop'">
+                          <div class="pin contain marker" :style="{background:renderer.renderer.pointPin.color}" >
+                              <div class="inner">
+                                  {{ thing[renderer.renderer.point_prop] }}
+                              </div>
+                          </div>
+                      </template>
+                    <!--<div class="pin">
+                        <div class="inner">
+                            <IconWidget v-bind="renderer.renderer.point" v-if="resolve(settings,'renderer',0,'renderer','point')"> </IconWidget>
+                        </div>
+
+                    </div>-->
                   </l-icon>
                 </l-marker>
               <template v-for="datastream in thing.Datastreams??[]">
-                <l-geo-json  :geojson="datastream.observedArea"  ref="thingsLayer" :options-style="renderer.renderer.area"  :options="options"></l-geo-json>
+                <l-geo-json  :geojson="datastream.observedArea"  ref="thingsLayer" :options-style="renderer.renderer.area"  :options="options" v-if="isFeatureCollection(datastream.observedArea)"></l-geo-json>
               </template>
-              <l-marker-cluster-group>
-              <template v-for="datastream in thing.Datastreams??[]">
-                  <template v-if="compareDatastream(datastream, renderer)">
-                  <l-marker
-                      :lat-lng="getPoint(location.location)">
-                    <l-icon  class-name="someExtraClass">
-                      <IconWidget v-bind="renderer.renderer.point"> </IconWidget>
-                <template v-if="datastream.Observations">
-                  <component v-if="getById(renderer.datapoint.component)" :is="getById(renderer.datapoint.component)?.component" v-bind="renderer.datapoint.setting" :data="datastream.Observations[0]?.result||'null'"></component>
-                </template>
-                    </l-icon>
-                  </l-marker>
+              <!--<l-marker-cluster-group  :spiderfyOnMaxZoom="1" :spiderfyOnEveryZoom="true" spiderfyDistanceMultiplier="5" :iconCreateFunction="clusterDrawer" :chunkedLoading="true" :ref="setRef(renderer,thing)">-->
+              <template v-for="(datastream,ind) in thing.Datastreams??[]">
+                  <template v-for="subrenderer in renderer.ds_renderer">
+                      <template v-if="compareDatastream(datastream, subrenderer) && openThing[thing['@iot.id']]">
+                      <l-marker
+                          :lat-lng="getPoint(location.location) as L.LatLngExpression" >
+                                <l-icon  class-name="someExtraClass">
+                                    <template v-if="subrenderer.renderer.point_render_as=='icon'">
+                                        <div class="pin icon round" :style="{marginLeft:_generatePointsSpiral(thing.Datastreams.length,[0,0])
+                                [ind][1]+'px',background:subrenderer.renderer.pointPin.color,'margin-top':_generatePointsSpiral(thing.Datastreams.length,[0,0])[ind][0]+'px'}" >
+                                            <div class="inner">
+                                                <IconWidget  v-bind="subrenderer.renderer.point"></IconWidget>
+                                            </div>
+                                            <template v-if="datastream.Observations">
+                                                <component v-if="getById(subrenderer.observation.component)" :is="getById(subrenderer.observation.component)?.component" v-bind="subrenderer.observation.setting"
+                                                           :data="datastream.Observations[0]?.result||'null'"> </component>
+                                            </template>
+
+                                        </div>
+
+
+                                    </template>
+                                    <template v-if="subrenderer.renderer.point_render_as=='prop'">
+                                        <div class="pin round contain" :style="{background:subrenderer.renderer.pointPin.color,marginLeft:_generatePointsSpiral(thing.Datastreams.length,[0,0])
+                                             [ind][1]+'px','margin-top':_generatePointsSpiral(thing.Datastreams.length,[0,0])[ind][0]+'px'}">
+                                            <div class="inner">
+                                                {{ datastream[subrenderer.renderer.point_prop] }}
+                                            </div>
+                                            <template v-if="datastream.Observations">
+                                                <component v-if="getById(subrenderer.observation.component)" :is="getById(subrenderer.observation.component)?.component" v-bind="subrenderer.observation.setting"
+                                                           :data="datastream.Observations[0]?.result||'null'"> </component>
+                                            </template>
+                                        </div>
+                                    </template>
+
+
+                                </l-icon>
+                      </l-marker>
+                      </template>
                   </template>
               </template>
-              </l-marker-cluster-group>
+              <!--</l-marker-cluster-group>-->
             </template>
         </template>
       </template>
@@ -296,7 +414,67 @@ const options=computed(()=>{
   gap: 1rem;
   align-items: stretch;
 }
+.pin{
+    width: 45px;
+    height: 45px;
+    border-radius: 50% 50% 50% 0;
 
+
+    transform: rotate(-45deg);
+    left: 50%;
+    top: 50%;
+    margin: -15px 71px 0 -15px;
+    box-shadow: -4px -6px 8px #0000005c;
+
+    &.round{
+        border-radius: 50% 50% 50% 50%;
+    }
+    &.contain{
+        width: auto;
+        height: auto;
+        border-radius: 25%;
+        display: inline-block;
+        transform: rotate(0deg);
+        padding: 4px;
+        margin: 0px;
+        .inner{
+            width: auto;
+            height:auto;
+            margin: 0;
+            position: relative;
+            transform: rotate(0deg);
+            border-radius: 17%;
+            display: inline-block;
+            font-size: 13px;
+            padding: 3px;
+        }
+    }
+    &.marker{
+        &::before{
+
+            content: " ";
+            width: 20px;
+            height: 20px;
+            display: block;
+            position: absolute;
+            transform: rotate(-45deg);
+            border-radius: 50% 50% 50% 0;
+            top: 14px;
+            left: 5px;
+            z-index: -24;
+
+        }}
+    .inner{
+        padding: 5px 0 0 0;
+        width: 37px;
+        height: 37px;
+        margin: 3px 0 0 4px;
+        background: #fff;
+        position: absolute;
+        transform: rotate(45deg);
+        border-radius: 50%;
+    }
+}
 .component {
   overflow: hidden;
 }
