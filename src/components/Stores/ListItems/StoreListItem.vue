@@ -101,7 +101,7 @@ const saveStore = (item) => {
 };
 
 const createDatasource = () => {
-    const id = dsManager.initDatasource("REST", "", "New store");
+    const id = dsManager.initDatasource("REST", "New store");
     selectedDatasourceId.value = id;
 };
 
@@ -160,6 +160,23 @@ const setUrl = () => {
         );
     }
 };
+
+const deleteStore = () => {
+    storeManager.deleteStore(item.value.id);
+    console.log(storeManager.getStoreList().value);
+}
+
+const deleteDatasource = () => {
+    if (selectedDatasourceId.value) {
+        dsManager.deleteDatasource(selectedDatasourceId.value);
+        selectedDatasourceId.value = "";
+        selectedDatasource.value = { url: "", caption: "", id: "" };
+    }
+};
+
+const deleteItemById = (id: number) => {
+    item?.value?.events.splice(id, 1);
+}
 </script>
 
 <template>
@@ -172,6 +189,11 @@ const setUrl = () => {
             expand_more
         </va-icon>
         <va-icon v-else class="material-icons"> expand_less </va-icon>
+        <va-button
+            @click.stop="deleteStore"
+            icon="clear"
+            color="transparent">
+        </va-button>
     </div>
     <div v-if="isExpanded" class="store-item-content">
         <va-input
@@ -194,6 +216,14 @@ const setUrl = () => {
                     v-model="selectedDatasourceId"
                     :options="dslist"
                 />
+                <va-button
+                    class="datasource-list-delete-button"
+                    color="danger"
+                    @click="deleteDatasource"
+                    :disabled="!selectedDatasourceId"
+                >
+                    Delete
+                </va-button>
                 <va-button
                     class="datasource-list-add-button"
                     @click="createDatasource"
@@ -249,7 +279,7 @@ const setUrl = () => {
             <va-data-table
                 class="table-crud"
                 :items="item.events"
-                :columns="[{ key: 'name' }, { key: 'action' }]"
+                :columns="[{ key: 'name' }, { key: 'action' }, {key: 'deletion'}]"
             >
                 <template #cell(name)="{ rowIndex }">
                     <va-input
@@ -265,7 +295,21 @@ const setUrl = () => {
                         v-model="item.events[rowIndex].action"
                     />
                 </template>
+                <template #cell(deletion)="{ rowIndex }">
+                    <va-button
+                        icon="delete"
+                        color="danger"
+                        class="ml-2"
+                        @click="deleteItemById(rowIndex)"
+                    />
+                </template>
             </va-data-table>
         </div>
     </div>
 </template>
+
+<style lang="scss" scoped>
+.store-item-header {
+    cursor: pointer;
+}
+</style>

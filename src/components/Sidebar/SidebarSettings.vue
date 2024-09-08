@@ -14,6 +14,7 @@ import StoreList from "@/components/Sidebar/StoreList.vue";
 import SidebarControl from "@/components/Sidebar/SidebarControl.vue";
 import SidebarWidget from "@/components/Sidebar/SidebarWidget.vue";
 import SidebarAppSettings from "./SidebarAppSettings.vue";
+import SidebarDataSourceList from './SidebarDataSourceList.vue';
 
 const { t } = useI18n();
 const props = defineProps(["modelValue", "settingsSection"]);
@@ -47,6 +48,9 @@ const emit = defineEmits(["update:modelValue"]);
         </template>
         <template v-if="props.settingsSection?.type === 'App'">
           <SidebarAppSettings />
+        </template>
+        <template v-if="props.settingsSection?.type === 'SourceList'">
+          <SidebarDataSourceList />
         </template>
       </div>
 

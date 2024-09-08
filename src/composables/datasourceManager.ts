@@ -27,7 +27,7 @@ const availableDatasources: Ref<DatasourceMap> = ref({});
 export function useDatasourceManager() {
     const EventBus = inject("customEventBus") as any;
 
-    const initDatasource = (type: string, url: string, caption: string) => {
+    const initDatasource = (type: string, caption: string, url?: string) => {
         const id = v4();
 
         try {
@@ -53,7 +53,7 @@ export function useDatasourceManager() {
         return availableDatasources;
     };
 
-    const updateDatasource = (key, type, caption, url, cube, catalog) => {
+    const updateDatasource = (key, type, caption, url, cube?, catalog?) => {
         try {
             const classinst = dataSourceRegistry[type];
             const datasource = new classinst(
@@ -67,6 +67,16 @@ export function useDatasourceManager() {
             availableDatasources.value[key] = datasource;
         } catch (e) {
             throw new TypeError(`${type} not found in registry`);
+        }
+    };
+
+    const deleteDatasource = (id: string) => {
+        if (availableDatasources.value[id]) {
+            const updatedDatasources = { ...availableDatasources.value };
+            delete updatedDatasources[id];
+            availableDatasources.value = updatedDatasources;
+        } else {
+            throw new Error(`Datasource with id ${id} not found`);
         }
     };
 
@@ -122,6 +132,7 @@ export function useDatasourceManager() {
         getDatasource,
         getDatasourceList,
         updateDatasource,
+        deleteDatasource,
         getState,
         loadState,
     };

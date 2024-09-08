@@ -12,7 +12,6 @@ Contributors: Smart City Jena
 import { onMounted, ref, type Ref } from "vue";
 import { useStoreManager } from "@/composables/storeManager";
 import { useI18n } from "vue-i18n";
-import FilterSelectionModal from "@/components/Modals/FilterSelectionModal.vue";
 
 const { t } = useI18n();
 const storeSelectionOpened = ref(false);

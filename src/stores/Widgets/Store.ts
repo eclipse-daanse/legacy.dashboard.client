@@ -75,6 +75,7 @@ export class Store extends BaseStore implements IStore {
             const paramsList = Object.keys(this.params);
 
             paramsList.forEach((e) => {
+                console.log(e);
                 requestTemplate = requestTemplate.replace(
                     `{${e}}`,
                     this.runtimeParams[e],
