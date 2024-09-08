@@ -11,7 +11,12 @@ import type {Component} from "vue";
 import XMLAComposerV from "@/plugins/charts/widgets/parts/XMLAComposerV.vue";
 import {XMLAComposer} from "@/plugins/charts/impl/XMLAComposer";
 import {XMLAStore} from "@/stores/Widgets/XMLAStore";
-
+import type { Store } from "@/stores/Widgets/Store";
+import type {
+    Composer,
+    CSVSelector,
+    Selector,
+} from "@/plugins/charts/widgets/api/ChartdataComposer";
 
 
 export default {
@@ -30,3 +35,56 @@ export default {
 
     }
 };
+
+export interface AxisSettings {
+    type: string;
+    text: string;
+    backgroundColor: string;
+    stacked: boolean;
+    weight: number;
+    reverse: boolean;
+    display: boolean;
+    grid: GridSettings;
+    ticks: TicksSettings;
+    tickTemplate: string;
+    position?: string;
+}
+
+export interface GridSettings {
+    display: boolean;
+    color: string;
+    thickness: number;
+    // dash: number[];
+    // dashOffset: number;
+    tickMarksColor: string;
+}
+
+export interface TicksSettings {
+    color: string;
+}
+
+export interface ITChartSettings {
+    chartType: string;
+    title: string;
+    titlePosition: string;
+    legendPosition: string,
+    borderColor: string;
+    canvasBackgroundColor: string;
+    dataSetBackgroundColors: string[];
+    baseMapUrl: string;
+
+    composer:Composer<Selector>[];
+    axes:{
+        x:AxisSettings,
+        y:AxisSettings,
+        //y2:AxisSettings,
+        [key: string]:AxisSettings
+    }
+}
+
+export interface IChartComponent {
+    store: Store | XMLAStore;
+    settings: ITChartSettings;
+    setSetting: (key: string, value: any) => void;
+    setStore: (store: Store | XMLAStore) => any;
+}

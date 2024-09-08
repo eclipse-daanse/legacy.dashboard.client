@@ -10,9 +10,7 @@ Contributors: Smart City Jena
 -->
 <script lang="ts" setup>
 import "chartjs-adapter-moment";
-import BarChartWidgetSettings, {
-    type ITChartSettings,
-} from "@/plugins/charts/widgets/BarChartWidgetSettings.vue";
+import BarChartWidgetSettings from "@/plugins/charts/widgets/BarChartWidgetSettings.vue";
 import { computed, inject, onMounted, ref, watch } from "vue";
 import { useSettings } from "@/composables/widgets/settings";
 import { useStoreManager } from "@/composables/storeManager";
@@ -48,6 +46,7 @@ import useChartDataComposer from "@/plugins/charts/composables/ChartDataComposer
 import {CSVComposer} from "@/plugins/charts/impl/CSVComposer";
 import useComposerManager from "@/plugins/charts/composables/ComposerManager";
 import {XMLAComposer} from "@/plugins/charts/impl/XMLAComposer";
+import type { ITChartSettings } from "@/plugins/charts/Chart";
 
 //import * as dateFns from 'date-fns';
 //import * as  dateFnsAdapter  from 'chartjs-adapter-date-fns';
