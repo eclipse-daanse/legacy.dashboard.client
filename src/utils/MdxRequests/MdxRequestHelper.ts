@@ -238,7 +238,6 @@ const parseCells = (cells: any[], columns: any[], rows: any[]) => {
 };
 
 const parseRequestToTable = (mdxResponce, mainAxis) => {
-    console.log(mdxResponce);
     const axis0 = optionalArrayToArray(
         optionalArrayToArray(
             mdxResponce.Body.ExecuteResponse.return.root.Axes?.Axis,

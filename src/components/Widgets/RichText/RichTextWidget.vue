@@ -29,7 +29,7 @@ const props = withDefaults(defineProps<IRichTextEditorSettingsProps>(), {
 
 const eventbus = inject("customEventBus") as TinyEmitter;
 const { settings, setSetting } = useSettings<typeof props>(props);
-const { store, data, setStore } = useStore<Store>(eventbus);
+const { store, data, setStore, loading } = useStore<Store>(eventbus);
 const { getState } = useSerialization(settings);
 
 defineExpose({
@@ -39,6 +39,7 @@ defineExpose({
     getState,
     store,
     setStore,
+    loading,
 });
 
 const parsedEditorText = computed(() => {

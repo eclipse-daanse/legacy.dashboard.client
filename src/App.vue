@@ -8,7 +8,9 @@ SPDX-License-Identifier: EPL-2.0
 Contributors: Smart City Jena
 
 -->
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import GlobalLoader from "@/components/Loader/GlobalLoader.vue";
+</script>
 
 <template>
     <div class="sidebar">
@@ -51,7 +53,7 @@ Contributors: Smart City Jena
             </va-sidebar-item>
         </va-sidebar>
     </div>
-
+    <GlobalLoader></GlobalLoader>
     <router-view> </router-view>
 </template>
 

@@ -22,12 +22,15 @@ const currentPage = ref(0);
 const perPage = ref(10);
 const columns = ref([]);
 const filteredItemsAmount = ref(0);
+const loading = ref(false);
 
 onMounted(async () => {
+  loading.value = true;
   const request = await fetch(
     "https://raw.githubusercontent.com/dsindy/kaggle-titanic/master/data/test.csv",
   );
   const csvContent = await request.text();
+  loading.value = false;
 
   headers.value = parse(csvContent)[0];
   columns.value = headers.value.map((header) => {
@@ -65,7 +68,7 @@ const customFilteringFn = (source, cellData) => {
 };
 </script>
 <template>
-  <div class="table_container">
+  <div class="table_container" v-if="!loading">
     <div class="filters">
       <VaInput v-model="filter" placeholder="Filter..." />
       <VaSelect
@@ -106,6 +109,9 @@ const customFilteringFn = (source, cellData) => {
       />
     </div>
   </div>
+  <div v-else="loading" class="loading">
+    <va-inner-loading class="loader" :loading="loading" :size="55"></va-inner-loading>
+  </div>
 </template>
 
 <style scoped>
@@ -139,5 +145,10 @@ const customFilteringFn = (source, cellData) => {
 .table_container .table {
   flex-grow: 1;
   flex-shrink: 1;
+}
+
+.loading {
+  display: flex;
+  height: 100%;
 }
 </style>

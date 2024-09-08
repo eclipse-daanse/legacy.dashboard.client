@@ -12,6 +12,7 @@ Contributors: Smart City Jena
 import { onMounted, ref, type Ref } from "vue";
 import { useStoreManager } from "@/composables/storeManager";
 import { useI18n } from "vue-i18n";
+import FilterSelectionModal from "@/components/Modals/FilterSelectionModal.vue";
 
 const { t } = useI18n();
 const storeSelectionOpened = ref(false);
@@ -42,6 +43,12 @@ onMounted(() => {
 <template>
     <div class="mt-4 mb-4">
         <va-collapse v-model="storeSelectionOpened" header="Request settings">
+            <VaCheckbox
+                :model-value="component.settings.sync"
+                class="mb-4"
+                label="Sync state (Expands and drillthroughs)"
+                @update:model-value="component.setSetting('sync', $event)"
+            />
             <div class="settings-container">
                 <va-divider class="pad_bottom" orientation="left">
                     <span class="px-2">{{ t("Widgets.selectStore") }}</span>
