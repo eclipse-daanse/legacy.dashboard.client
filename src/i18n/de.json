@@ -122,6 +122,7 @@
     "TableWidget": "Tabellen Widget",
     "PivotTableWidget": "Pivot Tabelle Widget",
     "BarChartWidget": "Bar Chart Widget",
+    "ThingWidget": "Things Widget",
     "SwitchControl": "Schalter Steuerung",
     "SelectControl": "Auswahl Steuerung",
     "DateControl": "Datums Steuerung",

@@ -1,3 +1,3 @@
-export interface IDataPoint{
-    data:string|number
+export interface IDataPoint {
+    data: string | number
 }

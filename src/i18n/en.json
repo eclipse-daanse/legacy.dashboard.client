@@ -133,6 +133,7 @@
     "TableWidget": "Table Widget",
     "PivotTableWidget" : "Pivot Table Widget",
     "BarChartWidget": "Bar Chart Widget",
+    "ThingWidget": "Things Widget",
     "SwitchControl": "Switch Control",
     "SelectControl" : "Select Control",
     "DateControl" : "Date Control",

@@ -2,52 +2,56 @@ import type {IMapProps} from "@/plugins/TestPlugin/widgets/api/MapPreview";
 // @ts-ignore
 import type {IIconSettings} from "@/components/Widgets/Icon/IconWidgetSettings.vue";
 
-export interface IPointPin{
-    color:string;
+export interface IPointPin {
+    color: string;
 }
-export interface IDSRenderer{
-    datastream:{
-        prop:string,
-        value:string,
+
+export interface IDSRenderer {
+    datastream: {
+        prop: string,
+        value: string,
     },
-    placement:ERefType,
+    placement: ERefType,
     observation: {
-        setting:any,
-        component:string,
+        setting: any,
+        component: string,
     },
-    renderer:{
-        point_render_as:string,
-        point_prop?:string,
-        point:IIconSettings;
-        pointPin:IPointPin
+    renderer: {
+        point_render_as: string,
+        point_prop?: string,
+        point: IIconSettings;
+        pointPin: IPointPin
         area: IMapProps,
         label: any
     },
-    id:string;
+    id: string;
 
 }
+
 export interface IRenderer {
-    thing:{
-        prop:string,
-        value:string,
+    thing: {
+        prop: string,
+        value: string,
     },
-    renderer:{
-        show_SubElements:boolean,
-        point_render_as:string,
-        point_prop?:string,
-        point:IIconSettings
-        pointPin:IPointPin
+    renderer: {
+        show_SubElements: boolean,
+        point_render_as: string,
+        point_prop?: string,
+        point: IIconSettings
+        pointPin: IPointPin
         area: IMapProps,
         label: any
     }
-    ds_renderer:IDSRenderer[],
-    id:string;
+    ds_renderer: IDSRenderer[],
+    id: string;
 
 }
-interface ICompare{
+
+interface ICompare {
     (loaction: Location): boolean;
 }
+
 export enum ERefType {
-    Thing  = 'Thing',
-    OberservedArea   = 'OberservedArea',
+    Thing = 'Thing',
+    OberservedArea = 'OberservedArea',
 }

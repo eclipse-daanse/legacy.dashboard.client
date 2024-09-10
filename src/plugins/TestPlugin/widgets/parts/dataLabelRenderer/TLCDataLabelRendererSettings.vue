@@ -14,19 +14,16 @@ import {ref, onMounted, computed, type Ref, type UnwrapRef} from "vue";
 
 import type {IDataPoint} from "@/plugins/TestPlugin/widgets/api/Datapoint";
 
-
-export interface ITLCDataLabelRendererComonent{
-  settings: IDataPoint;
-  setSetting: (key: string, value: any) => void;
+export interface ITLCDataLabelRendererComonent {
+    settings: IDataPoint;
+    setSetting: (key: string, value: any) => void;
 }
 
-
-const { component } = defineProps<{ component: ITLCDataLabelRendererComonent}>();
+const {component} = defineProps<{ component: ITLCDataLabelRendererComonent }>();
 
 const opened: Ref<UnwrapRef<{ textSection: boolean }>> = ref({
-  textSection: true,
+    textSection: true,
 });
-
 
 
 </script>
@@ -37,50 +34,50 @@ const opened: Ref<UnwrapRef<{ textSection: boolean }>> = ref({
 </template>
 <style scoped>
 .settings-container {
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  gap: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
 }
 
 .icons-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  max-height: 220px;
-  overflow-y: auto;
-  overflow-x: hidden;
-  width: 100%;
-  cursor: pointer;
-  padding: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    max-height: 220px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    width: 100%;
+    cursor: pointer;
+    padding: 10px;
 }
 
 .material-symbols-outlined {
-  font-family: 'Material Symbols Outlined';
-  font-weight: normal;
-  font-style: inherit;
-  font-size: 40px;
-  display: inline-block;
-  line-height: 1;
-  text-transform: none;
-  letter-spacing: normal;
-  word-wrap: normal;
-  white-space: nowrap;
-  direction: ltr;
-  border: 2px solid transparent;
-  border-radius: 5px;
-  transition: border-color 0.5s ease, transform 0.5s ease;
+    font-family: Material Symbols Outlined sans-serif;
+    font-weight: normal;
+    font-style: inherit;
+    font-size: 40px;
+    display: inline-block;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+    border: 2px solid transparent;
+    border-radius: 5px;
+    transition: border-color 0.5s ease, transform 0.5s ease;
 }
 
 .material-symbols-outlined:hover {
-  transform: scale(1.1);
+    transform: scale(1.1);
 }
 
 .active-icon {
-  border: 2px solid rgb(0, 121, 0);
+    border: 2px solid rgb(0, 121, 0);
 }
 
 .slider {
-  padding: 0 10px;
+    padding: 0 10px;
 }
 </style>
