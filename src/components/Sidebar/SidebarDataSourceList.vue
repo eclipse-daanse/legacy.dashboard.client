@@ -21,6 +21,7 @@ const dataSourceList = computed(() =>
     Object.entries(dsmap.value).map(([key, ds]) => ({
         id: key,
         caption: ds.caption || "no caption",
+        url: ds.url || "no url",
         type: ds.type || "unknown",
     })),
 );
@@ -35,7 +36,7 @@ const deleteDatasource = (id: string) => {
         <div class="ds-settings-title">
             <h2>{{ t("SidebarDatasourceList.title") }}</h2>
             <va-data-table
-                :columns="[{ key: 'id'}, { key: 'caption' }, { key: 'type' }, { key: 'deletion' }]"
+                :columns="[{ key: 'url'}, { key: 'caption' }, { key: 'type' }, { key: 'deletion' }]"
                 :items="dataSourceList"
             >
                 <template #cell(deletion)="{ row }">
