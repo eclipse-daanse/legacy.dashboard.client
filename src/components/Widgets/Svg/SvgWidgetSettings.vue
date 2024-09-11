@@ -19,6 +19,7 @@ export interface ISVGComponent {
     settings: ISVGSettings;
     setSetting: (key: string, value: any) => void;
     setStore: (store: Store | XMLAStore) => void;
+    loading: boolean;
 }
 
 import { useI18n } from "vue-i18n";
@@ -180,7 +181,10 @@ watch(
                         name="store-radio-group"
                     />
                 </div>
-                <pre class="response">{{ requestResult }}</pre>
+                <pre v-if="!component.loading" class="response">{{ requestResult }}</pre>
+                <div v-else="component.loading" class="loading">
+                    <va-inner-loading class="loader" :loading="component.loading" :size="55"></va-inner-loading>
+                </div>
             </div>
         </div>
     </va-collapse>
@@ -211,5 +215,13 @@ watch(
 
 .add-button {
     width: 33%;
+}
+
+.loading {
+    height: 100%;
+    padding: 50px;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+    background-color: var(--app-response-background);
 }
 </style>

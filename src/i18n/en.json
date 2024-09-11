@@ -16,7 +16,8 @@
     "loadLayout": "Load Layout",
     "storeList": "Store List",
     "appSettings": "App settings",
-    "addWidgetButton": "Add"
+    "addWidgetButton": "Add",
+    "dataSourceList": "Data source list"
   },
 
   "AppSidebarSettings": {
@@ -83,6 +84,10 @@
           "datetime": "DateTime Fields",
           "preview": "Preview"
       }
+  },
+
+  "SidebarDatasourceList": {
+    "title": "Data Source List"
   },
 
   "StoreConfigurationModal": {

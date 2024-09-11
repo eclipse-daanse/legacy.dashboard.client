@@ -19,6 +19,7 @@ export function useSerialization<Type>(settings: Ref<Type>) {
         for (const key in componentState) {
             state[key] = componentState[key];
         }
+
         return state;
     };
 

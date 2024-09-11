@@ -18,6 +18,7 @@ export interface IRichTextEditorComponent {
     settings: IRichTextEditorSettings;
     setSetting: (key: string, value: any) => void;
     setStore: (store: Store | XMLAStore) => void;
+    loading: boolean;
 }
 
 import { ref, onMounted, watch, type Ref } from "vue";
@@ -367,6 +368,10 @@ watch(
                             name="store-radio-group"
                         />
                     </div>
+                    <pre v-if="!component.loading" class="response">{{ requestResult }}</pre>
+                    <div v-else="component.loading" class="loading">
+                        <va-inner-loading class="loader" :loading="component.loading" :size="55"></va-inner-loading>
+                    </div>
                 </div>
             </div>
         </div>
@@ -481,5 +486,13 @@ watch(
 
 .is-active {
     border: 2px solid rgb(22, 253, 22) !important;
+}
+
+.loading {
+    height: 100%;
+    padding: 50px;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+    background-color: var(--app-response-background);
 }
 </style>

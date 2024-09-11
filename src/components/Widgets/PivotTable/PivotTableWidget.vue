@@ -10,7 +10,7 @@ Contributors: Smart City Jena
 -->
 <script lang="ts" setup>
 import PivotTableWidgetSettings from "./PivotTableWidgetSettings.vue";
-import { provide, ref, watch, type Ref, computed, inject } from "vue";
+import { provide, ref, type Ref, computed, inject } from "vue";
 import { TinyEmitter } from "tiny-emitter";
 import { useElementSize } from "@vueuse/core";
 import PivotTable from "./PivotTable";
@@ -20,7 +20,6 @@ import CellsArea from "../../PivotTable/Areas/CellsArea.vue";
 import PivotTableSettingsButton from "@/components/PivotTable/PivotTableSettingsButton.vue";
 import { type XMLAStore } from "@/stores/Widgets/XMLAStore";
 import { useStore } from "@/composables/widgets/store";
-import { useDrilldowns } from "@/composables/mdx/drilldowns";
 import {
     parseMdxRequest,
     parseRequestToTable,
@@ -34,11 +33,6 @@ const inited = ref(false);
 const settingsComponent = PivotTableWidgetSettings;
 
 const EventBus = inject("customEventBus") as any;
-
-const rowsHierarchies = ref([] as MDSchemaHierarchy[]);
-const colsHierarchies = ref([] as MDSchemaHierarchy[]);
-const measures = ref([] as MDSchemaMeasure[]);
-const filters = ref([] as MDSchemaHierarchy[]);
 const pivotTableControl = new PivotTable();
 
 const rows = ref([] as any[]);
@@ -46,33 +40,21 @@ const columns = ref([] as any[]);
 const cells = ref([] as any[]);
 const propertiesRows = ref([] as any[]);
 const propertiesCols = ref([] as any[]);
+const rowsExpandedMembers = ref([] as any[]);
+const columnsExpandedMembers = ref([] as any[]);
 
 const colStyles = ref([...pivotTableControl.styles.columns]);
 const rowsStyles = ref([...pivotTableControl.styles.rows]);
 
-const settings = ref({
-    sync: false,
-});
-
-const updateFn = debounce(async (store) => {
+const updateFn = debounce(async (store: XMLAStore) => {
     inited.value = true;
 
-    flushExpands(colsHierarchies.value, rowsHierarchies.value);
-    flushDrilldowns(colsHierarchies.value, rowsHierarchies.value);
-
-    const requestParams = {
-        rows: rowsHierarchies.value,
-        columns: colsHierarchies.value,
-        measures: measures.value,
-        rowsExpandedMembers: rowsExpandedMembers.value,
-        rowsDrilldownMembers: rowsDrilldownMembers.value,
-        columnsExpandedMembers: columnsExpandedMembers.value,
-        columnsDrilldownMembers: columnsDrilldownMembers.value,
-    };
-
     console.log(store);
-    const mdxResponce = await store.getData(requestParams);
-    console.log(mdxResponce);
+    const mdxResponce = await store.getData();
+    const requestParams = store.getRequestParams();
+
+    rowsExpandedMembers.value = requestParams.rowsExpandedMembers;
+    columnsExpandedMembers.value = requestParams.columnsExpandedMembers;
 
     const {
         cells: cellsResponce,
@@ -91,128 +73,20 @@ const updateFn = debounce(async (store) => {
     propertiesCols.value = propertiesColsResponce;
 }, 100);
 
-const watcher = (oldVal, newVal) => {
-    if (settings.value.sync) {
-        EventBus.off(`DRILLDOWN:${oldVal.id}`, handleDrilldownEvent);
-        EventBus.off(`DRILLUP:${oldVal.id}`, handleDrillupEvent);
-        EventBus.off(`EXPAND:${oldVal.id}`, handleExpandEvent);
-        EventBus.off(`COLLAPSE:${oldVal.id}`, handleCollapseEvent);
-
-        EventBus.on(`DRILLDOWN:${newVal.id}`, handleDrilldownEvent);
-        EventBus.on(`DRILLUP:${newVal.id}`, handleDrillupEvent);
-        EventBus.on(`EXPAND:${newVal.id}`, handleExpandEvent);
-        EventBus.on(`COLLAPSE:${newVal.id}`, handleCollapseEvent);
-    }
-};
-
-const { store, setStore } = useStore<XMLAStore>(EventBus, updateFn, watcher);
-
-const {
-    rowsExpandedMembers,
-    rowsDrilldownMembers,
-    columnsExpandedMembers,
-    columnsDrilldownMembers,
-    drilldownOnRows,
-    drilldownOnColumns,
-    drillupOnRows,
-    drillupOnColumns,
-    expandOnRows,
-    collapseOnRows,
-    expandOnColumns,
-    collapseOnColumns,
-    flushExpands,
-    flushDrilldowns,
-    handleDrilldownEvent,
-    handleDrillupEvent,
-    handleExpandEvent,
-    handleCollapseEvent,
-} = useDrilldowns(store);
-
-const setSetting = (setting: string, data: any) => {
-    if (setting === "rowsHierarchies") {
-        rowsHierarchies.value = data;
-    } else if (setting === "colsHierarchies") {
-        colsHierarchies.value = data;
-    } else if (setting === "measures") {
-        measures.value = data;
-    } else if (setting === "filters") {
-        filters.value = data;
-    } else if (setting === "sync") {
-        if (data) {
-            EventBus.on(`DRILLDOWN:${store.value.id}`, handleDrilldownEvent);
-            EventBus.on(`DRILLUP:${store.value.id}`, handleDrillupEvent);
-            EventBus.on(`EXPAND:${store.value.id}`, handleExpandEvent);
-            EventBus.on(`COLLAPSE:${store.value.id}`, handleCollapseEvent);
-        } else {
-            EventBus.off(`DRILLDOWN:${store.value.id}`, handleDrilldownEvent);
-            EventBus.off(`DRILLUP:${store.value.id}`, handleDrillupEvent);
-            EventBus.off(`EXPAND:${store.value.id}`, handleExpandEvent);
-            EventBus.off(`COLLAPSE:${store.value.id}`, handleCollapseEvent);
-        }
-        settings.value.sync = data;
-    } else if (setting === "rowsExpandedMembers") {
-        rowsExpandedMembers.value = data;
-    } else if (setting === "rowsDrilldownMembers") {
-        rowsDrilldownMembers.value = data;
-    } else if (setting === "columnsExpandedMembers") {
-        columnsExpandedMembers.value = data;
-    } else if (setting === "columnsDrilldownMembers") {
-        columnsDrilldownMembers.value = data;
-    }
-
-    console.log(setting, data);
-};
-
-watch(
-    () => [
-        rowsHierarchies.value,
-        colsHierarchies.value,
-        measures.value,
-        filters.value,
-        rowsExpandedMembers.value,
-        rowsDrilldownMembers.value,
-        columnsExpandedMembers.value,
-        columnsDrilldownMembers.value,
-    ],
-    () => {
-        updateFn(store.value);
-    },
-    { deep: true },
-);
+const { store, setStore } = useStore<XMLAStore>(EventBus, updateFn);
 
 const getState = () => {
     return {
-        rowsHierarchies: rowsHierarchies.value,
-        colsHierarchies: colsHierarchies.value,
-        measures: measures.value,
-        filters: filters.value,
         rowsStyles: rowsStyles.value,
         colStyles: colStyles.value,
-        rowsExpandedMembers: rowsExpandedMembers.value,
-        columnsExpandedMembers: columnsExpandedMembers.value,
-        rowsDrilldownMembers: rowsDrilldownMembers.value,
-        columnsDrilldownMembers: columnsDrilldownMembers.value,
-        sync: settings.value.sync,
-    };
-};
-
-const getQueryState = () => {
-    return {
-        rowsHierarchies: rowsHierarchies.value,
-        colsHierarchies: colsHierarchies.value,
-        measures: measures.value,
-        filters: filters.value,
     };
 };
 
 defineExpose({
     settingsComponent,
     store,
-    setSetting,
-    settings,
     getState,
     setStore,
-    getQueryState,
 });
 
 // Pivot table logic
@@ -251,48 +125,16 @@ provide("setRowsStyles", setRowsStyles);
 provide("setColumnsStyles", setColumnsStyles);
 
 provide("drilldown", (value, area) => {
-    if (area === "rows") {
-        drilldownOnRows(value);
-    } else if (area === "columns") {
-        drilldownOnColumns(value);
-    }
-
-    if (settings.value.sync) {
-        EventBus.emit(`DRILLDOWN:${store.value.id}`, { value, area });
-    }
+    EventBus.emit(`DRILLDOWN:${store.value.id}`, { value, area });
 });
 provide("drillup", (value, area) => {
-    if (area === "rows") {
-        drillupOnRows(value);
-    } else if (area === "columns") {
-        drillupOnColumns(value);
-    }
-
-    if (settings.value.sync) {
-        EventBus.emit(`DRILLUP:${store.value.id}`, { value, area });
-    }
+    EventBus.emit(`DRILLUP:${store.value.id}`, { value, area });
 });
 provide("expand", (value, area) => {
-    if (area === "rows") {
-        expandOnRows(value);
-    } else if (area === "columns") {
-        expandOnColumns(value);
-    }
-
-    if (settings.value.sync) {
-        EventBus.emit(`EXPAND:${store.value.id}`, { value, area });
-    }
+    EventBus.emit(`EXPAND:${store.value.id}`, { value, area });
 });
 provide("collapse", (value, area) => {
-    if (area === "rows") {
-        collapseOnRows(value);
-    } else if (area === "columns") {
-        collapseOnColumns(value);
-    }
-
-    if (settings.value.sync) {
-        EventBus.emit(`COLLAPSE:${store.value.id}`, { value, area });
-    }
+    EventBus.emit(`COLLAPSE:${store.value.id}`, { value, area });
 });
 
 const totalContentSize = computed(() => {

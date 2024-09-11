@@ -50,12 +50,11 @@ const props = withDefaults(defineProps<ITextSettingsProps>(), {
     textDecoration: "None",
     horizontalAlign: "Left",
     verticalAlign: "Top",
-    test:[] as any
 });
 
 const eventbus = inject("customEventBus") as TinyEmitter;
 const { settings, setSetting } = useSettings<typeof props>(props);
-const { store, data, setStore } = useStore<Store>(eventbus);
+const { store, data, setStore, loading } = useStore<Store>(eventbus);
 const { getState } = useSerialization(settings);
 
 defineExpose({
@@ -65,6 +64,7 @@ defineExpose({
     store,
     setStore,
     getState,
+    loading,
 });
 
 const parsedText = computed(() => {

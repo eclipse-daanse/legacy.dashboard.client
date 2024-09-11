@@ -32,7 +32,7 @@ export default class XMLADatasource
 
     constructor(
         id: string,
-        url: string = "https://emondrian.ssemenkoff.dev/emondrian/xmla",
+        url: string = "https://ssemenkoff.dev/emondrian/xmla",
         caption: string,
         eventBus: EventBus,
         cube: MDSchemaCube | null = null,

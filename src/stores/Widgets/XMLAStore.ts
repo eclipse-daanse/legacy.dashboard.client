@@ -13,6 +13,7 @@ import { useDatasourceManager } from "@/composables/datasourceManager";
 import { getMdxRequest } from "@/utils/MdxRequests/MdxRequestConstructor";
 import BaseStore from "@/stores/Widgets/BaseStore";
 import { useErrorHandler } from "@/composables/dashboard/errorToast";
+import DrilldownHandler from "@/composables/mdx/Classes/DrilldownHandler";
 interface EventBus {
     emit: (string, any?) => void;
     on: (string, Function) => void;
@@ -23,10 +24,7 @@ interface XMLARequestParams {
     rows: any[];
     columns: any[];
     measures: any[];
-    rowsExpandedMembers: any[];
-    rowsDrilldownMembers: any[];
-    columnsExpandedMembers: any[];
-    columnsDrilldownMembers: any[];
+    filters: any[];
 }
 
 export class XMLAStore extends BaseStore implements IStore {
@@ -38,6 +36,14 @@ export class XMLAStore extends BaseStore implements IStore {
     public data = null;
     public events = [] as Array<{ name: string; action: string }>;
     public initedEvents = [] as Array<{ name: string; cb: Function }>;
+    private drilldownHandler: DrilldownHandler;
+
+    public XMLARequestParams: XMLARequestParams = {
+        rows: [],
+        columns: [],
+        measures: [],
+        filters: [],
+    };
 
     updateParam() {
         throw new Error("Method not implemented.");
@@ -54,6 +60,24 @@ export class XMLAStore extends BaseStore implements IStore {
 
         this.datasourceManager = useDatasourceManager();
         this.errorToast = useErrorHandler();
+        this.drilldownHandler = new DrilldownHandler(this);
+
+        this.eventBus.on(`DRILLDOWN:${this.id}`, async (params) => {
+            this.drilldownHandler.handleDrilldown(params);
+            this.eventBus.emit(`UPDATE:${this.id}`);
+        });
+        this.eventBus.on(`drillup:${this.id}`, async (params) => {
+            this.drilldownHandler.handleDrillup(params);
+            this.eventBus.emit(`UPDATE:${this.id}`);
+        });
+        this.eventBus.on(`EXPAND:${this.id}`, async (params) => {
+            this.drilldownHandler.handleExpand(params);
+            this.eventBus.emit(`UPDATE:${this.id}`);
+        });
+        this.eventBus.on(`COLLAPSE:${this.id}`, async (params) => {
+            this.drilldownHandler.handleCollapse(params);
+            this.eventBus.emit(`UPDATE:${this.id}`);
+        });
     }
 
     setDatasource(datasourceIds) {
@@ -61,23 +85,22 @@ export class XMLAStore extends BaseStore implements IStore {
         this.eventBus.emit(`UPDATE:${this.id}`);
     }
 
-    async getData(params: XMLARequestParams) {
+    async getData(params?: XMLARequestParams) {
         try {
             const datasource = this.datasourceManager.getDatasource(
                 this.datasourceId,
             );
 
+            console.log(this.XMLARequestParams);
+
             if (!params) {
                 params = {
-                    rows: [],
-                    columns: [],
-                    measures: [],
-                    rowsExpandedMembers: [],
-                    rowsDrilldownMembers: [],
-                    columnsExpandedMembers: [],
-                    columnsDrilldownMembers: [],
+                    ...this.XMLARequestParams,
                 };
             }
+
+            this.drilldownHandler.flushExpands(params.columns, params.rows);
+            this.drilldownHandler.flushDrilldowns(params.columns, params.rows);
 
             const measuresMapped = params.measures.map((e) => {
                 return { originalItem: e };
@@ -87,10 +110,10 @@ export class XMLAStore extends BaseStore implements IStore {
                 params.rows,
                 params.columns,
                 measuresMapped,
-                params.rowsExpandedMembers,
-                params.rowsDrilldownMembers,
-                params.columnsExpandedMembers,
-                params.columnsDrilldownMembers,
+                this.drilldownHandler.rowsExpandedMembers,
+                this.drilldownHandler.rowsDrilldownMembers,
+                this.drilldownHandler.columnsExpandedMembers,
+                this.drilldownHandler.columnsDrilldownMembers,
                 {
                     showEmpty: true,
                     alignContent: "right",
@@ -104,8 +127,36 @@ export class XMLAStore extends BaseStore implements IStore {
         }
     }
 
+    getRequestParams() {
+        return {
+            ...this.XMLARequestParams,
+            ...this.drilldownHandler.getDrilldownState(),
+        };
+    }
+
     setOptions({ caption }: IStoreParams) {
         this.caption = caption || this.caption;
+        this.eventBus.emit(`UPDATE:${this.id}`);
+    }
+
+    setRows(rows) {
+        this.XMLARequestParams.rows = rows;
+        this.eventBus.emit(`UPDATE:${this.id}`);
+    }
+
+    setCols(columns) {
+        console.log(columns);
+        this.XMLARequestParams.columns = columns;
+        this.eventBus.emit(`UPDATE:${this.id}`);
+    }
+
+    setFilters(filters) {
+        this.XMLARequestParams.filters = filters;
+        this.eventBus.emit(`UPDATE:${this.id}`);
+    }
+
+    setMeasures(measures) {
+        this.XMLARequestParams.measures = measures;
         this.eventBus.emit(`UPDATE:${this.id}`);
     }
 

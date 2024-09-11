@@ -31,6 +31,7 @@ export interface ImageComponent {
     settings: ImageComponentSettings;
     setSetting: (key: string, value: any) => void;
     setStore: (store: Store | XMLAStore) => void;
+    loading: boolean;
 }
 
 const { t } = useI18n();
@@ -150,7 +151,10 @@ onMounted(() => {
                         name="store-radio-group"
                     />
                 </div>
-                <pre class="response">{{ requestResult }}</pre>
+                <pre v-if="!component.loading" class="response">{{ requestResult }}</pre>
+                <div v-else="component.loading" class="loading">
+                    <va-inner-loading class="loader" :loading="component.loading" :size="55"></va-inner-loading>
+                </div>
             </div>
         </div>
     </va-collapse>
@@ -187,5 +191,13 @@ onMounted(() => {
     overflow: auto;
     padding: 0.5rem;
     border-radius: 0.5rem;
+}
+
+.loading {
+    height: 100%;
+    padding: 50px;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+    background-color: var(--app-response-background);
 }
 </style>

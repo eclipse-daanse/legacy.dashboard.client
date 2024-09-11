@@ -13,18 +13,18 @@ import { ref, type Ref, inject } from "vue";
 import type { TinyEmitter } from "tiny-emitter";
 
 export function useStore<Type extends IStore>(
-    eventBus?: TinyEmitter,
-    updateFn?,
-    watcher?,
-) {
+    eventBus?: TinyEmitter, updateFn?, watcher?) {
     const data = ref({});
     const store = ref(null) as unknown as Ref<Type>;
+    const loading = inject('updateLoading') as Ref<boolean>;
     const EventBus = eventBus || (inject("EventBus") as TinyEmitter);
 
     if (!updateFn) {
         updateFn = async () => {
             if (!store) return;
+            loading.value = true;
             data.value = await store.value.getData();
+            loading.value = false;
         };
     }
 
@@ -40,7 +40,7 @@ export function useStore<Type extends IStore>(
         }
         store.value = newStore;
 
-        EventBus.on(`UPDATE:${newStore.id}`, updateFn);
+        EventBus.on(`UPDATE:${newStore.id}`, () => updateFn(store.value));
         updateFn(store.value);
     };
 
@@ -48,5 +48,6 @@ export function useStore<Type extends IStore>(
         data,
         store,
         setStore,
+        loading,
     };
 }

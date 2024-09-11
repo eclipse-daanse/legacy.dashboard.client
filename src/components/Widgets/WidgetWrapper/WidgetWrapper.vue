@@ -28,7 +28,7 @@ interface IWrapperSettingsProps {
   transparency?: number;
 }
 
-import {computed, ref} from "vue";
+import { computed, ref, provide } from "vue";
 import { useSettings } from "@/composables/widgets/settings";
 import { useSerialization } from "@/composables/widgets/serialization";
 import WidgetWrapperSettings from "./WidgetWrapperSettings.vue";
@@ -55,6 +55,9 @@ const props = withDefaults(defineProps<IWrapperSettingsProps>(), {
 
 const { settings, setSetting } = useSettings<typeof props>(props);
 const { getState } = useSerialization(settings);
+const loading = ref(false);
+
+provide("updateLoading", loading);
 
 const fullscreenEnabled = ref(false);
 
@@ -91,37 +94,37 @@ const getBackground = computed(()=>{
   const ret = `#${color}${post}`;
   return ret;
 });
-
-
 </script>
 
 <template>
   <div class="wrapper-container">
-    <div v-if="settings.fullscreen" class="wrapper-fullscreen_icon">
-      <VaButton
-        preset="secondary"
-        icon="fullscreen"
-        @click="fullscreenEnabled = true"
-      />
-    </div>
-    <div v-if="settings.title" class="wrapper-title">{{ settings.title }}</div>
-    <slot></slot>
-  </div>
-  <template v-if="fullscreenEnabled">
-    <Teleport to="body">
-      <div class="fullscreen-container">
-        <div class="wrapper-fullscreen_icon">
-          <VaButton
-            preset="secondary"
-            icon="close"
-            @click="fullscreenEnabled = false"
-          />
-        </div>
-        <div v-if="settings.title" class="wrapper-title">{{ settings.title }}</div>
-        <slot></slot>
+    <va-inner-loading class="loader" :loading="loading" :size="55">
+      <div v-if="settings.fullscreen && !loading" class="wrapper-fullscreen_icon">
+        <VaButton
+          preset="secondary"
+          icon="fullscreen"
+          @click="fullscreenEnabled = true"
+        />
       </div>
-    </Teleport>
-  </template>
+      <div v-if="settings.title && !loading" class="wrapper-title">{{ settings.title }}</div>
+      <slot v-if="!loading"></slot>
+      <template v-if="fullscreenEnabled && !loading">
+        <Teleport to="body">
+          <div class="fullscreen-container">
+            <div class="wrapper-fullscreen_icon">
+              <VaButton
+                preset="secondary"
+                icon="close"
+                @click="fullscreenEnabled = false"
+              />
+            </div>
+            <div v-if="settings.title" class="wrapper-title">{{ settings.title }}</div>
+            <slot></slot>
+          </div>
+        </Teleport>
+      </template>
+    </va-inner-loading>
+  </div>
 </template>
 
 <style scoped>
@@ -173,5 +176,9 @@ const getBackground = computed(()=>{
   left: 0;
   background-color: #fff;
   z-index: 10000000000;
+}
+
+.loader {
+  height: 100%;
 }
 </style>

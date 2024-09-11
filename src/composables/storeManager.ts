@@ -30,6 +30,7 @@ export interface StoreManagerI {
     };
     getStore: { (key: string): IStore };
     getState: { (): any };
+    deleteStore: { (key: string): void };
     getStoreList: { (): Ref<Map<string, IStore & ISerializable>> };
     loadState: Function;
     registerStoreType: { (classOfStoreType: typeof BaseStore): void };
@@ -58,6 +59,8 @@ export function useStoreManager(): StoreManagerI {
     };
 
     const getStore = (key): IStore => {
+        console.log(key);
+        console.log(availableStores.value);
         const store = availableStores.value.get(key);
         if (store) {
             return store;
@@ -78,6 +81,14 @@ export function useStoreManager(): StoreManagerI {
         });
 
         return JSON.stringify(state);
+    };
+
+    const deleteStore = (id: string) => {
+        if (availableStores.value.has(id)) {
+            availableStores.value.delete(id);
+        } else {
+            throw new Error("Store with provided id doesn't exist");
+        }
     };
 
     const loadState = (state, eventBus) => {
@@ -109,6 +120,7 @@ export function useStoreManager(): StoreManagerI {
         getStore,
         getStoreList,
         getState,
+        deleteStore,
         loadState,
         getStoreTypes,
     };
