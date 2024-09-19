@@ -11,7 +11,7 @@ Contributors: Smart City Jena
 <script lang="ts" setup>
 
 import {ref, onMounted, computed, type Ref, type UnwrapRef} from "vue";
-import type {IMapProps} from "@/plugins/TestPlugin/widgets/api/MapPreview";
+import type {IMapProps} from "@/plugins/OGCSTA/widgets/api/MapPreview";
 
 export interface IMapPrevComponent {
     settings: IMapProps;

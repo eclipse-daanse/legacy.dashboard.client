@@ -11,15 +11,18 @@ Contributors: Smart City Jena
 <script lang="ts" setup>
 
 import {ref, onMounted, computed, type Ref, type UnwrapRef} from "vue";
+import type {IMapProps} from "@/plugins/OGCSTA/widgets/api/MapPreview";
+import type {IDataPoint} from "@/plugins/OGCSTA/widgets/api/Datapoint";
+import type {IUnitPoint} from "@/plugins/OGCSTA/widgets/parts/dataLabelRenderer/ValueUnitDataLabelRenderer.vue";
+import type {Store} from "@/stores/Widgets/Store";
+import type {XMLAStore} from "@/stores/Widgets/XMLAStore";
 
-import type {IDataPoint} from "@/plugins/TestPlugin/widgets/api/Datapoint";
-
-export interface ITLCDataLabelRendererComonent {
-    settings: IDataPoint;
+export interface IValueUnitDataLabelRendererComonent {
+    settings: IUnitPoint;
     setSetting: (key: string, value: any) => void;
 }
 
-const {component} = defineProps<{ component: ITLCDataLabelRendererComonent }>();
+const {component} = defineProps<{ component: IValueUnitDataLabelRendererComonent }>();
 
 const opened: Ref<UnwrapRef<{ textSection: boolean }>> = ref({
     textSection: true,
@@ -29,7 +32,24 @@ const opened: Ref<UnwrapRef<{ textSection: boolean }>> = ref({
 </script>
 
 <template>
-
+    <va-collapse
+        v-model="opened.textSection"
+        header="Style settings">
+        <div class="settings-container">
+            <va-input
+                v-model="component.settings.unit"
+                label="unit"
+                @update:model-value="component.setSetting('unit', $event)"/>
+            <va-input
+                v-model="component.settings.prefix"
+                label="Prefix"
+                @update:model-value="component.setSetting('prefix', $event)"/>
+            <va-input
+                v-model="component.settings.suffix"
+                label="suffix"
+                @update:model-value="component.setSetting('suffix', $event)"/>
+        </div>
+    </va-collapse>
 
 </template>
 <style scoped>

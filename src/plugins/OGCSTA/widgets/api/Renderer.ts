@@ -1,4 +1,4 @@
-import type {IMapProps} from "@/plugins/TestPlugin/widgets/api/MapPreview";
+import type {IMapProps} from "@/plugins/OGCSTA/widgets/api/MapPreview";
 // @ts-ignore
 import type {IIconSettings} from "@/components/Widgets/Icon/IconWidgetSettings.vue";
 
@@ -7,10 +7,8 @@ export interface IPointPin {
 }
 
 export interface IDSRenderer {
-    datastream: {
-        prop: string,
-        value: string,
-    },
+    name:string,
+    datastream: ICondition[],
     placement: ERefType,
     observation: {
         setting: any,
@@ -27,12 +25,18 @@ export interface IDSRenderer {
     id: string;
 
 }
+export interface ICondition {
+
+        prop: string,
+        comperator: Comperator
+        value: string,
+
+}
+
 
 export interface IRenderer {
-    thing: {
-        prop: string,
-        value: string,
-    },
+    name:string,
+    thing: ICondition[],
     renderer: {
         show_SubElements: boolean,
         point_render_as: string,
@@ -54,4 +58,12 @@ interface ICompare {
 export enum ERefType {
     Thing = 'Thing',
     OberservedArea = 'OberservedArea',
+}
+export enum Comperator {
+    equals = 'eq',
+    lessThen = 'lt',
+    greaterThen = 'gt',
+    lessThenEquals = 'lte',
+    greaterThenEquals = 'gte',
+    notEQuals = "neq"
 }

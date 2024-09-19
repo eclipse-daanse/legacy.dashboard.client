@@ -49,6 +49,14 @@ export function resolve(start) {
     return obj && obj[prop];
   }, start);
 }
+export function resolveObj(obj,dotNotatedstring:string) {
+    const replace = dotNotatedstring.replace("\.","<|>");
+    try{
+        return replace.split('.').reduce((o,i)=> o[i.replace("<|>",".")], obj)
+    }catch (e){
+        return null;
+    }
 
+}
 
 

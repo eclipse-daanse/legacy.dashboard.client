@@ -1,6 +1,6 @@
-import type {IRenderer} from "@/plugins/TestPlugin/widgets/api/Renderer";
-import type {IOGCSTA} from "@/plugins/TestPlugin/dataSources/STADataSource";
-import type {Datastream, Thing} from "@/plugins/TestPlugin/dataSources/STAClient";
+import type {IRenderer} from "@/plugins/OGCSTA/widgets/api/Renderer";
+import type {IOGCSTA} from "@/plugins/OGCSTA/dataSources/STADataSource";
+import type {Datastream, Thing} from "@/plugins/OGCSTA/dataSources/STAClient";
 import {isArray} from "lodash";
 
 export function useUtils() {

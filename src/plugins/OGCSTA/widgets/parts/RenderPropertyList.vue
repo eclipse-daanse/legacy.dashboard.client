@@ -2,8 +2,8 @@
 
 
 import {reactive, ref, toRaw} from "vue";
-import type {IRenderer} from "@/plugins/TestPlugin/widgets/api/Renderer";
-import RenderPropertyListItemThing from "@/plugins/TestPlugin/widgets/parts/RenderPropertyListItemThing.vue";
+import type {IRenderer} from "@/plugins/OGCSTA/widgets/api/Renderer";
+import RenderPropertyListItemThing from "@/plugins/OGCSTA/widgets/parts/RenderPropertyListItemThing.vue";
 
 const model = defineModel<IRenderer[] | undefined>({
     default:
@@ -21,8 +21,8 @@ const showModal = ref(false);
 const renderers = ref<IRenderer[]>([]);
 
 const columns = [
-    {key: "thing.prop", sortable: true},
-    {key: "thing.value", sortable: true},
+    {key: "name", sortable: true},
+    {key: "id", sortable: true},
     {key: "actions", width: 80},
 ];
 const add = () => {

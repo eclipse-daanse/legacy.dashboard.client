@@ -3,7 +3,7 @@ import {
     type Datastream, DatastreamsApi, LocationsApi,
     type Observation, ObservationsApi, type Location,
     type Thing, type Things, ThingsApi
-} from "@/plugins/TestPlugin/dataSources/STAClient";
+} from "@/plugins/OGCSTA/dataSources/STAClient";
 import DataSource from "@/dataSources/DataSource";
 import {AxiosError} from "axios";
 

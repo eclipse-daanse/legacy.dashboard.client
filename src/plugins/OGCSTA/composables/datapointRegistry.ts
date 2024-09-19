@@ -1,4 +1,4 @@
-import type {IdataDataPointDescription} from "@/plugins/TestPlugin/composables/IdataDataPointDescription";
+import type {IdataDataPointDescription} from "@/plugins/OGCSTA/composables/IdataDataPointDescription";
 
 const storeRegistry: Map<string, IdataDataPointDescription> = new Map();
 
