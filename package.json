@@ -62,7 +62,7 @@
     "@nightwatch/vue": "^0.4.5",
     "@rushstack/eslint-patch": "^1.6.0",
     "@storybook/addon-essentials": "^8.1.0",
-    "@storybook/addon-interactions": "^8.1.0",
+    "@storybook/addon-interactions": "^8.1.11",
     "@storybook/addon-links": "^8.1.0",
     "@storybook/addon-mdx-gfm": "^8.1.0",
     "@storybook/blocks": "^8.1.0",
