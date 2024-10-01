@@ -15,12 +15,13 @@ import { createRouter, createWebHashHistory } from "vue-router";
 // let routes: { path: string; component: any }[];
 
 const routes = [
-  { path: "/", component: Main, name: "designer" },
+  { path: "/designer", component: Main, name: "designer" },
   { path: "/dashboard", component: Dashboard, name: "dashboard" },
   {
-    path: "/multilevel-dashboard",
+    path: "/",
     component: MultilevelDashboard,
     name: "multilevel-dashboard",
+      //children: [{ path: '/multilevel-dashboard/url/:uri', name: 'loadDefault', component: MultilevelDashboard }],
   },
 ] as any;
 

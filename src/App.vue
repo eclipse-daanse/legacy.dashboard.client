@@ -8,14 +8,35 @@ SPDX-License-Identifier: EPL-2.0
 Contributors: Smart City Jena
 
 -->
-<script setup lang="ts"></script>
+<script setup lang="ts">
+
+import {ref, watch} from "vue";
+import {useRoute} from "vue-router";
+let viewmodeByDefault = false;
+if(window && window['__env'] && window['__env'].settings && window['__env'].settings.viewmodeByDefault){
+    viewmodeByDefault = window['__env'].settings.viewmodeByDefault;
+}
+const viewmode= ref<boolean>(viewmodeByDefault);
+const route = useRoute()
+watch(()=>route.query,(val)=>{
+    if(val){
+        if(Object.keys(val).includes('viewmode')){
+            viewmode.value=true;
+        }
+        if(Object.keys(val).includes('noviewmode')){
+            viewmode.value=false;
+        }
+    }
+},{immediate:true})
+
+</script>
 
 <template>
-    <div class="sidebar">
+    <div class="sidebar" v-if="!viewmode">
         <va-sidebar hoverable minimized-width="55px" class="colored-sidebar">
             <va-sidebar-item
                 :active="$route.name === 'designer'"
-                @click="$router.push('/')"
+                @click="$router.push({name:'designer'})"
                 class="pointer"
             >
                 <va-sidebar-item-content>
@@ -27,7 +48,7 @@ Contributors: Smart City Jena
             </va-sidebar-item>
             <va-sidebar-item
                 :active="$route.name === 'dashboard'"
-                @click="$router.push('/dashboard')"
+                @click="$router.push({name:'dashboard'})"
                 class="pointer"
             >
                 <va-sidebar-item-content>
@@ -39,7 +60,7 @@ Contributors: Smart City Jena
             </va-sidebar-item>
             <va-sidebar-item
                 :active="$route.name === 'multilevel-dashboard'"
-                @click="$router.push('/multilevel-dashboard')"
+                @click="$router.push({name:'multilevel-dashboard'})"
                 class="pointer"
             >
                 <va-sidebar-item-content>

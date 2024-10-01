@@ -9,7 +9,7 @@ Contributors: Smart City Jena
 
 -->
 <script lang="ts" setup>
-import {LGeoJson, LIcon, LMap, LMarker, LTileLayer} from "@vue-leaflet/vue-leaflet";
+import {LGeoJson, LIcon, LMap, LMarker, LTileLayer,LWmsTileLayer} from "@vue-leaflet/vue-leaflet";
 
 import {
     type Location
@@ -47,6 +47,7 @@ const settingsComponent = ThingWidgetSettings;
 
 const props = withDefaults(defineProps<IThingWidgetProps>(), reactive({
     baseMapUrl: "https://a.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png",
+    //baseMapUrl: "https://kartenportal.jena.de/api/v1/legend/pg/qwc_config/kartenportal_start?VERSION=1.3.0&SERVICE=WMS&REQUEST=GetLegendGraphic&FORMAT=image%2Fpng&CRS=EPSG%3A25832&SLD_VERSION=1.1.0&LAYERFONTFAMILY=Arial&LAYERFONTSIZE=10&ITEMFONTFAMILY=Arial&ITEMFONTSIZE=10&LAYERTITLE=TRUE&STYLE=legend&ICONLABELSPACE=5&SCALE=62500&WIDTH=1920&HEIGHT=245&BBOX=665124.2607677798%2C5641975.5567279635%2C696874.2607677798%2C5646026.98901963&LAYER=sonstige%20Bildungseinrichtungen&STYLES=default&FILTER=&TYPE=thumbnail",
     zoom: 14,
     attribution: '&copy; <a href="https://www.stadiamaps.com/" target="_blank">Stadia Maps</a> &copy; <a href="https://openmaptiles.org/" target="_blank">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
     center: [50.93115286, 11.60392726],
@@ -257,6 +258,16 @@ const c = () => {
                @move="mapmove">
             <l-tile-layer :attribution="attribution" :options="{maxNativeZoom:19,
         maxZoom:25}" :url="baseMapUrl"></l-tile-layer>
+            <l-wms-tile-layer
+                key="jena"
+                url="https://map.jena.de/mapproxy/wms"
+                name="wmsLayer.name"
+                layers="Stadtplangit"
+                attribution="wmsLayer.attribution"
+                format="image/png"
+                layer-type="base"
+            ></l-wms-tile-layer>
+
             <!--<l-geo-json  :geojson="location.location"  v-for="location in locations" ref="thingsLayer" :options-style="getStyle"></l-geo-json>-->
             <!-- <v-marker-cluster :options="{spiderfyDistanceMultiplier:3.2,animate:true,animateAddingMarkers:true,zoomToBoundsOnClick:false,disableClusteringAtZoom:18}"
                                ref="clusterRef2">-->

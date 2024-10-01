@@ -10,12 +10,14 @@ import nightwatchPlugin from 'vite-plugin-nightwatch';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [vue(), viteRequire(),
+  base:'./',
+  plugins: [vue({
+    exclude:["./config/settings.js"]
+  }), viteRequire(),
     nightwatchPlugin({
       renderPage: "",
       componentType: 'vue'
     })
-
   ],
   resolve: {
     alias: {
