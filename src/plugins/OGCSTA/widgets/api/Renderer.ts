@@ -47,6 +47,8 @@ export interface IRenderer {
         label: any
     }
     ds_renderer: IDSRenderer[],
+    ObservationrefreshTime?:number|undefined,
+    lastUpdate?:number|undefined,
     id: string;
 
 }

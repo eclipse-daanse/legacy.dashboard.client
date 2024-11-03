@@ -1,6 +1,6 @@
 import {useDatasourceManager} from "@/composables/datasourceManager";
 import type {IOGCSTA} from "@/plugins/OGCSTA/dataSources/STADataSource";
-import type {Datastream} from "@/plugins/OGCSTA/dataSources/STAClient";
+import type {Datastream, Observation, Observations} from "@/plugins/OGCSTA/dataSources/STAClient";
 import BaseStore from "@/stores/Widgets/BaseStore";
 
 export default class StaStore extends BaseStore implements IStore, ISerializable {
@@ -50,12 +50,26 @@ export default class StaStore extends BaseStore implements IStore, ISerializable
         return this.data;
     }
 
-    async getObservations(ds: Datastream) {
+    async getObservations(ds: Datastream|Datastream[]) {
         const datasource = this.datasourceManager.getDatasource(this.datasourceId);
 
-        console.log(ds["@iot.id"])
-        let observations: IOGCSTA = await datasource.getData({datastreams: {ids: [ds["@iot.id"]]}});
-        ds.Observations = observations.observations;
+        console.log(ds)
+        if(Array.isArray(ds)){
+            let observations: IOGCSTA = await datasource.getData({observations: {ids: ds.map(d=>d["@iot.id"])}});
+
+            for(let d of ds){
+                const ind = observations.observations?.findIndex(o=>o.ds_source==d["@iot.id"]);
+                if(ind!=undefined && ind != -1){
+                    d.Observations = observations.observations?.splice(ind,1) as Observation[];
+                }
+            }
+            this.data.observations = observations.observations;
+        }else {
+            let observations: IOGCSTA = await datasource.getData({observations: {ids: [ds["@iot.id"]]}});
+            ds.Observations = observations.observations;
+            this.data.observations = observations.observations;
+        }
+
         return ds;
     }
 

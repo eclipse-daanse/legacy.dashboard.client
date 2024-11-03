@@ -2954,6 +2954,19 @@
     "@types/geojson" "^7946.0.10"
     tslib "^2.6.2"
 
+"@turf/boolean-contains@^7.1.0":
+  version "7.1.0"
+  resolved "https://registry.yarnpkg.com/@turf/boolean-contains/-/boolean-contains-7.1.0.tgz#6ceaf8083c7ed82e41187951eccb2111c23c004e"
+  integrity sha512-ldy4j1/RVChYTYjEb4wWaE/JyF1jA87WpsB4eVLic6OcAYJGs7POF1kfKbcdkJJiRBmhI3CXNA+u+m9y4Z/j3g==
+  dependencies:
+    "@turf/bbox" "^7.1.0"
+    "@turf/boolean-point-in-polygon" "^7.1.0"
+    "@turf/boolean-point-on-line" "^7.1.0"
+    "@turf/helpers" "^7.1.0"
+    "@turf/invariant" "^7.1.0"
+    "@types/geojson" "^7946.0.10"
+    tslib "^2.6.2"
+
 "@turf/boolean-point-in-polygon@^7.1.0":
   version "7.1.0"
   resolved "https://registry.yarnpkg.com/@turf/boolean-point-in-polygon/-/boolean-point-in-polygon-7.1.0.tgz#dec07b467d74b4409eb03acc60b874958f71b49a"
@@ -2963,6 +2976,16 @@
     "@turf/invariant" "^7.1.0"
     "@types/geojson" "^7946.0.10"
     point-in-polygon-hao "^1.1.0"
+    tslib "^2.6.2"
+
+"@turf/boolean-point-on-line@^7.1.0":
+  version "7.1.0"
+  resolved "https://registry.yarnpkg.com/@turf/boolean-point-on-line/-/boolean-point-on-line-7.1.0.tgz#03a29be5e9806b1b34255e69f03c3af1adfbcc4d"
+  integrity sha512-Kd83EjeTyY4kVMAhcW3Lb8aChwh24BUIhmpE9Or8M+ETNsFGzn9M7qtIySJHLRzKAL3letvWSKXKQPuK1AhAzg==
+  dependencies:
+    "@turf/helpers" "^7.1.0"
+    "@turf/invariant" "^7.1.0"
+    "@types/geojson" "^7946.0.10"
     tslib "^2.6.2"
 
 "@turf/center@^7.1.0":

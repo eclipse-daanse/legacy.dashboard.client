@@ -54,7 +54,9 @@ const model: ModelRef<IRenderer> = defineModel<IRenderer>({
                     className: ''
                 } as IMapProps,
             },
-            id: v4()
+            id: v4(),
+            ObservationrefreshTime:0,
+            lastUpdate:undefined
         } as IRenderer)
     }
 })
@@ -84,7 +86,7 @@ const pointSelectorOptions = [
 ]
 const thingsPropOptions = [{
     text: 'id',
-    selector: '@iot\.id'
+    selector: '@iot\\.id'
 },
     {
         text: 'name',
@@ -455,7 +457,7 @@ const addContition = () => {
     </div>
 
     <div style="height:25px"></div>
-    <h2>DataLabels</h2>
+    <h2>Datastreams</h2>
     <VaDivider class="mb15"/>
 
 
@@ -502,7 +504,7 @@ const addContition = () => {
         fixed-layout
         max-height="800px"
     >
-        <RenderPropertyListItemDataStream ref="listitem2" v-model="editmodel"
+        <RenderPropertyListItemDataStream ref="listitem2" v-model="editmodel" v-model:ObservationrefreshTime="model.ObservationrefreshTime"
                                           @add-sub-renderer="addSubRenderer"></RenderPropertyListItemDataStream>
 
     </VaModal>

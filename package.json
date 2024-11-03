@@ -2,6 +2,7 @@
   "name": "package",
   "version": "0.0.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "build": "run-p type-check build-only",
     "test:unit": "vitest --environment jsdom --root src/",
@@ -23,6 +24,7 @@
     "@tiptap/starter-kit": "^2.3.1",
     "@tiptap/vue-3": "^2.3.1",
     "@turf/point-on-feature": "^7.0.0",
+    "@turf/boolean-contains": "^7.1.0",
     "@vue-leaflet/vue-leaflet": "^0.10.1",
     "@vueuse/core": "^10.7.0",
     "axios": "^1.6.2",

@@ -6,7 +6,13 @@ import IconWidget, {type IIconSettingsProps} from "@/components/Widgets/Icon/Ico
 import MapSettings from "@/plugins/OGCSTA/widgets/parts/MapSettings.vue";
 import IconWidgetSettings, {type IIconSettings} from "@/components/Widgets/Icon/IconWidgetSettings.vue";
 import {v4} from "uuid";
-import {Comperator, ERefType, type ICondition, type IDSRenderer} from "@/plugins/OGCSTA/widgets/api/Renderer";
+import {
+    Comperator,
+    ERefType,
+    type ICondition,
+    type IDSRenderer,
+    type IRenderer
+} from "@/plugins/OGCSTA/widgets/api/Renderer";
 import MapPreview from "@/plugins/OGCSTA/widgets/parts/MapPreview.vue";
 import type {IMapProps} from "@/plugins/OGCSTA/widgets/api/MapPreview";
 import {
@@ -51,6 +57,7 @@ const model: ModelRef<IDSRenderer> = defineModel<IDSRenderer>({
                             } as IMapProps,
                         },
                         observation: {
+                            refreshTime:0,
                             setting: {},
                             component: 'generalValueUnitDataPointRenderer',
 
@@ -60,6 +67,7 @@ const model: ModelRef<IDSRenderer> = defineModel<IDSRenderer>({
                 ))
         }
 });
+const ObservationrefreshTime: ModelRef<number> = defineModel<number>('ObservationrefreshTime',{ default: 0});
 const EMIT_ADD_SUB_RENDERER = 'addSubRenderer';
 
 enum Selector {
@@ -77,7 +85,7 @@ const thingPropValue = ref('');
 const dsPropValue = ref('')
 const thingsPropOptions = [{
     text: 'id',
-    selector: '@iot.id'
+    selector: '@iot\.id'
 },
     {
         text: 'name',
@@ -90,6 +98,10 @@ const thingsPropOptions = [{
     {
         text: 'property',
         selector: 'property'
+    },
+    {
+        text: 'observation',
+        selector: 'Observations.0.result'
     },
     {
         text: 'all',
@@ -122,6 +134,8 @@ const value = computed({
 defineExpose({
     submit
 });
+
+const props = defineProps<{ parent:IRenderer}>()
 
 watch(() => (iconMapComponent.value as IconWidget)?.settings, (nv: IIconSettings) => {
     console.log(nv);
@@ -465,6 +479,11 @@ const addContition = () => {
         label="render within"
         type="radio"
     />
+    <VaInput
+        v-model="ObservationrefreshTime"
+        label="refresh intervall"
+        type="number"
+    />
     <div class="max-w-xs">
         <VaSelect
             v-if="rendererOptions"
@@ -476,6 +495,10 @@ const addContition = () => {
             value-by="id"
         />
     </div>
+
+
+
+
 
     <template v-if="dataPointcomponentDesc">
 

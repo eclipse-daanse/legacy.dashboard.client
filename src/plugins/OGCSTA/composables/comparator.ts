@@ -42,7 +42,8 @@ export function useComparator() {
                     if (!prop) {
                         return false
                     }
-                    return compateCondition(condition.comperator,prop,condition.value)
+
+                    return  compateCondition(condition.comperator,prop,condition.value);
                 }
             }
         ).reduce((accumulator, currentValue) => accumulator && currentValue,

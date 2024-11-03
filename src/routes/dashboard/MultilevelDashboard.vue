@@ -18,7 +18,7 @@ Contributors: Smart City Jena
                 backgroundColor ? `--app-background: ${backgroundColor}` : ''
             "
         >
-            <div class="layout-settings">
+            <div class="layout-settings" v-if="!viewmode">
                 <div class="buttons-list">
                     <va-button
                         preset="primary"
@@ -209,7 +209,7 @@ import {
     ref,
     type Ref,
     provide,
-    inject,
+    inject, watch, onMounted,
 } from "vue";
 import { useStoreManager } from "@/composables/storeManager";
 import Moveable from "vue3-moveable";
@@ -225,6 +225,7 @@ import ErrorHandlingModal from "@/components/Modals/ErrorHandlingModal.vue";
 import SaveModal from "@/components/Modals/SaveModal.vue";
 import loadModal from "@/components/Modals/LoadModal.vue";
 import LoadModal from "@/components/Modals/LoadModal.vue";
+import {useRoute} from "vue-router";
 
 const { t } = useI18n();
 
@@ -236,6 +237,11 @@ const loadsaveModal = ref(null) as Ref<any>;
 const loadModalref = ref(null) as Ref<any>;
 
 const editEnabled = ref(false);
+let viewmodeByDefault = false;
+if(window && window['__env'] && window['__env'].settings && window['__env'].settings.viewmodeByDefault){
+    viewmodeByDefault = window['__env'].settings.viewmodeByDefault;
+}
+const viewmode = ref(viewmodeByDefault);
 const showSidebar = ref(false);
 const settingsSection = ref(null as any);
 
@@ -427,6 +433,48 @@ const deleteWidget = (id) => {
     delete layout.value[id];
     removeWidget(id);
 };
+
+const loadFromUrl = (url)=>{
+    fetch(url as string)
+        .then((response) => response.json())
+        .then(result=>{
+
+            const keys = Object.keys(result);
+            if(keys.includes('layout') &&  keys.includes('stores')  && keys.includes('datasources')  && keys.includes('widgets')){
+                if(result){
+                    loadState(JSON.stringify(result));
+                }
+            }
+            else {
+                throw new Error('Format not suported')
+            }
+
+        }).catch((e)=>{
+        console.log(e);
+        openErrorModal({message:'Could not load Configuration from Endpoint!',name:'Config Error'});
+    });
+}
+const route = useRoute()
+watch(()=>route.query,(val)=>{
+    if(val && val.uri){
+        loadFromUrl(val.url);
+    }
+    if(Object.keys(val).includes('viewmode')){
+            viewmode.value=true;
+    }
+    if(Object.keys(val).includes('noviewmode')){
+        viewmode.value=false;
+    }
+},{immediate:true})
+
+
+onMounted(()=>{
+    let viewmodeByDefault = false;
+    if(window && window['__env'] && window['__env'].settings && window['__env'].settings.initWithConfigurationURI && window['__env'].settings.initWithConfigurationURI.enabled
+        && window['__env'].settings.initWithConfigurationURI.url){
+        loadFromUrl(window['__env'].settings.initWithConfigurationURI.url)
+    }
+})
 </script>
 
 <style lang="scss">
