@@ -51,7 +51,7 @@
     "turf": "^3.0.14",
     "uuid": "^9.0.1",
     "vue": "^3.3.11",
-    "vue-chartjs": "^5.3.1",
+    "vue-chartjs": "^5.3.2",
     "vue-component-create": "^0.0.4",
     "vue-deepunref": "^1.0.1",
     "vue-i18n": "^9.13.1",
