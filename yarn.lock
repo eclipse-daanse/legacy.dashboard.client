@@ -1073,6 +1073,11 @@
     "@babel/helper-validator-identifier" "^7.24.7"
     to-fast-properties "^2.0.0"
 
+"@bazel/runfiles@^6.3.1":
+  version "6.3.1"
+  resolved "https://registry.yarnpkg.com/@bazel/runfiles/-/runfiles-6.3.1.tgz#3f8824b2d82853377799d42354b4df78ab0ace0b"
+  integrity sha512-1uLNT5NZsUVIGS4syuHwTzZ8HycMPyr6POA3FCE4GbMtc4rhoJk8aZKtNIRthJYfL+iioppi+rTfH3olMPr9nA==
+
 "@cfcs/core@^0.0.6":
   version "0.0.6"
   resolved "https://registry.npmjs.org/@cfcs/core/-/core-0.0.6.tgz"
@@ -3510,7 +3515,7 @@
   resolved "https://registry.npmjs.org/@types/ms/-/ms-0.7.34.tgz"
   integrity sha512-nG96G3Wp6acyAgJqGasjODb+acrI7KltPiRxzHPXnP3NgI28bpQDRv53olbqGXbfcgF5aiiHmO3xpwEpS5Ld9g==
 
-"@types/nightwatch@^2.3.23", "@types/nightwatch@^2.3.28":
+"@types/nightwatch@^2.3.23":
   version "2.3.31"
   resolved "https://registry.npmjs.org/@types/nightwatch/-/nightwatch-2.3.31.tgz"
   integrity sha512-DqkgFUNhIEbO09RfsRZtFdr2cOP1TbtNDHp0RUKiVYG0mIEBQfYGBtNCH8UWEuCspMD3yhqBd+WeBdsTzQpfHQ==
@@ -3520,6 +3525,13 @@
     "@types/selenium-webdriver" "*"
     devtools-protocol "^0.0.1025565"
 
+"@types/nightwatch@^3.0.1":
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/@types/nightwatch/-/nightwatch-3.0.1.tgz#865a2243f6d23269fba0dbc36d899dfe4975a394"
+  integrity sha512-qIHzQTLHRTDVkRSk5zxEg0br4Gh3+9ZAvizBNL4/wlMF+aJMLNlfMRhTGl8NEaPkxBqTZ6T45XkdW64/uKKH+g==
+  dependencies:
+    nightwatch "*"
+
 "@types/node@*", "@types/node@^20.10.4":
   version "20.11.26"
   resolved "https://registry.npmjs.org/@types/node/-/node-20.11.26.tgz"
@@ -3527,14 +3539,7 @@
   dependencies:
     undici-types "~5.26.4"
 
-"@types/node@^18.0.0":
-  version "18.19.33"
-  resolved "https://registry.npmjs.org/@types/node/-/node-18.19.33.tgz"
-  integrity sha512-NR9+KrpSajr2qBVp/Yt5TU/rp+b5Mayi3+OlMlcg2cVCfRmcG5PWZ7S4+MG9PZ5gWBoc9Pd0BKSRViuBCRPu0A==
-  dependencies:
-    undici-types "~5.26.4"
-
-"@types/node@^18.11.9":
+"@types/node@^18.0.0", "@types/node@^18.11.9":
   version "18.19.55"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-18.19.55.tgz#29c3f8e1485a92ec96636957ddec55aabc6e856e"
   integrity sha512-zzw5Vw52205Zr/nmErSEkN5FLqXPuKX/k5d1D7RKHATGqU7y6YfX9QxZraUzUrFGqH6XzOzG196BC35ltJC4Cw==
@@ -9477,10 +9482,10 @@ nightwatch-axe-verbose@^2.2.2, nightwatch-axe-verbose@^2.3.0:
   dependencies:
     axe-core "^4.8.3"
 
-nightwatch@^3.7.0:
-  version "3.7.0"
-  resolved "https://registry.npmjs.org/nightwatch/-/nightwatch-3.7.0.tgz"
-  integrity sha512-KtMXBbs3eEdPDZ7fuKmk+upBD0IT8u9XVikigJQFjHKKpWfKQSXDXZ4umIT6OM6yWLnGwvab7PwZp2xfdmZPww==
+nightwatch@*, nightwatch@^3.9.0:
+  version "3.9.0"
+  resolved "https://registry.yarnpkg.com/nightwatch/-/nightwatch-3.9.0.tgz#31e71cf14ace22f05f962e9ea06487a65b76e3dc"
+  integrity sha512-SIkcvRXtGtPy33fodtZC4xDUXKY444dfYvyiODB2sP1M4Ewt7KqE+cxdPuGY0qr+Hsb982KhOnjDUjhSSaX+AA==
   dependencies:
     "@nightwatch/chai" "5.0.3"
     "@nightwatch/html-reporter-template" "^0.3.0"
@@ -9510,7 +9515,7 @@ nightwatch@^3.7.0:
     open "8.4.2"
     ora "5.4.1"
     piscina "^4.3.1"
-    selenium-webdriver "4.22.0"
+    selenium-webdriver "4.26.0"
     semver "7.5.4"
     stacktrace-parser "0.1.10"
     strip-ansi "6.0.1"
@@ -11341,14 +11346,15 @@ selecto@~1.26.3:
     keycon "^1.2.0"
     overlap-area "^1.1.0"
 
-selenium-webdriver@4.22.0:
-  version "4.22.0"
-  resolved "https://registry.npmjs.org/selenium-webdriver/-/selenium-webdriver-4.22.0.tgz"
-  integrity sha512-GNbrkCHmy249ai885wgXqTfqL2lZnclUH/P8pwTDIqzyFxU3YhDiN7p/c9tMFA4NhgRdEBO2QCG+CWmG7xr/Mw==
+selenium-webdriver@4.26.0:
+  version "4.26.0"
+  resolved "https://registry.yarnpkg.com/selenium-webdriver/-/selenium-webdriver-4.26.0.tgz#23163cdad20388214a4ad17c1f38262a0857c902"
+  integrity sha512-nA7jMRIPV17mJmAiTDBWN96Sy0Uxrz5CCLb7bLVV6PpL417SyBMPc2Zo/uoREc2EOHlzHwHwAlFtgmSngSY4WQ==
   dependencies:
+    "@bazel/runfiles" "^6.3.1"
     jszip "^3.10.1"
     tmp "^0.2.3"
-    ws ">=8.16.0"
+    ws "^8.18.0"
 
 "semver@2 || 3 || 4 || 5", semver@^5.4.1, semver@^5.5.0, semver@^5.6.0:
   version "5.7.2"
@@ -11367,14 +11373,7 @@ semver@^6.0.0, semver@^6.3.1:
   resolved "https://registry.npmjs.org/semver/-/semver-6.3.1.tgz"
   integrity sha512-BR7VvDCVHO+q2xBEWskxS6DJE1qRnb7DxzUrogb71CWoSficBxYsiAGd+Kl0mmq/MprG9yArRkyrQxTO6XjMzA==
 
-semver@^7.3.6, semver@^7.5.3, semver@^7.5.4, semver@^7.6.0:
-  version "7.6.0"
-  resolved "https://registry.npmjs.org/semver/-/semver-7.6.0.tgz"
-  integrity sha512-EnwXhrlwXMk9gKu5/flx5sv/an57AkRplG3hTK68W7FRDN+k+OWBj65M7719OkA82XLBxrcX0KSHj+X5COhOVg==
-  dependencies:
-    lru-cache "^6.0.0"
-
-semver@^7.3.7:
+semver@^7.3.6, semver@^7.3.7, semver@^7.5.3, semver@^7.5.4, semver@^7.6.0:
   version "7.6.2"
   resolved "https://registry.npmjs.org/semver/-/semver-7.6.2.tgz"
   integrity sha512-FNAIBWCx9qcRhoHcgcJ0gvU7SN1lYU2ZXuSfl04bSC5OpvDHFyJCjdNHomPXxjQlCBU67YW64PzY7/VIEH7F2w==
@@ -13742,7 +13741,7 @@ write-file-atomic@^2.3.0:
     imurmurhash "^0.1.4"
     signal-exit "^3.0.2"
 
-ws@>=8.16.0, ws@^8.13.0, ws@^8.14.2, ws@^8.16.0, ws@^8.17.0, ws@^8.2.3:
+ws@^8.13.0, ws@^8.14.2, ws@^8.16.0, ws@^8.17.0, ws@^8.18.0, ws@^8.2.3:
   version "8.18.0"
   resolved "https://registry.npmjs.org/ws/-/ws-8.18.0.tgz"
   integrity sha512-8VbfWfHLbbwu3+N6OKsOMpBdT4kXPDDB9cJk2bJ6mh9ucxdlnNvH1e+roYkKmN9Nxw2yjz7VzeO9oOz2zJ04Pw==
