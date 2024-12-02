@@ -54,7 +54,7 @@
     "vue-chartjs": "^5.3.1",
     "vue-component-create": "^0.0.4",
     "vue-deepunref": "^1.0.1",
-    "vue-i18n": "^9.13.1",
+    "vue-i18n": "^9.14.2",
     "vue-json-pretty": "^2.4.0",
     "vue-leaflet-custom-marker": "^1.0.0",
     "vue-leaflet-markercluster": "^0.6.1",
