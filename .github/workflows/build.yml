@@ -26,7 +26,7 @@ jobs:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
           tags: type=raw,value={{date 'YYYYMMDD'}},prefix=SNAPSHOT-
       - name: Archive production artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: ${{ steps.meta.outputs.version}}
           path: |

@@ -34,7 +34,7 @@ jobs:
           TEST_RESULTS_PATH: ${{ github.workspace }}/tests_output/axe.json
 
       - name: Archive test artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         if: success() || failure()
         with:
           name: test_results
