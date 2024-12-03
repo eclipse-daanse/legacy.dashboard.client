@@ -193,7 +193,28 @@ const loadObservationsInView = () => {
                             //console.log(ds);
                         }
                     } else {
-                        //dataStream.Thing.
+                        if(dataStream.Thing && dataStream.Thing!.Locations && dataStream.Thing!.Locations[0]){
+                            if (booleanContains(bboxFeature, transformToGeoJson(dataStream.Thing!.Locations[0].location))) {
+                                catchedDSIds.push(new class extends Task {
+                                    readonly id = dataStream["@iot.id"]!.toString();
+                                    private handle;
+
+                                    invoke() {
+                                        window.clearInterval(this.handle)
+                                    }
+
+                                    run() {
+                                        console.log('run')
+                                        store.value.getObservations(dataStream)
+                                        this.handle = window.setInterval(async () => {
+                                            await store.value.getObservations(dataStream)
+                                        }, renderer.ObservationrefreshTime * 1000 || 10000000)
+                                    }
+                                }())
+                            }
+                        }
+
+                        console.log(dataStream.Thing);
                     }
                 }
             }

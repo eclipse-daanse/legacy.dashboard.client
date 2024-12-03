@@ -92,10 +92,10 @@ export default class STADataSource extends DataSource implements IDatasource, IS
                         isAlreadyinLocation.Things.push(thing);
                     }
                 } else {
-                    const index = thing.Locations!.indexOf(location);
-                    if (index > -1) { // only splice array when item is found
-                        thing.Locations!.splice(index, 1); // 2nd parameter means remove one item only
-                    }
+                    //const index = thing.Locations!.indexOf(location);
+                    //if (index > -1) { // only splice array when item is found
+                    //    thing.Locations!.splice(index, 1); // 2nd parameter means remove one item only
+                    //}
                     location.Things.push(thing);
                     locations.push(location);
 
