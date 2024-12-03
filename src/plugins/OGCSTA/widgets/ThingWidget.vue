@@ -20,7 +20,7 @@ import {useStore} from "@/composables/widgets/store";
 import {useSerialization} from "@/composables/widgets/serialization";
 import {resolve} from "@/utils/helpers";
 import IconWidget from "@/components/Widgets/Icon/IconWidget.vue";
-import type {IRenderer} from "@/plugins/OGCSTA/widgets/api/Renderer";
+import {ERefType, type IRenderer} from "@/plugins/OGCSTA/widgets/api/Renderer";
 import {useComparator} from "@/plugins/OGCSTA/composables/comparator";
 import {useDataPointRegistry} from "@/plugins/OGCSTA/composables/datapointRegistry";
 import StaStore from "@/plugins/OGCSTA/stores/StaStore";
@@ -28,12 +28,13 @@ import {useUtils} from "@/plugins/OGCSTA/composables/utils";
 import L, {divIcon, DivIcon, point} from "leaflet";
 import "vue-leaflet-markercluster/dist/style.css";
 import type {TinyEmitter} from "tiny-emitter";
-import {debounce} from "lodash";
+import {debounce, uniq} from "lodash";
 import {feature} from "@turf/helpers";
 import type {Polygon} from "geojson";
 import booleanContains from "@turf/boolean-contains";
 
-import {Task, useTaskManager} from "@/plugins/OGCSTA/composables/tasktimer";
+import {Task,useTaskManager} from "@/plugins/OGCSTA/composables/tasktimer";
+import {useWebWorkerFn} from "@vueuse/core";
 
 interface IThingWidgetProps {
     baseMapUrl?: string;
@@ -64,7 +65,7 @@ const {store, data, setStore} = useStore<StaStore>(eventbus);
 const {getState} = useSerialization(settings);
 const thingsLayer = ref(null);
 const {compareDatastream, compareThing} = useComparator();
-const {isPoint, isFeatureCollection, transformToGeoJson} = useUtils();
+const {isPoint, isFeatureCollection, transformToGeoJson,isFeature} = useUtils();
 
 const openThing = ref<object[]>([])
 
@@ -128,6 +129,7 @@ watch(settings, () => {
 }, {deep: true})
 watch(data,()=>{
     console.log('data in store changed ');
+    //useTaskManager().setStore(store.value);
     if(mounted)loadObservationsInView();
 })
 const maploaded = ()=>{
@@ -145,7 +147,7 @@ const reverse = (arr: any) => {
 
 }
 
-const mapmove = debounce(async () => {
+const mapmove = debounce( () => {
     loadObservationsInView();
 }, 2000, {leading: false});
 const loadObservationsInView = () => {
@@ -163,37 +165,32 @@ const loadObservationsInView = () => {
     };
     const bboxFeature = feature(geometry);
     const catchedDSIds = [];
+    const taskListByTime:{[key: string]: Datastream[]} = {};
     for (const dataStream: Datastream of data.value['datastreams']) {
         for (const renderer of settings.value.renderer) {
+            const refreshtime = renderer.ObservationrefreshTime;
+            if(!taskListByTime[refreshtime])taskListByTime[refreshtime] = [];
             for (const subrender of renderer.ds_renderer) {
 
                 if (compareDatastream(dataStream, subrender)) {
                     if (dataStream.observedArea) {
 
-                        const featrueObservedArea = feature(transformToGeoJson(toRaw(dataStream.observedArea)) as Polygon);
+                        const featrueObservedArea =(transformToGeoJson(toRaw(dataStream.observedArea)) as Polygon);
 
                         if (booleanContains(bboxFeature, featrueObservedArea)) {
-                            catchedDSIds.push(new class extends Task {
-                                readonly id = dataStream["@iot.id"]!.toString();
-                                private handle;
 
-                                invoke() {
-                                    window.clearInterval(this.handle)
-                                }
-
-                                run() {
-                                    console.log('run')
-                                    store.value.getObservations(dataStream)
-                                    this.handle = window.setInterval(async () => {
-                                        await store.value.getObservations(dataStream)
-                                    }, renderer.ObservationrefreshTime * 1000 || 10000000)
-                                }
-                            }())
+                            taskListByTime[refreshtime].push(dataStream)
                             //const ds = (await store.value.getObservations(dataStream));
                             //console.log(ds);
                         }
                     } else {
-                        //dataStream.Thing.
+                        if(dataStream.Thing && dataStream.Thing!.Locations && dataStream.Thing!.Locations[0]){
+                            if (booleanContains(bboxFeature, transformToGeoJson(dataStream.Thing!.Locations[0].location))) {
+                                taskListByTime[refreshtime].push(dataStream)
+                            }
+                        }
+
+                        console.log(dataStream.Thing);
                     }
                 }
             }
@@ -201,7 +198,36 @@ const loadObservationsInView = () => {
         }
     }
 
-    useTaskManager().addTasksAndIvnoke(catchedDSIds);
+    const tasks = [];
+    for (const [key, _items] of Object.entries(taskListByTime)) {
+        const items = uniq(_items);
+        if(items.length>0){
+        tasks.push(new class extends Task {
+            readonly id = Math.random().toString();
+            private handle;
+            private
+
+            invoke() {
+                window.clearInterval(this.handle)
+            }
+
+            async run() {
+                console.log('run')
+                console.log(items);
+                store.value.getObservations(items)
+
+                this.handle = window.setInterval(async () => {
+
+                    store.value.getObservations(items)
+
+
+                }, key * 1000 )
+            }
+        }())
+        }
+    }
+
+    useTaskManager().addTasksAndIvnoke(tasks);
 
 
 }
@@ -217,7 +243,20 @@ const collectionToPoint = (fc) => {
 const getPoint = (PointOrFeature: any) => {
     if (isPoint(PointOrFeature)) {
         return reverse(PointOrFeature.coordinates)
-    } else if (isFeatureCollection(PointOrFeature)) {
+    } else if (isFeatureCollection(PointOrFeature) || isFeature(PointOrFeature)) {
+        try {
+            let point = pointOnFeature(PointOrFeature)
+            return reverse(point.geometry.coordinates)
+        } catch (e) {
+            return null
+        }
+    }
+    return null;
+}
+const getPointformArea = (PointOrFeature: any) => {
+    if (isPoint(PointOrFeature)) {
+        return reverse(PointOrFeature.coordinates)
+    } else if (isFeatureCollection(PointOrFeature)|| isFeature(PointOrFeature)) {
         try {
             let point = pointOnFeature(PointOrFeature)
             return reverse(point.geometry.coordinates)
@@ -282,7 +321,7 @@ const _generatePointsSpiral = (count, centerPt) => {
                             <template v-if="isFeatureCollection(location.location)">
                                 <l-geo-json v-if="!isPoint(location.location)" ref="thingsLayer"
                                             :geojson="location.location" :options="options"
-                                            :options-style="renderer.renderer.area"></l-geo-json>
+                                            :options-style="()=>renderer.renderer.area"></l-geo-json>
                             </template>
 
 
@@ -330,13 +369,15 @@ const _generatePointsSpiral = (count, centerPt) => {
                                         v-if="compareDatastream(datastream, subrenderer) /*&& openThing[thing['@iot.id']]*/">
                                         <l-geo-json ref="thingsLayer"
                                                     :geojson="transformToGeoJson(datastream.observedArea)" :options="options"
-                                                    :options-style="subrenderer.renderer.area"></l-geo-json>
+                                                    :options-style="()=>subrenderer.renderer.area"></l-geo-json>
                                         <l-marker
-                                            :lat-lng="getPoint(location.location) as L.LatLngExpression">
+                                            v-if="((subrenderer.placement == ERefType.Thing)?getPoint(location.location):getPointformArea(transformToGeoJson(datastream.observedArea))) as L.LatLngExpression"
+                                            :lat-lng="((subrenderer.placement == ERefType.Thing)?getPoint(location.location):getPointformArea(transformToGeoJson(datastream.observedArea))) as L.LatLngExpression">
                                             <l-icon class-name="someExtraClass">
                                                 <template v-if="subrenderer.renderer.point_render_as=='icon'">
-                                                    <div :style="{marginLeft:_generatePointsSpiral(thing.Datastreams.length,[0,0])
-                                [ind][1]+'px',background:subrenderer.renderer.pointPin.color,'margin-top':_generatePointsSpiral(thing.Datastreams.length,[0,0])[ind][0]+'px'}"
+                                                    <!--<div :style="{marginLeft:_generatePointsSpiral(thing.Datastreams.length,[0,0])
+                                [ind][1]+'px',background:subrenderer.renderer.pointPin.color,'margin-top':_generatePointsSpiral(thing.Datastreams.length,[0,0])[ind][0]+'px'}"-->
+                                                        <div :style="{background:subrenderer.renderer.pointPin.color}"
                                                          class="pin icon round">
                                                         <div class="inner">
                                                             <IconWidget
@@ -354,8 +395,9 @@ const _generatePointsSpiral = (count, centerPt) => {
 
                                                 </template>
                                                 <template v-if="subrenderer.renderer.point_render_as=='prop'">
-                                                    <div :style="{background:subrenderer.renderer.pointPin.color,marginLeft:_generatePointsSpiral(thing.Datastreams.length,[0,0])
-                                             [ind][1]+'px','margin-top':_generatePointsSpiral(thing.Datastreams.length,[0,0])[ind][0]+'px'}"
+                                                    <!--<div :style="{background:subrenderer.renderer.pointPin.color,marginLeft:_generatePointsSpiral(thing.Datastreams.length,[0,0])
+                                             [ind][1]+'px','margin-top':_generatePointsSpiral(thing.Datastreams.length,[0,0])[ind][0]+'px'}"-->
+                                             <div :style="{background:subrenderer.renderer.pointPin.color}"
                                                          class="pin round contain">
                                                         <div class="inner">
                                                             {{ datastream[subrenderer.renderer.point_prop] }}
@@ -364,10 +406,19 @@ const _generatePointsSpiral = (count, centerPt) => {
                                                             <component
                                                                 :is="getById(subrenderer.observation.component)?.component"
                                                                 v-if="getById(subrenderer.observation.component)"
-                                                                :data="datastream.Observations[0]?.result||'null'"
-                                                                v-bind="subrenderer.observation.setting"></component>
+                                                                v-bind="{...subrenderer.observation.setting,data:datastream.Observations[0]?.result}"></component>
                                                         </template>
                                                     </div>
+                                                </template>
+                                                <template v-if="subrenderer.renderer.point_render_as=='none'">
+                                                    <!--<div :style="{background:subrenderer.renderer.pointPin.color,marginLeft:_generatePointsSpiral(thing.Datastreams.length,[0,0])
+                                             [ind][1]+'px','margin-top':_generatePointsSpiral(thing.Datastreams.length,[0,0])[ind][0]+'px'}"-->
+                                                    <template v-if="datastream.Observations">
+                                                        <component
+                                                            :is="getById(subrenderer.observation.component)?.component"
+                                                            v-if="getById(subrenderer.observation.component)"
+                                                            v-bind="{...subrenderer.observation.setting,data:datastream.Observations[0]?.result}"></component>
+                                                    </template>
                                                 </template>
 
 
@@ -434,6 +485,12 @@ const _generatePointsSpiral = (count, centerPt) => {
             font-size: 13px;
             padding: 3px;
         }
+    }
+
+    .datapoint{
+        transform: rotate(45deg);
+        margin-top: 34px;
+        margin-left: -17px;
     }
 
     &.marker {
