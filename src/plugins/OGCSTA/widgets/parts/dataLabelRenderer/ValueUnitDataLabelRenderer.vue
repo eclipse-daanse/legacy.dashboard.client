@@ -59,10 +59,9 @@ defineExpose({
     border: 1px solid #ccc;
     background: #fff;
     padding: 4px;
-    margin-top: 32px;
-    margin-left: -38px;
+    margin-top: 0px;
+    margin-left: 0px;
     border-radius: 21px;
-
 }
 
 </style>
