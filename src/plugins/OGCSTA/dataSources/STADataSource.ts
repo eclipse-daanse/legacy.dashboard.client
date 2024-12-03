@@ -45,7 +45,7 @@ export interface IOGCSTAOptions {
 export interface IOGCSTA {
     things?: Thing[],
     datastreams?: Datastream[],
-    observations?: Observation[],
+    observations?: (Observation&{ds_source?:string})[],
     locations?: Location[]
 }
 
@@ -92,10 +92,6 @@ export default class STADataSource extends DataSource implements IDatasource, IS
                         isAlreadyinLocation.Things.push(thing);
                     }
                 } else {
-                    //const index = thing.Locations!.indexOf(location);
-                    //if (index > -1) { // only splice array when item is found
-                    //    thing.Locations!.splice(index, 1); // 2nd parameter means remove one item only
-                    //}
                     location.Things.push(thing);
                     locations.push(location);
 
@@ -171,10 +167,14 @@ export default class STADataSource extends DataSource implements IDatasource, IS
                         }
                     })());
                 } else if ('ids' in options.observations!) {
-                    for (let id in options.observations!.ids) {
+                    for (let id of options.observations.ids!) {
                         listOfPromesis.push((async () => {
                             try {
-                                return {observations:[(await new ObservationsApi(this.baseConfigration).v11ObservationsEntityIdGet(id)).data]};
+                                let data = (await new DatastreamsApi(this.baseConfigration).v11DatastreamsEntityIdObservationsGet(id,undefined, 1)).data.value;
+                                if(data?.[0]){
+                                    data[0]['ds_source']=id;
+                                }
+                                return {observations:data};
                             } catch (e) {
                                 throw(e);
                             }
@@ -236,7 +236,7 @@ export default class STADataSource extends DataSource implements IDatasource, IS
         for (const result of results) {
             resultMap.datastreams = resultMap.datastreams?.concat(result.datastreams ?? [])
             resultMap.things = resultMap.things?.concat(result.things ?? [])
-            resultMap.observations = resultMap.observations?.concat(result.observations ?? [])
+            resultMap.observations = resultMap.observations?.concat((result.observations as Observation[]) ?? [])
             resultMap.locations = resultMap.locations?.concat(result.locations ?? [])
         }
 
@@ -259,7 +259,6 @@ export default class STADataSource extends DataSource implements IDatasource, IS
         this.id = parsed.id;
         this.url = parsed.url;
         this.caption = parsed.caption;
-        //this.type = parsed.type;
     }
 
 }
